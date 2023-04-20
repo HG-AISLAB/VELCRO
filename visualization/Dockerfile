@@ -1,6 +1,6 @@
 FROM python:3.10
 USER root
-WORKDIR /souce
+WORKDIR ./visualization
 COPY requirements.txt ./
 RUN python3 --version
 RUN pip install anyio==3.5.0 asgiref==3.5.0
@@ -25,9 +25,9 @@ RUN apt-get update && apt-get upgrade -y && \
 RUN apt-get install -y postgresql postgresql-contrib
 RUN npm install pnpm -g
 RUN npm install
-WORKDIR /souce/frontend
+WORKDIR ./frontend
 RUN npm install react-router-dom@6.3.0
 RUN npm run build
-WORKDIR /souce/
+WORKDIR ../
 CMD ["python3", "./manage.py", "runserver", "react", "0.0.0.0:8091"]
 EXPOSE 8091

@@ -84,11 +84,6 @@ def pthlist(request):
         print("post")
         host_ip = str(request.get_host())[:-5]
         print(host_ip)
-        # pylint: disable = invalid-name, missing-timeout, unused-variable
-        r = requests.get(
-            'http://' + host_ip + ':8085/status_report?container_id="vis2code"'
-                                  '&user_id=""&project_id=""&status="success"',
-            verify=False)
         edges = Edge.objects.all()
         nodes = Node.objects.all()
         if nodes and edges:
@@ -101,6 +96,9 @@ def pthlist(request):
             if serializer.is_valid():
                 print("valid")
                 serializer.save()
+                # pylint: disable = invalid-name, missing-timeout, unused-variable
+                r = requests.get(
+                    'http://' + host_ip + ':8085/status_report?container_id="vis2code"'+'&user_id=""&project_id=""&status="success"',verify=False)
                 return Response(serializer.data,
                                 status=status.HTTP_201_CREATED)
 
@@ -112,6 +110,8 @@ def pthlist(request):
                                 status=status.HTTP_400_BAD_REQUEST)
         return Response("invalid node or edge",
                         status=status.HTTP_400_BAD_REQUEST)
+
+
     return None
 
 

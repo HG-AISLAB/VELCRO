@@ -250,7 +250,7 @@ class CNode:
     """A dummy docstring."""
     # status : 클릭했는가? (setactive/setinactive)
     def __init__(self, id_,  # pylint: disable-msg=too-many-arguments
-                 type_, params=None, learned_params=None, status=True):
+                 type_, params={}, learned_params={}, status=True):
         self.id_ = id_
         self.type_ = type_
         self.status = status
@@ -259,13 +259,14 @@ class CNode:
 
     def setparams(self, params):
         '''setparams'''
-        # assert type(params) == type(dict())
-        assert isinstance(params, type({}))
+        assert type(params) == type(dict())
+        # assert isinstance(params, type({}))
         self.params = self.typecast(params)
 
     def setlearnedparams(self, learned_params):
         '''setlearnedparams'''
-        assert isinstance(learned_params, type({}))
+        assert type(learned_params) == type(dict())
+        # assert isinstance(learned_params, type({}))
         self.learned_params = learned_params
 
     def typecast(self, params):
@@ -313,14 +314,14 @@ class CNode:
 
         for key, value in params.items():
             cast = datatype.get(key)
-            if isinstance(value, type(None)):
+            if type(value) == type(None):
                 # use the None as is or use default
                 params[key] = value
-            elif isinstance(value, type(tuple)):
+            elif type(value) == tuple:
                 params[key] = tuple(map(cast, value))
-            elif isinstance(value, type(list)):
+            elif type(value) == list:
                 params[key] = tuple(map(cast, value))
-            elif isinstance(value, type(dict)):
+            elif type(value) == dict:
                 if key == "subgraph":
                     for _nodeid, param in value.items():
                         param = self.typecast(param)
