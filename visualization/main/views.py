@@ -32,7 +32,7 @@ from .models import Architecture
 from .models import Start
 from .models import Running
 
-from .graph import CGraph, CEdge, CNode
+from .graph import CGraph, CEdge, CNode, CShow2
 from .binder import CPyBinder
 
 # Create your views here.
@@ -82,6 +82,7 @@ def pthlist(request):
         return Response(serializer.data)
     if request.method == 'POST':
         print("post")
+        CShow2()
         host_ip = str(request.get_host())[:-5]
         print(host_ip)
         edges = Edge.objects.all()

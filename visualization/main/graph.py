@@ -310,7 +310,13 @@ class CNode:
                     'scale_factor': type(None),
                     'mode': str,
                     'align_corners': type(None),
-                    'recompute_scale_factor': type(None)}
+                    'recompute_scale_factor': type(None),
+                    'inplanes': int,
+                    'planes': int,
+                    'downsample': type(None),
+                    'base_width': int,
+                    'norm_layer': type(None)
+                    }
 
         for key, value in params.items():
             cast = datatype.get(key)
@@ -375,11 +381,12 @@ class CTest():  # pylint: disable-msg=too-few-public-methods
 
 class CShow2():
     """A dummy docstring."""
-    def __str__(self):
+    def __init__(self):
+        print("shsshshshshshow")
         self.test_branches()
         print("order")
         return str(0)
-
+    '''
     def test_branches(self):
         """A dummy docstring."""
         graph = CGraph()
@@ -400,6 +407,24 @@ class CShow2():
         graph.addedge(CEdge("conv2a", "relu"))
         graph.addedge(CEdge("conv2b", "relu"))
         graph.addedge(CEdge("relu", "maxpool2"))
+        order = graph.topological_sort()
+        print(order)
+        return order
+    '''
+
+    def test_branches(self):
+        """A dummy docstring."""
+        graph = CGraph()
+        print("shsshshshshshow")
+        graph.addnode(CNode("Bottleneck1", type_="Bottleneck",
+                            params={'inplanes': 28*28, 'planes': 10, 'stride': (1, 1), 'downsample': None,
+                                    'groups': 1, 'base_width': 64, 'dilation': 1, 'norm_layer': None}))
+        graph.addnode(CNode("BasicBlock1", type_="BasicBlock",
+                            params={'inplanes': 28 * 28, 'planes': 10, 'stride': (1, 1), 'downsample': None,
+                                    'groups': 1, 'base_width': 64, 'dilation': 1, 'norm_layer': None}))
+
+        graph.addedge(CEdge("Bottleneck1", "BasicBlock1"))
+
         order = graph.topological_sort()
         print(order)
         return order

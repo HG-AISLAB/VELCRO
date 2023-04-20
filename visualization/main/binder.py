@@ -3,6 +3,7 @@ high level support for doing this and that.
 """
 import torch
 from torch import nn
+import torchvision.models.resnet as resnet
 # from PyBinderCustom import *
 
 
@@ -196,6 +197,37 @@ class CPyBinder:
             else:
                 padding = (0, 0)
 
+            if m__.get('inplanes'):
+                inplanes = m__.get('inplanes')
+            else:
+                inplanes = 1
+
+            if m__.get('planes'):
+                planes = m__.get('planes')
+            else:
+                planes = 1
+
+            if m__.get('downsample'):
+                downsample = m__.get('downsample')
+            else:
+                downsample = None
+
+            if m__.get('groups'):
+                groups = m__.get('groups')
+            else:
+                groups = 1
+
+            if m__.get('base_width'):
+                base_width = m__.get('base_width')
+            else:
+                base_width = 64
+
+            if m__.get('norm_layer'):
+                norm_layer = m__.get('norm_layer')
+            else:
+                norm_layer = None
+
+
             # if m__.get('subgraph'):
             #     subgraph = m__.get('subgraph')
 
@@ -254,6 +286,10 @@ class CPyBinder:
                 n__ = nn.ZeroPad2d(padding)
             elif name == 'ConstantPad2d':
                 n__ = nn.ConstantPad2d(padding, value)
+            elif name == 'Bottleneck':
+                n__ = resnet.Bottleneck(inplanes, planes, stride, downsample, groups, base_width, dilation, norm_layer)
+            elif name == 'BasicBlock':
+                n__ = resnet.BasicBlock(inplanes, planes, stride, downsample, groups, base_width, dilation, norm_layer)
             else:
                 # n__ = NotImplemented(name)
                 print('Not Implement', name)
