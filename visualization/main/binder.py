@@ -238,7 +238,7 @@ class CPyBinder:
 
             if name == 'Conv2d':
                 n__ = nn.Conv2d(in_channels, out_channels,
-                                kernel_size, stride, padding, bias)
+                                kernel_size, stride=stride, padding=padding, bias=bias)#, stride, padding, bias)
             elif name == 'BatchNorm2d':
                 n__ = nn.BatchNorm2d(num_features)
             elif name == 'ReLU':

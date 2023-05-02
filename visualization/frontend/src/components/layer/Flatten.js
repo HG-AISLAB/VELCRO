@@ -46,8 +46,8 @@ const Flatten = (props) => {
 
   //console.log('props.params', props.params)
 
-    var send_message = "'start dim': ".concat(text)
-        .concat(" \n 'end dim': ").concat(text2)
+    var send_message = "'start_dim': ".concat(text)
+        .concat(" \n 'end_dim': ").concat(text2)
 
 
     console.log(send_message);

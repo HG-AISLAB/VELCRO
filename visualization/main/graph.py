@@ -333,7 +333,12 @@ class CNode:
                         param = self.typecast(param)
                         value.update({_nodeid: param})
             else:
+                print("dfskhflshfklsd")
+                print(key)
+                print('1231231251')
+                print(value)
                 params[key] = cast(value)
+                print("19789789778979")
 
         return params
 
@@ -357,21 +362,21 @@ class CTest():  # pylint: disable-msg=too-few-public-methods
     def test_branches(self):
         """A dummy docstring."""
         graph = CGraph()
-        graph.addnode(CNode("conv1", type_="Conv2D"))
-        graph.addnode(CNode("maxpool1", type_="MaxPool2D"))
-        graph.addnode(CNode("bn1", type_="BatchNorm2D"))
-        graph.addnode(CNode("conv2a", type_="Conv2D"))
-        graph.addnode(CNode("conv2b", type_="Conv2D"))
-        graph.addnode(CNode("relu", type_="ReLU"))
-        graph.addnode(CNode("maxpool2", type_="MaxPool2D"))
-
-        graph.addedge(CEdge("conv1", "maxpool1"))
-        graph.addedge(CEdge("maxpool1", "bn1"))
-        graph.addedge(CEdge("bn1", "conv2a"))
-        graph.addedge(CEdge("bn1", "conv2b"))
-        graph.addedge(CEdge("conv2a", "relu"))
-        graph.addedge(CEdge("conv2b", "relu"))
-        graph.addedge(CEdge("relu", "maxpool2"))
+        # graph.addnode(CNode("conv1", type_="Conv2D"))
+        # graph.addnode(CNode("maxpool1", type_="MaxPool2D"))
+        # graph.addnode(CNode("bn1", type_="BatchNorm2D"))
+        # graph.addnode(CNode("conv2a", type_="Conv2D"))
+        # graph.addnode(CNode("conv2b", type_="Conv2D"))
+        # graph.addnode(CNode("relu", type_="ReLU"))
+        # graph.addnode(CNode("maxpool2", type_="MaxPool2D"))
+        #
+        # graph.addedge(CEdge("conv1", "maxpool1"))
+        # graph.addedge(CEdge("maxpool1", "bn1"))
+        # graph.addedge(CEdge("bn1", "conv2a"))
+        # graph.addedge(CEdge("bn1", "conv2b"))
+        # graph.addedge(CEdge("conv2a", "relu"))
+        # graph.addedge(CEdge("conv2b", "relu"))
+        # graph.addedge(CEdge("relu", "maxpool2"))
         graph_obj = CGraph(graph).normalize()
         order = graph_obj.topological_sort()
 

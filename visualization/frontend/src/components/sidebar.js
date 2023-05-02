@@ -147,7 +147,7 @@ export default () => {
       <div className="category">Utilities</div>
       <div
         className="dndnode"
-        onDragStart={(event) => onDragStart(event, "Flatten","'start dim': 1 \n 'end dim': -1")}
+        onDragStart={(event) => onDragStart(event, "Flatten","'start_dim': 1 \n 'end_dim': -1")}
         draggable
       >
         Flatten
@@ -155,7 +155,7 @@ export default () => {
       <div className="category">Vision Layers</div>
       <div
         className="dndnode"
-        onDragStart={(event) => onDragStart(event, "Upsample","'size': None \n 'scale factor': None \n 'mode': Nearest \n 'align corners': None \n 'recompute scale factor': None \n")}
+        onDragStart={(event) => onDragStart(event, "Upsample","'size': None \n 'scale_factor': None \n 'mode': Nearest \n 'align_corners': None \n 'recompute_scale_factor': None \n")}
         draggable
       >
         Upsample

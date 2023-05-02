@@ -82,13 +82,13 @@ def pthlist(request):
         return Response(serializer.data)
     if request.method == 'POST':
         print("post")
-        CShow2()
+        #CShow2()
         host_ip = str(request.get_host())[:-5]
         print(host_ip)
         edges = Edge.objects.all()
         nodes = Node.objects.all()
         if nodes and edges:
-            created_model = test_branches(nodes, edges)
+            created_model = make_branches(nodes, edges)
             file_path = (os.getcwd() + '/model_' +
                          random_char(8) + '.pth').replace("\\", '/')
 
@@ -418,7 +418,7 @@ class RunningView(viewsets.ModelViewSet):
 #         print("Stop queryset")
 
 
-def test_branches(get_node, get_edge):
+def make_branches(get_node, get_edge):
     '''
     test branches
     '''

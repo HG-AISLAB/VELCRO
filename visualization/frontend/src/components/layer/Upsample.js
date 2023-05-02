@@ -56,10 +56,10 @@ const Upsample = (props) => {
 
 
     var send_message = "'size': ".concat(text)
-        .concat(" \n 'scale factor': ").concat(text2)
+        .concat(" \n 'scale_factor': ").concat(text2)
         .concat(" \n 'mode': ").concat(text3)
-        .concat(" \n 'align corners': ").concat(text4)
-        .concat(" \n 'recompute scale factor': ").concat(text5)
+        .concat(" \n 'align_corners': ").concat(text4)
+        .concat(" \n 'recompute_scale_factor': ").concat(text5)
 
 
 
