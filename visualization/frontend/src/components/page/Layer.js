@@ -1,38 +1,41 @@
 import React, { useState, useRef, useEffect } from "react";
-import "../styles.css";
-import Sidebar from "./sidebar";
-import CustomEdge from "./CustomEdge";
-import EditModal from "./layer/PopupModal";
-import MaxPoolModal from "./layer/MaxPool";
-import AvgPool2d from "./layer/AvgPool2d";
-import AdaptiveAvgPool2d from "./layer/AdaptiveAvgPool2d";
-import BatchNorm2d from "./layer/BatchNorm2d";
-import Linear from "./layer/Linear";
-import Dropout from "./layer/Dropout";
-import ConstantPad2d from "./layer/ConstantPad2d";
-import BCELoss from "./layer/BCELoss";
-import LeakyReLU from "./layer/LeakyReLU";
-import ReLU from "./layer/ReLU";
-import ReLU6 from "./layer/ReLU6";
-import Sigmoid from "./layer/Sigmoid";
-import Softmax from "./layer/Softmax";
-import Tanh from "./layer/Tanh";
-import ZeroPad2d from "./layer/ZeroPad2d";
-import CrossEntropyLoss from "./layer/CrossEntropyLoss";
-import MSELoss from "./layer/MSELoss";
-import Flatten from "./layer/Flatten";
-import Upsample from "./layer/Upsample";
-import axios from 'axios';
-import yolo from '../img/YOLOv5.png';
-import { initialArch } from '../initialArch';
+import "../../styles.css";
 
+import CustomEdge from "../CustomEdge";
+import EditModal from "../layer/PopupModal";
+import MaxPoolModal from "../layer/MaxPool";
+import AvgPool2d from "../layer/AvgPool2d";
+import AdaptiveAvgPool2d from "../layer/AdaptiveAvgPool2d";
+import BatchNorm2d from "../layer/BatchNorm2d";
+import Linear from "../layer/Linear";
+import Dropout from "../layer/Dropout";
+import ConstantPad2d from "../layer/ConstantPad2d";
+import BCELoss from "../layer/BCELoss";
+import LeakyReLU from "../layer/LeakyReLU";
+import ReLU from "../layer/ReLU";
+import ReLU6 from "../layer/ReLU6";
+import Sigmoid from "../layer/Sigmoid";
+import Softmax from "../layer/Softmax";
+import Tanh from "../layer/Tanh";
+import ZeroPad2d from "../layer/ZeroPad2d";
+import CrossEntropyLoss from "../layer/CrossEntropyLoss";
+import MSELoss from "../layer/MSELoss";
+import Flatten from "../layer/Flatten";
+import Upsample from "../layer/Upsample";
+import axios from 'axios';
+import { initialArch } from '../../initialArch';
 import ReactFlow, {
   addEdge,
   MiniMap,
   ReactFlowProvider,
-  removeElements
+  removeElements,
+    Controls,ControlButton
+
 } from "react-flow-renderer";
-import GenerateButton from "./GenerateButton";
+import GenerateButton from "../GenerateButton";
+import Tab from "../sidebar/Tab";
+import LayerToggle from "../sidebar/LayerToggle";
+import arange_icon from "../../img/swap.png";
 
 let id = 1;
 const getId = () => `${id}`;
@@ -45,7 +48,7 @@ var checkFirst = 0;
 let initRunningStateTime = 100;
 var running_id = 0;
 
-function BasicGraph() {
+function LayerList() {
   const reactFlowWrapper = useRef(null);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
   const [elements, setElements] = useState([]);
@@ -53,15 +56,16 @@ function BasicGraph() {
 
 
 
+  //
   if(checkFirst == 0){
       console.log('실행')
-      axios.post("/api/running/",{     // status_report에 started 저장 (메인페이지 첫 실행시)
-            timestamp: Date.now(),
-            msg: 'started'
-          }).then(function(response){
-            console.log(response)
-          }).catch(err=>console.log(err));
-            // Initializate selected architecture
+      // axios.post("/api/running/",{     // status_report에 started 저장 (메인페이지 첫 실행시)
+      //       timestamp: Date.now(),
+      //       msg: 'started'
+      //     }).then(function(response){
+      //       console.log(response)
+      //     }).catch(err=>console.log(err));
+      //       // Initializate selected architecture
     var initElement = initialArch();
     for (var i=0;i<initElement.length;i++) {
       elements.push(initElement[i]);
@@ -70,18 +74,18 @@ function BasicGraph() {
     checkFirst=1;
   }
 
-  const notRunningState = setInterval(()=>{
-////    console.log("[post] 동작 중지");
-//    running_id += 1;
-    axios.post("/api/status_report/", {
-
-      timestamp: Date.now(),
-//      running: 0,
-    }).then(function(response){
-        //console.log(timestamp)
-        })
-        .catch(e => console.log(e));
-    }, initRunningStateTime * 1000)
+//   const notRunningState = setInterval(()=>{
+// ////    console.log("[post] 동작 중지");
+// //    running_id += 1;
+//     axios.post("/api/status_report/", {
+//
+//       timestamp: Date.now(),
+// //      running: 0,
+//     }).then(function(response){
+//         //console.log(timestamp)
+//         })
+//         .catch(e => console.log(e));
+//     }, initRunningStateTime * 1000)
 
 //  const onRunningState = (()=>{
 ////    console.log("[post] 동작 중");
@@ -96,14 +100,14 @@ function BasicGraph() {
 //      .catch(e => console.log(e));
 //  })
 
-
-  const onRunningStateClick = (e) => {
-    e.preventDefault();
-    clearInterval(notRunningState);
-    //onRunningState();
-    clearInterval(notRunningState);
-    notRunningState();
-  };
+  //
+  // const onRunningStateClick = (e) => {
+  //   e.preventDefault();
+  //   clearInterval(notRunningState);
+  //   //onRunningState();
+  //   clearInterval(notRunningState);
+  //   notRunningState();
+  // };
 
   const onConnect = async (params) => {
     setElements((els) => addEdge(params, els));
@@ -138,6 +142,7 @@ function BasicGraph() {
     deleteModal(remove);
   }
 
+  //default 값을 못받아오는 이유??
   const openModal = async () => {
     const get_params = async () => {
       try {
@@ -202,16 +207,19 @@ function BasicGraph() {
   const onNodeClick = (event, node) => {
     setState(node.data.label);
     nowc = node.id;
-//    console.log(nowc);
+   console.log(nowc);
+   console.log(state);
   };
+
   const onDrop = async (event) => {
     event.preventDefault();
     const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
     const name = event.dataTransfer.getData("application/reactflow");
+    const color = event.dataTransfer.getData('colorNode');
     const subp = event.dataTransfer.getData("subparameters");
     const position = reactFlowInstance.project({
-      x: event.clientX - reactFlowBounds.left,
-      y: event.clientY - reactFlowBounds.top -360
+      x: event.clientX - reactFlowBounds.left - 72,
+      y: event.clientY - reactFlowBounds.top - 10
     });
     const get_node = async () => {
       try {
@@ -252,12 +260,14 @@ function BasicGraph() {
       type: "default",
       position,
       style: {
-        background: "#434854",
-        width: 150,
-        color: "#fff",
+        background: `${color}`,
+        width: 135,
         fontSize: "20px",
         fontFamily: "Helvetica",
-        boxShadow: "5px 5px 5px 0px rgba(0,0,0,.10)"
+        // boxShadow: "5px 5px 5px 0px rgba(0,0,0,.10)",
+        boxShadow: "7px 7px 7px 0px rgba(0, 0, 0, 0.2)",
+        borderRadius: "10px",
+        border: "none"
       },
       data: {
         label: `${name}`,
@@ -267,7 +277,7 @@ function BasicGraph() {
     setElements((es) => es.concat(newNode));
   };
 
-  const C = () => {
+  const   C = () => {
     if (state === "Conv2d")
       return (
         <EditModal
@@ -276,7 +286,7 @@ function BasicGraph() {
           open={modalOpen}
           save={saveModal}
           close={closeModal}
-          header="Node"
+          header={state}
         ></EditModal>
       );
     if (state === "MaxPool2d")
@@ -287,7 +297,7 @@ function BasicGraph() {
           open={modalOpen}
           save={saveModal}
           close={closeModal}
-          header="Node"
+          header={state}
         ></MaxPoolModal>
       );
     if (state === "AvgPool2d")
@@ -298,7 +308,7 @@ function BasicGraph() {
           open={modalOpen}
           save={saveModal}
           close={closeModal}
-          header="Node"
+          header={state}
         ></AvgPool2d>
       );
     if (state === "AdaptiveAvgPool2d (ResNet)")
@@ -309,7 +319,7 @@ function BasicGraph() {
           open={modalOpen}
           save={saveModal}
           close={closeModal}
-          header="Node"
+          header={state}
         ></AdaptiveAvgPool2d>
       );
      if (state === "Softmax")
@@ -320,7 +330,7 @@ function BasicGraph() {
           open={modalOpen}
           save={saveModal}
           close={closeModal}
-          header="Node"
+          header={state}
         ></Softmax>
       );
     if (state === "ConstantPad2d")
@@ -331,7 +341,7 @@ function BasicGraph() {
           open={modalOpen}
           save={saveModal}
           close={closeModal}
-          header="Node"
+          header={state}
         ></ConstantPad2d>
         );
     if (state === "BatchNorm2d")
@@ -342,7 +352,7 @@ function BasicGraph() {
           open={modalOpen}
           save={saveModal}
           close={closeModal}
-          header="Node"
+          header={state}
         ></BatchNorm2d>
       );
 
@@ -354,7 +364,7 @@ function BasicGraph() {
           open={modalOpen}
           save={saveModal}
           close={closeModal}
-          header="Node"
+          header={state}
         ></MSELoss>
       );
     if (state === "Tanh")
@@ -365,7 +375,7 @@ function BasicGraph() {
           open={modalOpen}
           save={saveModal}
           close={closeModal}
-          header="Node"
+          header={state}
         ></Tanh>
       );
     if (state === "Sigmoid")
@@ -376,7 +386,7 @@ function BasicGraph() {
           open={modalOpen}
           save={saveModal}
           close={closeModal}
-          header="Node"
+          header={state}
         ></Sigmoid>
       );
     if (state === "CrossEntropyLoss")
@@ -387,7 +397,7 @@ function BasicGraph() {
           open={modalOpen}
           save={saveModal}
           close={closeModal}
-          header="Node"
+          header={state}
         ></CrossEntropyLoss>
       );
     if (state === "Linear")
@@ -398,7 +408,7 @@ function BasicGraph() {
           open={modalOpen}
           save={saveModal}
           close={closeModal}
-          header="Node"
+          header={state}
         ></Linear>
       );
     if (state === "Dropout")
@@ -409,7 +419,7 @@ function BasicGraph() {
           open={modalOpen}
           save={saveModal}
           close={closeModal}
-          header="Node"
+          header={state}
         ></Dropout>
       );
       if (state === "ZeroPad2d")
@@ -420,7 +430,7 @@ function BasicGraph() {
           open={modalOpen}
           save={saveModal}
           close={closeModal}
-          header="Node"
+          header={state}
         ></ZeroPad2d>
       );
       if (state === "BCELoss")
@@ -431,7 +441,7 @@ function BasicGraph() {
           open={modalOpen}
           save={saveModal}
           close={closeModal}
-          header="Node"
+          header={state}
         ></BCELoss>
       );
       if (state === "LeakyReLU")
@@ -442,7 +452,7 @@ function BasicGraph() {
           open={modalOpen}
           save={saveModal}
           close={closeModal}
-          header="Node"
+          header={state}
         ></LeakyReLU>
       );
        if (state === "ReLU")
@@ -453,7 +463,7 @@ function BasicGraph() {
           open={modalOpen}
           save={saveModal}
           close={closeModal}
-          header="Node"
+          header={state}
         ></ReLU>
       );
       if (state === "ReLU6")
@@ -464,7 +474,7 @@ function BasicGraph() {
           open={modalOpen}
           save={saveModal}
           close={closeModal}
-          header="Node"
+          header={state}
         ></ReLU6>
       );
        if (state === "Flatten")
@@ -475,7 +485,7 @@ function BasicGraph() {
           open={modalOpen}
           save={saveModal}
           close={closeModal}
-          header="Node"
+          header={state}
         ></Flatten>
       );
 
@@ -487,26 +497,28 @@ function BasicGraph() {
           open={modalOpen}
           save={saveModal}
           close={closeModal}
-          header="Node"
+          header={state}
         ></Upsample>
       );
   };
 
   return (
-    <div className="dndflow" onClick={onRunningStateClick}>
+      <div className="FullPage">
+        <div className="Sidebar">
+          <Tab/>
+          <LayerToggle/>
+          <div className="LayerInfo">
+            <h3>Layer Information</h3>
+            {/*<div className="Modal">*/}
+              <C />
+            {/*</div>*/}
+         </div>
+        </div>
+
+    <div className="dndflow" >
       <ReactFlowProvider>
-
-        <div
-          className="reactflow-wrapper"
-          style={{ height: "60vh", width: "950px" }}
-          ref={reactFlowWrapper}
-        >
-        <tc>
-          <img src={yolo} alt="model image"/>
-        </tc>
-
-        <br/>
-          <ReactFlow 
+        <div className="reactflow-wrapper" ref={reactFlowWrapper}>
+          <ReactFlow
 //            onClick={onRunningStateClick}
             initElement={initialArch}
             onConnect={onConnect}
@@ -519,38 +531,27 @@ function BasicGraph() {
             key="edges"
             onNodeDoubleClick={openModal}
             onEdgeDoubleClick={onDeleteEdge}
-            onNodeMouseEnter={onNodeClick}
             onElementsRemove={onElementsRemove}
+            onElementClick={onNodeClick}
+
           >
-            <C />
+            <Controls showZoom="" showInteractive="" showFitView="">
+              <ControlButton onClick={() => console.log('action')} title="action">
+                <img src={arange_icon}/>
+              </ControlButton>
+            </Controls>
+
+            <button className="inspect">Inspect</button>
+            <GenerateButton elements={elements} />
+
           </ReactFlow>
-
-          <button class="arrange">정렬</button>
-          <GenerateButton elements={elements} > </GenerateButton>
-
-          <MiniMap
-            nodeStrokeColor={(n) => {
-              if (n.style?.background) return n.style.background;
-              if (n.type === "input") return "#fff";
-              if (n.type === "output") return "#ff0072";
-              if (n.type === "default") return "#1a192b";
-              return "#eee";
-            }}
-            nodeColor={(n) => {
-              if (n.style?.background) return n.style.background;
-
-              return "#fff";
-            }}
-            nodeBorderRadius={2}
-          />
         </div>
-        <Sidebar />
-      </ReactFlowProvider>
-
+        </ReactFlowProvider>
     </div>
+  </div>
   );
 }
 
-export default function Flow() {
-  return <BasicGraph />;
+export default function Layer() {
+  return <LayerList />;
 }

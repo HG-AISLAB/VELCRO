@@ -103,12 +103,12 @@
     {
       "order": 21,
       "layer": "Conv2d",
-      "parameters": "'in_channels': 256 \n 'out_channels': 256 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)"
+      "parameters": "'in_channels': 256 \n 'out_channels': 512 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)"
     },
     {
       "order": 22,
       "layer": "BatchNorm2d",
-      "parameters": "'num_features': 256"
+      "parameters": "'num_features': 512"
     },
     {
       "order": 23,
@@ -123,7 +123,7 @@
     {
       "order": 25,
       "layer": "Conv2d",
-      "parameters": "'in_channels': 256 \n 'out_channels': 512 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)"
+      "parameters": "'in_channels': 512 \n 'out_channels': 512 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)"
     },
     {
       "order": 26,
@@ -222,41 +222,36 @@
     },
     {
       "order": 45,
-      "layer": "Flatten",
-      "parameters": "'start_dim': 1 \n 'end_dim': -1"
-    },
-    {
-      "order": 46,
       "layer": "Linear",
       "parameters": "'in_features': 25088 \n 'out_features': 4096 \n 'bias': True"
     },
     {
-      "order": 47,
+      "order": 46,
       "layer": "ReLU",
       "parameters": "'inplace': True"
     },
     {
-      "order": 48,
+      "order": 47,
       "layer": "Dropout",
       "parameters": "'p': 0.5 \n 'inplace': False"
     },
     {
-      "order": 49,
+      "order": 48,
       "layer": "Linear",
       "parameters": "'in_features': 4096 \n 'out_features': 4096 \n 'bias': True"
     },
     {
-      "order": 50,
+      "order": 49,
       "layer": "ReLU",
       "parameters": "'inplace': True"
     },
     {
-      "order": 51,
+      "order": 50,
       "layer": "Dropout",
       "parameters": "'p': 0.5 \n 'inplace': False"
     },
     {
-      "order": 52,
+      "order": 51,
       "layer": "Linear",
       "parameters": "'in_features': 4096 \n 'out_features': 10 \n 'bias': True"
     }
@@ -511,11 +506,6 @@
       "id": 50,
       "prior": 50,
       "next": 51
-    },
-    {
-      "id": 51,
-      "prior": 51,
-      "next": 52
     }
   ]
 }

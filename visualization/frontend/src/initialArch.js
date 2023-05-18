@@ -1,4 +1,5 @@
 import axios from 'axios';
+import NodeColorProp from "./NodeColor";
 
 export const initialArch = () => {
   var checkFirst = 0;
@@ -55,18 +56,80 @@ export const initialArch = () => {
     let nodeOrder = jsonData.node[i].order;
     let nodeLabel = jsonData.node[i].layer;
     let nodeParam = jsonData.node[i].parameters;
+    let nodeColor ;
+    if (nodeLabel === "Conv2d"){
+      nodeColor = NodeColorProp.Conv;
+    }
+    else if (nodeLabel === "MaxPool2d"){
+       nodeColor = NodeColorProp.Pooling;
+    }
+    else if (nodeLabel === "AvgPool2d"){
+       nodeColor = NodeColorProp.Pooling;
+    }
+    else if (nodeLabel === "AdaptiveAvgPool2d (ResNet)"){
+       nodeColor = NodeColorProp.Pooling;
+    }
+    else if(nodeLabel === "ZeroPad2d"){
+       nodeColor = NodeColorProp.Padding;
+    }
+    else if(nodeLabel === "ConstantPad2d"){
+       nodeColor = NodeColorProp.Padding;
+    }
+    else if(nodeLabel === "ReLU"){
+       nodeColor = NodeColorProp.Activation;
+    }
+    else if(nodeLabel  === "ReLU6"){
+       nodeColor = NodeColorProp.Activation;
+    }
+    else if(nodeLabel === "Sigmoid"){
+       nodeColor = NodeColorProp.Activation;
+    }
+    else if(nodeLabel === "LeakyReLU"){
+       nodeColor = NodeColorProp.Activation;
+    }
+    else if(nodeLabel === "Tanh"){
+       nodeColor = NodeColorProp.Activation;
+    }else if(nodeLabel === "Softmax"){
+       nodeColor = NodeColorProp.Activation;
+    }
+    else if(nodeLabel ===  "BatchNorm2d"){
+       nodeColor = NodeColorProp.Normalization;
+    }
+    else if(nodeLabel === "Linear"){
+       nodeColor = NodeColorProp.Linear;
+    }
+    else if(nodeLabel === "Dropout"){
+       nodeColor = NodeColorProp.Dropout;
+    }
+    else if(nodeLabel === "BCELoss"){
+       nodeColor = NodeColorProp.Loss;
+    }
+    else if(nodeLabel === "CrossEntropyLoss"){
+       nodeColor = NodeColorProp.Loss;
+    }
+    else if(nodeLabel === "Flatten"){
+       nodeColor = NodeColorProp.Utilities;
+    }
+    else if(nodeLabel === "Upsample"){
+       nodeColor = NodeColorProp.Vision;
+    }
+    else  if(nodeLabel === "MSELoss"){
+        nodeColor = NodeColorProp.Loss;
+    }
 
     const newNode = {
       id: String(nodeOrder),
       type: "default",
       position: { x: x_pos, y: y_pos },
       style: {
-        background: "#434854",
-        width: 150,
-        color: "#fff",
+        background: `${nodeColor}`,
+        width: 135,
+        color: "black",
         fontSize: "20px",
         fontFamily: "Helvetica",
-        boxShadow: "5px 5px 5px 0px rgba(0,0,0,.10)"
+        boxShadow: "5px 5px 5px 0px rgba(0,0,0,.10)",
+        borderRadius: "10px",
+        border: "none"
       },
       data: {
         // index: `${nodeOrder}`,

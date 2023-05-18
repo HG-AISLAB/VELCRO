@@ -18,7 +18,7 @@ function GenerateButton(props){
 
     return(
         <div>
-            <button class="btn_fin" onClick={onShow}> 생성 </button>
+            <button class="btn_fin" onClick={onShow}> Generate </button>
         </div>
     )
 }

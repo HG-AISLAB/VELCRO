@@ -132,27 +132,24 @@ node:
       layer: MaxPool2d
       parameters: "'kernel_size': (2, 2) \n 'stride': (2, 2) \n 'padding': (0, 0) \n 'dilation': 1 \n 'return_indices': False \n 'ceil_mode': False"
     - order: 45
-      layer: Flatten
-      parameters: "'start_dim': 1 \n 'end_dim': -1"
-    - order: 46
       layer: Linear
       parameters: "'in_features': 25088, 'out_features': 4096, 'bias': True, 'device': None, 'dtype': None"
-    - order: 47
+    - order: 46
       layer: ReLU
       parameters: "'inplace' : True"
-    - order: 48
+    - order: 47
       layer: Dropout
       parameters: undefined
-    - order: 49
+    - order: 48
       layer: Linear
       parameters: "'in_features': 4096, 'out_features': 4096, 'bias': True, 'device': None, 'dtype': None"
-    - order: 50
+    - order: 49
       layer: ReLU
       parameters: "'inplace' : True"
-    - order: 51
+    - order: 50
       layer: Dropout
       parameters: undefined
-    - order: 52
+    - order: 51
       layer: Linear
       parameters: "'in_features': 4096, 'out_features': 10, 'bias': True, 'device': None, 'dtype': None"
 
@@ -320,9 +317,7 @@ edge:
     - id: 50
       prior: 50
       next: 51
-    - id: 51
-      prior: 51
-      next: 52
+
 
 
  

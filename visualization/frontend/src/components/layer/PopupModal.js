@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import "./ModalStyle.css";
 import { EditText, EditTextarea} from 'react-edit-text';
 import 'react-edit-text/dist/index.css';
-import Sidebar from "../sidebar";
+import Sidebar from "../sidebar/LayerToggle";
 
 
 import axios from 'axios';
@@ -123,7 +123,56 @@ const EditModal = (props) => {
               Save
             </button> } */}
 
-            <button className="close" onClick={() => {
+
+            {/* <button className="close" onClick={close}>
+              &times;
+            </button> */}
+          </header>
+
+          <main>
+          <React.Fragment>
+              <div>
+                  <li>
+                      <label htmlFor="text">in_channels:</label>
+                      <EditText name="in_channels" type="number" style={{width: '50px'}} value={text} onChange={setText} inline/>
+                  </li>
+                  <li>
+                      <label htmlFor="text">out_channels:</label>
+                      <EditText name="out_channels" type="number" style={{width: '50px'}} value={text2}
+                onChange={setText2} inline/>
+                  </li>
+                  <li>
+                      <label htmlFor="text">kernel_size:</label>
+                      <EditText name="kernel_size1" type="number" style={{width: '40px'}} value={text3}
+                onChange={setText3} inline/>
+                      <label htmlFor="text"> X </label>
+                      <EditText name="kernel_size2" type="number" style={{width: '40px'}} value={text4}
+                onChange={setText4} inline/>
+                  </li>
+                  <li>
+                      <label htmlFor="text">stride:</label>
+                      <EditText name="stride1" type="number" style={{width: '40px'}} value={text5}
+                onChange={setText5} inline/>
+                      <label htmlFor="text"> X </label>
+                      <EditText name="stride2" type="number" style={{width: '40px'}} value={text6}
+                onChange={setText6} inline/>
+                  </li>
+                  <li>
+                      <label htmlFor="text">padding:</label>
+                      <EditText name="padding1" type="number" style={{width: '40px'}} value={text7}
+                onChange={setText7} inline/>
+                      <label htmlFor="text"> X </label>
+                      <EditText name="padding2" type="number" style={{width: '40px'}} value={text8}
+                onChange={setText8} inline/>
+                  </li>
+              </div>
+
+
+
+          </React.Fragment>
+          </main>
+          <div className="btnDiv">
+              <button className="close" onClick={() => {
               setText('3')
               setText2('64')
               setText3('3')
@@ -132,56 +181,13 @@ const EditModal = (props) => {
               setText6('1')
               setText7('1')
               setText8('1')
-              }
-  } >
+              }} >
               default
             </button>
             <button className="save" onClick={bfsave}>
               save
             </button>
-            {/* <button className="close" onClick={close}>
-              &times;
-            </button> */}
-          </header>
-          <main>
-          <React.Fragment>
-
-
-          <div><label htmlFor="text">in_channels:</label>
-          <EditText name="in_channels" type="number" style={{width: '50px'}} value={text}
-            onChange={setText} inline/></div>
-          <div><label htmlFor="text">out_channels:</label>
-          <EditText name="out_channels" type="number" style={{width: '50px'}} value={text2}
-            onChange={setText2} inline/></div>
-            <div><label htmlFor="text">kernel_size:</label>
-          <EditText name="kernel_size1" type="number" style={{width: '40px'}} value={text3}
-            onChange={setText3} inline/>
-          <label htmlFor="text"> X </label>
-          <EditText name="kernel_size2" type="number" style={{width: '40px'}} value={text4}
-            onChange={setText4} inline/>
           </div>
-           <div><label htmlFor="text">stride:</label>
-          <EditText name="stride1" type="number" style={{width: '40px'}} value={text5}
-            onChange={setText5} inline/>
-          <label htmlFor="text"> X </label>
-          <EditText name="stride2" type="number" style={{width: '40px'}} value={text6}
-            onChange={setText6} inline/>
-          </div>
-          <div><label htmlFor="text">padding:</label>
-          <EditText name="padding1" type="number" style={{width: '40px'}} value={text7}
-            onChange={setText7} inline/>
-          <label htmlFor="text"> X </label>
-          <EditText name="padding2" type="number" style={{width: '40px'}} value={text8}
-            onChange={setText8} inline/>
-          </div>
-
-
-
-          </React.Fragment>
-          </main>
-          {/* <main>{val}</main> */}
-          {/* <footer>
-          </footer> */}
         </section>
       ) : null}
     </div>

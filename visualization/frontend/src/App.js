@@ -3,6 +3,9 @@ import React from 'react';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import Flow from './components/Fullpageflow';
 import axios from 'axios';
+import Info from './components/page/Info'
+import Abstract from './components/page/Abstract'
+import Code from './components/page/Code'
 
 class App extends React.Component {
   render() {
@@ -11,6 +14,9 @@ class App extends React.Component {
             <Router>
                 <Routes>
                     <Route path="/" exact element={<Flow/>}/>
+                    <Route path="/info" exact element={<Info/>}/>
+                    <Route path="/abstract" exact element={<Abstract/>}/>
+                    <Route path="/code" exact element={<Code/>}/>
                 </Routes>
             </Router>
         </div>
