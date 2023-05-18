@@ -333,12 +333,7 @@ class CNode:
                         param = self.typecast(param)
                         value.update({_nodeid: param})
             else:
-                print("dfskhflshfklsd")
-                print(key)
-                print('1231231251')
-                print(value)
                 params[key] = cast(value)
-                print("19789789778979")
 
         return params
 

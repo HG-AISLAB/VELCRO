@@ -30,8 +30,6 @@ class CPyBinder:
         # pylint: disable-msg=too-many-branches, too-many-statements
         """A dummy docstring."""
         order, expanded_order = graph.topological_sort()
-        print(expanded_order)
-        print(graph.nodes)
         net = nn.Sequential()
         index = 0
         for id_ in order:
