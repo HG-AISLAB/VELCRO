@@ -30,6 +30,8 @@ urlpatterns = [
     path('api/', include(router.urls)),
     # path('', include('main.urls')),
     path('api/pth/', views.pthlist),
+    path('api/sort/', views.sortlist),
+    path('api/sort/<int:pk>/', views.sortlist_detail),
     path('start', views.startList),
     path('stop', views.stopList),
     path('status_report', views.statusList),

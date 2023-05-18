@@ -24,6 +24,7 @@ from .serializers import StartSerializer
 from .serializers import StatusSerializer
 from .serializers import RunningSerializer
 from .serializers import StopSerializer
+from .serializers import SortSerializer
 
 from .models import Node
 from .models import Edge
@@ -31,6 +32,7 @@ from .models import Pth
 from .models import Architecture
 from .models import Start
 from .models import Running
+from .models import Sort
 
 from .graph import CGraph, CEdge, CNode, CShow2
 from .binder import CPyBinder
@@ -115,6 +117,63 @@ def pthlist(request):
 
     return None
 
+
+@api_view(['GET', 'POST', 'DELETE', 'UPDATE'])
+def sortlist(request):
+    '''
+    pth list
+    '''
+    print("sort")
+    if request.method == 'GET':
+        sort = Sort.objects.all()
+        serializer = SortSerializer(sort, many=True)
+        return Response(serializer.data)
+    if request.method == 'POST':
+        print("post")
+        #CShow2()
+        host_ip = str(request.get_host())[:-5]
+        print(host_ip)
+        edges = Edge.objects.all()
+        nodes = Node.objects.all()
+        if nodes and edges:
+            sorted_ids = post_sorted_id(nodes, edges)
+            print("33333333333333333333333", type(str(sorted_ids)))
+            serializer = SortSerializer(data={'id': 1, 'sorted_ids': str(sorted_ids)})
+            print()
+            if serializer.is_valid():
+                print("valid")
+                serializer.save()
+                # pylint: disable = invalid-name, missing-timeout, unused-variable
+                return Response(serializer.data,
+                                status=status.HTTP_201_CREATED)
+
+            if not serializer.is_valid():
+                print("invalid")
+                print(serializer.errors)
+                serializer.save()
+                return Response("invalid sort",
+                                status=status.HTTP_400_BAD_REQUEST)
+        return Response("invalid node or edge",
+                        status=status.HTTP_400_BAD_REQUEST)
+    return None
+
+@api_view(['GET', 'POST', 'DELETE', 'UPDATE'])
+def sortlist_detail(request, pk):
+    '''
+    pth list
+    '''
+    try:
+        pev_sorted_ids = Sort.objects.get(pk=pk)
+    except Sort.DoesNotExist:
+        print('sort detail 안 됨 ~~~')
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    print("sort")
+    if request.method == 'GET':
+        serializer = SortSerializer(pev_sorted_ids)
+        return Response(serializer.data)
+    if request.method == 'DELETE':
+        pev_sorted_ids.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET', 'POST', 'DELETE', 'UPDATE'])
 # pylint: disable = invalid-name, inconsistent-return-statements
@@ -327,6 +386,27 @@ class PthView(viewsets.ModelViewSet):
         print("Pth objects")
 
 
+class SortView(viewsets.ModelViewSet):
+    # pylint: disable=too-many-ancestors
+    '''
+    Pth View
+    '''
+    serializer_class = SortSerializer
+    queryset = Sort.objects.all()
+
+    def print_serializer(self):
+        '''
+        print serializer class
+        '''
+        print("Sort serializer")
+
+    def print_objects(self):
+        '''
+        print objects
+        '''
+        print("Sort objects")
+
+
 class ArchitectureView(viewsets.ModelViewSet):
     # pylint: disable=too-many-ancestors
     '''
@@ -439,6 +519,27 @@ def make_branches(get_node, get_edge):
     net = CPyBinder.exportmodel(self_binder, graph)
     print(net)
     return net
+
+def post_sorted_id(get_node, get_edge):
+    '''
+    test branches
+    '''
+    graph = CGraph()
+    self_binder = CPyBinder()
+    for node in get_node:
+        # pylint: disable-msg=bad-option-value, consider-using-f-string
+        params_string = "{parameters}". \
+            format(**node.__dict__).replace("\n", ',')
+        # pylint: disable-msg=bad-option-value, eval-used
+        graph.addnode(CNode("{order}".format(**node.__dict__),
+                            type_="{layer}".format(**node.__dict__),
+                            params=eval("{" + params_string + "}")))
+    for edge in get_edge:
+        # pylint: disable-msg=bad-option-value, consider-using-f-string
+        graph.addedge(CEdge("{prior}".format(**edge.__dict__),
+                            "{next}".format(**edge.__dict__)))
+    sorted_ids = CPyBinder.sort_id(self_binder, graph)
+    return sorted_ids
 
 
 def random_char(number):

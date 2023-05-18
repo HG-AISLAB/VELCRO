@@ -21,6 +21,10 @@ class CPyBinder:
         """A dummy docstring."""
         torch.save(model, path)
 
+    def sort_id(self, graph):
+        order, expanded_order = graph.topological_sort()
+        return order
+
     def exportmodel(self, graph):
         # pylint: disable-msg=too-many-locals
         # pylint: disable-msg=too-many-branches, too-many-statements
