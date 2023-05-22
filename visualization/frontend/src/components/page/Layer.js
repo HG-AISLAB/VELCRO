@@ -22,6 +22,8 @@ import CrossEntropyLoss from "../layer/CrossEntropyLoss";
 import MSELoss from "../layer/MSELoss";
 import Flatten from "../layer/Flatten";
 import Upsample from "../layer/Upsample";
+import BasicBlock from "../layer/BasicBlock";
+import Bottleneck from "../layer/Bottleneck";
 import axios from 'axios';
 import { initialArch } from '../../initialArch';
 import ReactFlow, {
@@ -35,7 +37,10 @@ import ReactFlow, {
 import GenerateButton from "../GenerateButton";
 import Tab from "../sidebar/Tab";
 import LayerToggle from "../sidebar/LayerToggle";
+import NetworkInformation  from "../sidebar/NetworkInformation";
 import arange_icon from "../../img/swap.png";
+import BasicBlockimg from "../../img/basicblock.png";
+import BottleNeckimg from "../../img/bottleneck.png";
 
 let id = 1;
 const getId = () => `${id}`;
@@ -233,25 +238,25 @@ function LayerList() {
 
     // cnode의 order값이 가장 큰 값 탐색
     var maxOrder = 0;
-    for(var i=0; i<cnode.data.length; i++){
-        if(maxOrder<cnode.data[i].order){
-            maxOrder = cnode.data[i].order
-        }
+    for (var i = 0; i < cnode.data.length; i++) {
+      if (maxOrder < cnode.data[i].order) {
+        maxOrder = cnode.data[i].order
+      }
     }
 
     // 가장 큰 order+1로 id값 설정
-    const nid = maxOrder+1;
+    const nid = maxOrder + 1;
     id = nid
 
     //node create **********************
     //const cnode = plusId()
-    axios.post("/api/node/",{
-        order: id,
-        layer: name,
-        parameters: subp
-    }).then(function(response){
-        console.log(response)
-    }).catch(err=>console.log(err));
+    axios.post("/api/node/", {
+      order: id,
+      layer: name,
+      parameters: subp
+    }).then(function (response) {
+      console.log(response)
+    }).catch(err => console.log(err));
     //node create **********************
 
 
@@ -274,7 +279,63 @@ function LayerList() {
         subparam: `${subp}`
       }
     };
-    setElements((es) => es.concat(newNode));
+
+    const newResidualNode1 = {
+      // 노드 내부에 residual block 이미지 넣기 - bottleneck
+      id: getId(),
+      type: "default",
+      position,
+      style: {
+        background: `${color}`,
+        fontSize: "20px",
+        width: "200px",
+        height: "500px",
+        boxShadow: "7px 7px 7px 0px rgba(0,0,0,.20)",
+        border: "0px",
+        borderRadius: "10px",
+        backgroundImage: `url(${BottleNeckimg})`, //사진 나오게
+        backgroundPosition: "center",
+        backgroundSize: "180px 500px",
+        backgroundRepeat: "no-repeat",
+        color: "rgba(0, 0, 0, 0)",
+      },
+      data: {
+        label: `${name}`,
+        subparam: `${subp}`
+      }
+    };
+    const newResidualNode2 = {
+      // 노드 내부에 residual block 이미지 넣기 - basic block
+      id: getId(),
+      type: "default",
+      position,
+      style: {
+        background: `${color}`,
+        fontSize: "20px",
+        width: "200px",
+        height: "340px",
+        boxShadow: "7px 7px 7px 0px rgba(0,0,0,.20)",
+        border: "0px",
+        borderRadius: "10px",
+        backgroundImage: `url(${BasicBlockimg})`, //사진 나오게
+        backgroundPosition: "center",
+        backgroundSize: "180px 340px",
+        backgroundRepeat: "no-repeat",
+         color: "rgba(0, 0, 0, 0)",
+      },
+      data: {
+        label: `${name}`,
+        subparam: `${subp}`
+      }
+    };
+
+    if (name == "Bottleneck") {
+      setElements((nds) => nds.concat(newResidualNode1));
+    } else if (name == "BasicBlock") {
+      setElements((nds) => nds.concat(newResidualNode2));
+    } else {
+      setElements((nds) => nds.concat(newNode));
+    }
   };
 
   const   C = () => {
@@ -488,6 +549,28 @@ function LayerList() {
           header={state}
         ></Flatten>
       );
+       if (state === "BasicBlock")
+      return (
+        <BasicBlock
+          params = {nowp}
+          layer={nowc}
+          open={modalOpen}
+          save={saveModal}
+          close={closeModal}
+          header={state}
+        ></BasicBlock>
+      );
+       if (state === "Bottleneck")
+      return (
+        <Bottleneck
+          params = {nowp}
+          layer={nowc}
+          open={modalOpen}
+          save={saveModal}
+          close={closeModal}
+          header={state}
+        ></Bottleneck>
+      );
 
     else
       return (
@@ -502,18 +585,31 @@ function LayerList() {
       );
   };
 
+  const [tabToggle, setTabtoggle] = useState(1)
+const tabOnClick = (path) => {
+    console.log(path)
+    if (path == 'info icon') {
+      setTabtoggle(2)
+    }
+    else {
+      setTabtoggle(1)
+    }
+
+}
+
   return (
       <div className="FullPage">
         <div className="Sidebar">
-          <Tab/>
-          <LayerToggle/>
+          <Tab tabOnClick={tabOnClick}/>
+          {(tabToggle === 1)?<LayerToggle />:<NetworkInformation />}
+          {/*<LayerToggle/>*/}
           <div className="LayerInfo">
             <h3>Layer Information</h3>
             {/*<div className="Modal">*/}
               <C />
-            {/*</div>*/}
+            </div>
          </div>
-        </div>
+
 
     <div className="dndflow" >
       <ReactFlowProvider>
@@ -536,6 +632,7 @@ function LayerList() {
 
           >
             <Controls showZoom="" showInteractive="" showFitView="">
+              {/*정렬된 노드 get 요청*/}
               <ControlButton onClick={() => console.log('action')} title="action">
                 <img src={arange_icon}/>
               </ControlButton>
@@ -548,7 +645,7 @@ function LayerList() {
         </div>
         </ReactFlowProvider>
     </div>
-  </div>
+      </div>
   );
 }
 
