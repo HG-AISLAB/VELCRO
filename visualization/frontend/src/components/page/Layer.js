@@ -59,6 +59,26 @@ function LayerList() {
   const [elements, setElements] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
 
+  // 정렬한 노드 list 받아오기
+  const sortActive=(event)=>{
+    console.log('생성버튼클릭');
+    axios.delete("/api/sort/1/")
+    .then(function(response){
+        console.log(response)
+        })
+        .catch(e => console.log(e))
+    console.log('delete done');
+    axios.post("/api/sort/")
+        .then(function(response){
+        console.log(response)
+        axios.get('/api/sort/1/')
+            .then(function(response2){
+            console.log('정렬된 list: ', response2.data.sorted_ids)
+            })
+        })
+        .catch(e => console.log(e))
+    console.log('post done');
+  };
 
 
   //
@@ -638,7 +658,7 @@ const tabOnClick = (path) => {
           >
             <Controls showZoom="" showInteractive="" showFitView="">
               {/*정렬된 노드 get 요청*/}
-              <ControlButton onClick={() => console.log('action')} title="action">
+              <ControlButton onClick={sortActive} title="action">
                 <img src={arange_icon}/>
               </ControlButton>
             </Controls>
