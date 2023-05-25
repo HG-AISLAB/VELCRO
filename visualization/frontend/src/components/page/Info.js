@@ -119,8 +119,14 @@ function InfoList() {
         }
       };
       const cedge = await get_edge();
-
+      var maxId = 0;
+      for(var i=0; i<cedge.data.length; i++){
+       if(maxId<cedge.data[i].id){
+        maxId = cedge.data[i].id
+       }
+      }
       axios.post("/api/edge/",{
+        id: maxId+1,
         id: cedge.data.length+1,
         prior: params.source,
         next: params.target
