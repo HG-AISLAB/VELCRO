@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, {useState, useRef, useCallback} from "react";
+
 import "../../styles.css";
 
 import CustomEdge from "../CustomEdge";
@@ -27,6 +28,7 @@ import Bottleneck from "../layer/Bottleneck";
 import axios from 'axios';
 import { initialArch } from '../../initialArch';
 import ReactFlow, {
+
   addEdge,
   MiniMap,
   ReactFlowProvider,
@@ -52,12 +54,14 @@ let nowp = "";
 var checkFirst = 0;
 let initRunningStateTime = 100;
 var running_id = 0;
-
+var sortCount = 1;
 function LayerList() {
   const reactFlowWrapper = useRef(null);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
   const [elements, setElements] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
+
+  let sortList = [];
 
   // 정렬한 노드 list 받아오기
   const sortActive=(event)=>{
@@ -74,11 +78,18 @@ function LayerList() {
         axios.get('/api/sort/1/')
             .then(function(response2){
             console.log('정렬된 list: ', response2.data.sorted_ids)
+              sortList = response2.data.sorted_ids;
+
             })
         })
         .catch(e => console.log(e))
     console.log('post done');
   };
+
+  const onLoad = (rFInstance) => setReactFlowInstance(rFInstance);
+
+
+
 
 
   //
@@ -165,7 +176,7 @@ function LayerList() {
     console.log(e.target);
   }
 
-  const onLoad = (rFInstance) => setReactFlowInstance(rFInstance);
+
 
   const onElementsRemove = (remove) => {
     setElements((els)=>removeElements(remove, els));
@@ -239,6 +250,7 @@ function LayerList() {
     nowc = node.id;
    console.log(nowc);
    console.log(state);
+   console.log(node.position);
   };
 
   const onDrop = async (event) => {
@@ -612,15 +624,51 @@ function LayerList() {
 
   const [tabToggle, setTabtoggle] = useState(1)
 const tabOnClick = (path) => {
-    console.log(path)
-    if (path == 'info icon') {
-      setTabtoggle(2)
-    }
-    else {
-      setTabtoggle(1)
-    }
+  console.log(path)
+  if (path == 'info icon') {
+    setTabtoggle(2)
+  } else {
+    setTabtoggle(1)
+  }
 
 }
+
+const onSortNodes = () => {
+    sortActive();
+
+  const sortList = [1, 2, 288, 4, 5, 6, 7, 8, 9]; // 정렬된 노드 ID 리스트
+  const sortedElements = elements.slice(); // elements 배열을 복사하여 새로운 배열을 생성합니다.
+  let sort_x_pos = 100 + sortCount;
+  let sort_y_pos = 100 + sortCount;
+
+
+  for(var i = 0; i < sortList.length; i++) {
+    for (var j = 0; j < sortedElements.length; j++) {
+      if (Number(sortedElements[j].id) === sortList[i]) {
+        console.log(sortedElements[j].id, sortList[i]);
+        // node = sortedElements[j];
+
+        if ((i % 8 === 0) && (i >= 8)){
+          sort_x_pos += 200;
+          sort_y_pos = 100;
+        } else if (i>=1) {
+          sort_y_pos += 70;
+        };
+
+        sortedElements[j].position = {
+          x: sort_x_pos,
+          y: sort_y_pos,
+        };
+
+        console.log(sort_x_pos, sort_y_pos);
+        console.log(sortedElements[j].position)
+      }
+    }
+  }
+   setElements(sortedElements);
+  console.log(elements)
+  sortCount *= -1;
+  };
 
   return (
       <div className="FullPage">
@@ -658,7 +706,7 @@ const tabOnClick = (path) => {
           >
             <Controls showZoom="" showInteractive="" showFitView="">
               {/*정렬된 노드 get 요청*/}
-              <ControlButton onClick={sortActive} title="action">
+              <ControlButton onClick={onSortNodes} title="action">
                 <img src={arange_icon}/>
               </ControlButton>
             </Controls>
