@@ -13,7 +13,7 @@ export const initialArch = () => {
 //        .catch(e => console.log(e));
 
       // 노드와 엣지 삭제하기
-    for (var j=0; j<60; j++){
+    for (var j=0; j<300; j++){
 
     axios.delete('/api/node/'.concat(j).concat('/'))
      .then(function (response) {
@@ -28,7 +28,7 @@ export const initialArch = () => {
     }
 
     //노드와 엣지 삭제하기
-    for (var j=0; j<60; j++){
+    for (var j=0; j<300; j++){
 
     axios.delete('/api/edge/'.concat(j).concat('/'))
      .then(function (response) {

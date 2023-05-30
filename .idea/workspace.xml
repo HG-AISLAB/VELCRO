@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="c37fedf2-fb03-49ed-9cc9-f68edf231ff8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visualization/viz2code/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/viz2code/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/page/Layer.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/page/Layer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/initialArch.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/initialArch.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +45,7 @@
       <workItem from="1684747927932" duration="1475000" />
       <workItem from="1685020263413" duration="342000" />
       <workItem from="1685021360445" duration="357000" />
+      <workItem from="1685447517470" duration="6309000" />
     </task>
     <servers />
   </component>

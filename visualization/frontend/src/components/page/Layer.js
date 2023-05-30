@@ -55,13 +55,58 @@ var checkFirst = 0;
 let initRunningStateTime = 100;
 var running_id = 0;
 var sortCount = 1;
+let sortList = [];
 function LayerList() {
   const reactFlowWrapper = useRef(null);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
   const [elements, setElements] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
 
-  let sortList = [];
+const onSortNodes = (sortList) => {
+    console.log('back code');
+
+    sortList = sortList.split(",");
+    console.log(sortList);
+    console.log(sortList[6]);
+    console.log(sortList.length)
+
+
+  const sortedElements = elements.slice(); // elements 배열을 복사하여 새로운 배열을 생성합니다.
+  console.log(sortedElements);
+  console.log(' my code ');
+  let sort_x_pos = 100 + sortCount;
+  let sort_y_pos = 100 + sortCount;
+
+
+  for(var i = 0; i < sortList.length; i++) {
+    for (var j = 0; j < sortedElements.length; j++) {
+      if (Number(sortedElements[j].id) === Number(sortList[i])) {
+        console.log('arrange');
+        console.log(sortList[i]);
+        // node = sortedElements[j];
+
+        if ((i % 8 === 0) && (i >= 8)){
+          sort_x_pos += 200;
+          sort_y_pos = 100;
+        } else if (i>=1) {
+          sort_y_pos += 70;
+        };
+
+        sortedElements[j].position = {
+          x: sort_x_pos,
+          y: sort_y_pos,
+        };
+
+        console.log(sort_x_pos, sort_y_pos);
+        console.log(sortedElements[j].position)
+      }
+    }
+  }
+   setElements(sortedElements);
+  console.log(elements)
+  sortCount *= -1;
+  };
+
 
   // 정렬한 노드 list 받아오기
   const sortActive=(event)=>{
@@ -78,7 +123,7 @@ function LayerList() {
         axios.get('/api/sort/1/')
             .then(function(response2){
             console.log('정렬된 list: ', response2.data.sorted_ids)
-              sortList = response2.data.sorted_ids;
+              onSortNodes(response2.data.sorted_ids);
 
             })
         })
@@ -110,40 +155,40 @@ function LayerList() {
     checkFirst=1;
   }
 
-//   const notRunningState = setInterval(()=>{
-// ////    console.log("[post] 동작 중지");
-// //    running_id += 1;
-//     axios.post("/api/status_report/", {
-//
-//       timestamp: Date.now(),
-// //      running: 0,
-//     }).then(function(response){
-//         //console.log(timestamp)
-//         })
-//         .catch(e => console.log(e));
-//     }, initRunningStateTime * 1000)
-
-//  const onRunningState = (()=>{
-////    console.log("[post] 동작 중");
-//
+  const notRunningState = setInterval(()=>{
+////    console.log("[post] 동작 중지");
 //    running_id += 1;
-//    axios.post("/api/running/", {
-//      id : running_id,
-//      running: 1,
-//    }).then(function(response){
-//      console.log(response)
-//      })
-//      .catch(e => console.log(e));
-//  })
+    axios.post("/api/status_report/", {
 
-  //
-  // const onRunningStateClick = (e) => {
-  //   e.preventDefault();
-  //   clearInterval(notRunningState);
-  //   //onRunningState();
-  //   clearInterval(notRunningState);
-  //   notRunningState();
-  // };
+      timestamp: Date.now(),
+//      running: 0,
+    }).then(function(response){
+        //console.log(timestamp)
+        })
+        .catch(e => console.log(e));
+    }, initRunningStateTime * 1000)
+
+ const onRunningState = (()=>{
+//    console.log("[post] 동작 중");
+
+   running_id += 1;
+   axios.post("/api/running/", {
+     id : running_id,
+     running: 1,
+   }).then(function(response){
+     console.log(response)
+     })
+     .catch(e => console.log(e));
+ })
+
+
+  const onRunningStateClick = (e) => {
+    e.preventDefault();
+    clearInterval(notRunningState);
+    //onRunningState();
+    clearInterval(notRunningState);
+    notRunningState();
+  };
 
   const onConnect = async (params) => {
     setElements((els) => addEdge(params, els));
@@ -633,42 +678,45 @@ const tabOnClick = (path) => {
 
 }
 
-const onSortNodes = () => {
-    sortActive();
-
-  const sortList = [1, 2, 288, 4, 5, 6, 7, 8, 9]; // 정렬된 노드 ID 리스트
-  const sortedElements = elements.slice(); // elements 배열을 복사하여 새로운 배열을 생성합니다.
-  let sort_x_pos = 100 + sortCount;
-  let sort_y_pos = 100 + sortCount;
-
-
-  for(var i = 0; i < sortList.length; i++) {
-    for (var j = 0; j < sortedElements.length; j++) {
-      if (Number(sortedElements[j].id) === sortList[i]) {
-        console.log(sortedElements[j].id, sortList[i]);
-        // node = sortedElements[j];
-
-        if ((i % 8 === 0) && (i >= 8)){
-          sort_x_pos += 200;
-          sort_y_pos = 100;
-        } else if (i>=1) {
-          sort_y_pos += 70;
-        };
-
-        sortedElements[j].position = {
-          x: sort_x_pos,
-          y: sort_y_pos,
-        };
-
-        console.log(sort_x_pos, sort_y_pos);
-        console.log(sortedElements[j].position)
-      }
-    }
-  }
-   setElements(sortedElements);
-  console.log(elements)
-  sortCount *= -1;
-  };
+// const onSortNodes = () => {
+//     console.log('back code');
+//     sortActive();
+//     console.log(sortList);
+//   console.log(' my code ');
+//   const sortList = [1, 2, 288, 4, 5, 6, 7, 8, 9]; // 정렬된 노드 ID 리스트
+//   const sortedElements = elements.slice(); // elements 배열을 복사하여 새로운 배열을 생성합니다.
+//   let sort_x_pos = 100 + sortCount;
+//   let sort_y_pos = 100 + sortCount;
+//
+//
+//   for(var i = 0; i < sortList.length; i++) {
+//     for (var j = 0; j < sortedElements.length; j++) {
+//       if (sortedElements[j].id === sortList[i]) {
+//         console.log('arrange');
+//         console.log(sortList[i]);
+//         // node = sortedElements[j];
+//
+//         if ((i % 8 === 0) && (i >= 8)){
+//           sort_x_pos += 200;
+//           sort_y_pos = 100;
+//         } else if (i>=1) {
+//           sort_y_pos += 70;
+//         };
+//
+//         sortedElements[j].position = {
+//           x: sort_x_pos,
+//           y: sort_y_pos,
+//         };
+//
+//         console.log(sort_x_pos, sort_y_pos);
+//         console.log(sortedElements[j].position)
+//       }
+//     }
+//   }
+//    setElements(sortedElements);
+//   console.log(elements)
+//   sortCount *= -1;
+//   };
 
   return (
       <div className="FullPage">
@@ -706,7 +754,7 @@ const onSortNodes = () => {
           >
             <Controls showZoom="" showInteractive="" showFitView="">
               {/*정렬된 노드 get 요청*/}
-              <ControlButton onClick={onSortNodes} title="action">
+              <ControlButton onClick={sortActive} title="action">
                 <img src={arange_icon}/>
               </ControlButton>
             </Controls>
