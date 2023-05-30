@@ -138,7 +138,10 @@ def sortlist(request):
         if nodes and edges:
             sorted_ids = post_sorted_id(nodes, edges)
             print("33333333333333333333333", type(str(sorted_ids)))
-            serializer = SortSerializer(data={'id': 1, 'sorted_ids': str(sorted_ids)})
+            sorted_ids_str = ''
+            for id in sorted_ids:
+                sorted_ids_str = sorted_ids_str+id+','
+            serializer = SortSerializer(data={'id': 1, 'sorted_ids': sorted_ids_str[:-1]})
             print()
             if serializer.is_valid():
                 print("valid")
