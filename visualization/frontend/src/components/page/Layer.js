@@ -79,7 +79,7 @@ const onSortNodes = (sortList) => {
 
    let isBlock = undefined;
     if(sortedElements[sortList[0]].sort !== "0"){
-    isBlock = true;
+      isBlock = true;
   }else{
       isBlock = false;
     }
@@ -100,8 +100,10 @@ const onSortNodes = (sortList) => {
             sort_x_pos += 200;
             sort_y_pos = 100;
           }
-        } else if ((sort_y_pos < 589)){
-          sort_y_pos += 70;
+        } else if (sort_y_pos < 589){
+            if(sortedElements[j].sort === "0"){
+               sort_y_pos += 70;
+            }
         } else{
           sort_x_pos += 200;
           sort_y_pos = 100;

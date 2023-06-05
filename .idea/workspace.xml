@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c37fedf2-fb03-49ed-9cc9-f68edf231ff8" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/page/Layer.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/page/Layer.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -60,7 +61,8 @@
       <workItem from="1685463660925" duration="459000" />
       <workItem from="1685521112291" duration="273000" />
       <workItem from="1685863059106" duration="106000" />
-      <workItem from="1685946599135" duration="17587000" />
+      <workItem from="1685946599135" duration="17998000" />
+      <workItem from="1685969088684" duration="1380000" />
     </task>
     <servers />
   </component>
@@ -77,5 +79,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
