@@ -93,17 +93,30 @@ const onSortNodes = (sortList) => {
           sort_x_pos = 100 + sortCount;
           sort_y_pos = 100 + sortCount;
         }
-        else if ((sort_y_pos < 589) || ((sort_y_pos + 330) <= 639)){
-          if(isBlock){
+        else if(isBlock){
+          if ((sort_y_pos + 330) <= 639){
             sort_y_pos += 330;
+          }else{
+            sort_x_pos += 200;
+            sort_y_pos = 100;
           }
-          else if (i>=1){
-            sort_y_pos += 70;
-          }
-        } else {
+        } else if ((sort_y_pos < 589)){
+          sort_y_pos += 70;
+        } else{
           sort_x_pos += 200;
           sort_y_pos = 100;
         }
+        // else if ((sort_y_pos < 589) || ((sort_y_pos + 330) <= 639)){
+        //   if(isBlock){
+        //     sort_y_pos += 330;
+        //   }
+        //   else if (i>=1){
+        //     sort_y_pos += 70;
+        //   }
+        // } else {
+        //   sort_x_pos += 200;
+        //   sort_y_pos = 100;
+        // }
 
         sortedElements[j].position = {
           x: sort_x_pos,
