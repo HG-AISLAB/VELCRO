@@ -55,6 +55,7 @@ var checkFirst = 0;
 let initRunningStateTime = 100;
 var running_id = 0;
 var sortCount = 1;
+var sortHeight = 0;
 let sortList = [];
 function LayerList() {
   const reactFlowWrapper = useRef(null);
@@ -63,13 +64,12 @@ function LayerList() {
   const [modalOpen, setModalOpen] = useState(false);
 
 const onSortNodes = (sortList) => {
+
+
     console.log('back code');
 
     sortList = sortList.split(",");
     console.log(sortList);
-    console.log(sortList[6]);
-    console.log(sortList.length)
-
 
   const sortedElements = elements.slice(); // elements 배열을 복사하여 새로운 배열을 생성합니다.
   console.log(sortedElements);
@@ -77,20 +77,33 @@ const onSortNodes = (sortList) => {
   let sort_x_pos = 100 + sortCount;
   let sort_y_pos = 100 + sortCount;
 
+   let isBlock = undefined;
+    if(sortedElements[sortList[0]].sort !== "0"){
+    isBlock = true;
+  }else{
+      isBlock = false;
+    }
+
 
   for(var i = 0; i < sortList.length; i++) {
     for (var j = 0; j < sortedElements.length; j++) {
       if (Number(sortedElements[j].id) === Number(sortList[i])) {
-        console.log('arrange');
-        console.log(sortList[i]);
-        // node = sortedElements[j];
 
-        if ((i % 8 === 0) && (i >= 8)){
+        if(i === 0){
+          sort_x_pos = 100 + sortCount;
+          sort_y_pos = 100 + sortCount;
+        }
+        else if ((sort_y_pos < 589) || ((sort_y_pos + 330) <= 639)){
+          if(isBlock){
+            sort_y_pos += 330;
+          }
+          else if (i>=1){
+            sort_y_pos += 70;
+          }
+        } else {
           sort_x_pos += 200;
           sort_y_pos = 100;
-        } else if (i>=1) {
-          sort_y_pos += 70;
-        };
+        }
 
         sortedElements[j].position = {
           x: sort_x_pos,
@@ -98,7 +111,14 @@ const onSortNodes = (sortList) => {
         };
 
         console.log(sort_x_pos, sort_y_pos);
-        console.log(sortedElements[j].position)
+        console.log(sortedElements[j].position);
+        console.log(sortedElements[j].sort);
+
+        if ((sortedElements[j].sort !== "0") && (sortedElements[j].sort !== undefined)){
+          isBlock = true
+        } else{
+          isBlock = false;
+        }
       }
     }
   }
@@ -296,6 +316,7 @@ const onSortNodes = (sortList) => {
    console.log(nowc);
    console.log(state);
    console.log(node.position);
+   console.log(node.sort);
   };
 
   const onDrop = async (event) => {
@@ -346,6 +367,7 @@ const onSortNodes = (sortList) => {
       id: getId(),
       type: "default",
       position,
+      sort: "0",
       style: {
         background: `${color}`,
         width: 135,
@@ -367,17 +389,18 @@ const onSortNodes = (sortList) => {
       id: getId(),
       type: "default",
       position,
+      sort: "2",
       style: {
         background: `${color}`,
         fontSize: "20px",
-        width: "200px",
-        height: "500px",
+        width: "135px",
+        height: "280px",
         boxShadow: "7px 7px 7px 0px rgba(0,0,0,.20)",
         border: "0px",
         borderRadius: "10px",
         backgroundImage: `url(${BottleNeckimg})`, //사진 나오게
         backgroundPosition: "center",
-        backgroundSize: "180px 500px",
+        backgroundSize: "135px 280px",
         backgroundRepeat: "no-repeat",
         color: "rgba(0, 0, 0, 0)",
       },
@@ -391,17 +414,18 @@ const onSortNodes = (sortList) => {
       id: getId(),
       type: "default",
       position,
+      sort: "1",
       style: {
         background: `${color}`,
         fontSize: "20px",
-        width: "200px",
-        height: "340px",
+        width: "135px",
+        height: "280px",
         boxShadow: "7px 7px 7px 0px rgba(0,0,0,.20)",
         border: "0px",
         borderRadius: "10px",
         backgroundImage: `url(${BasicBlockimg})`, //사진 나오게
         backgroundPosition: "center",
-        backgroundSize: "180px 340px",
+        backgroundSize: "135px 280px",
         backgroundRepeat: "no-repeat",
          color: "rgba(0, 0, 0, 0)",
       },

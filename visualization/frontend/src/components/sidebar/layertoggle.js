@@ -18,7 +18,7 @@ const layerToggle = () => {
                   <li>
                       <div
                         className="dndnode"
-                        onDragStart={(event) => onDragStart(event, "BasicBlock", `${NodeColorProp.Residual}`,"'inplanes': n \n 'planes': n \n 'stride': 1 \n 'downsample': None \n 'groups': 1 \n 'base_width': 64 \n 'dilation': 1 \n 'norm_layer': None \n")}
+                        onDragStart={(event) => onDragStart(event, "BasicBlock", `${NodeColorProp.Residual}`,"'inplanes': 1 \n 'planes': 1 \n 'stride': 1 \n 'downsample': None \n 'groups': 1 \n 'base_width': 64 \n 'dilation': 1 \n 'norm_layer': None \n")}
                         draggable
                       >
                           BasicBlock
@@ -27,7 +27,7 @@ const layerToggle = () => {
                   <li>
                       <div
                         className="dndnode"
-                        onDragStart={(event) => onDragStart(event, "Bottleneck", `${NodeColorProp.Residual}`,"'inplanes': n \n 'planes': n \n 'stride': 1 \n 'downsample': None \n 'groups': 1 \n 'base_width': 64 \n 'dilation': 1 \n 'norm_layer': None \n")}
+                        onDragStart={(event) => onDragStart(event, "Bottleneck", `${NodeColorProp.Residual}`,"'inplanes': 1 \n 'planes': 1 \n 'stride': 1 \n 'downsample': None \n 'groups': 1 \n 'base_width': 64 \n 'dilation': 1 \n 'norm_layer': None \n")}
                         draggable
                       >
                           Bottleneck

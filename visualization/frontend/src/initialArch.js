@@ -121,6 +121,7 @@ export const initialArch = () => {
       id: String(nodeOrder),
       type: "default",
       position: { x: x_pos, y: y_pos },
+      sort: "0",
       style: {
         background: `${nodeColor}`,
         width: 135,
