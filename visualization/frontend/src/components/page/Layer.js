@@ -33,8 +33,7 @@ import ReactFlow, {
   MiniMap,
   ReactFlowProvider,
   removeElements,
-    Controls,ControlButton
-
+    Controls,ControlButton,Panel
 } from "react-flow-renderer";
 import GenerateButton from "../GenerateButton";
 import Tab from "../sidebar/Tab";
@@ -817,6 +816,7 @@ const tabOnClick = (path) => {
 //   sortCount *= -1;
 //   };
 
+
   return (
       <div className="FullPage">
         <div className="Sidebar">
@@ -857,13 +857,15 @@ const tabOnClick = (path) => {
                 <img src={arange_icon}/>
               </ControlButton>
             </Controls>
+          <div className="reactBtn" style={{position:'absolute' ,zIndex:100}}>
 
-            <button className="inspect">Inspect</button>
-            <GenerateButton className="inspect" elements={elements}  />
+            <GenerateButton  elements={elements}  />
+            </div>
 
           </ReactFlow>
         </div>
         </ReactFlowProvider>
+
     </div>
       </div>
   );
