@@ -6,14 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c37fedf2-fb03-49ed-9cc9-f68edf231ff8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/layer/AdaptiveAvgPool2d.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/layer/AdaptiveAvgPool2d.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/layer/Bottleneck.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/layer/Bottleneck.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/layer/PopupModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/layer/PopupModal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/page/Layer.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/page/Layer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/sidebar/layertoggle.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/sidebar/layertoggle.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/sidebar/tab.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/sidebar/tab.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/initialArch.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/initialArch.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +64,7 @@
       <workItem from="1685969088684" duration="1999000" />
       <workItem from="1685979129736" duration="206000" />
       <workItem from="1686030116259" duration="220000" />
-      <workItem from="1686204676197" duration="11165000" />
+      <workItem from="1686204676197" duration="12718000" />
     </task>
     <servers />
   </component>

@@ -502,7 +502,7 @@ const onSortNodes = (sortList) => {
       return (
         <EditModal
           params={paramState}
-          layer={nowc}
+          layer={idState}
           open={modalOpen}
           save={saveModal}
           close={closeModal}
@@ -513,7 +513,7 @@ const onSortNodes = (sortList) => {
       return (
         <MaxPoolModal
           params = {paramState}
-          layer={nowc}
+          layer={idState}
           open={modalOpen}
           save={saveModal}
           close={closeModal}
@@ -524,7 +524,7 @@ const onSortNodes = (sortList) => {
       return (
         <AvgPool2d
           params = {paramState}
-          layer={nowc}
+          layer={idState}
           open={modalOpen}
           save={saveModal}
           close={closeModal}
@@ -535,7 +535,7 @@ const onSortNodes = (sortList) => {
       return (
         <AdaptiveAvgPool2d
           params = {paramState}
-          layer={nowc}
+          layer={idState}
           open={modalOpen}
           save={saveModal}
           close={closeModal}
@@ -546,7 +546,7 @@ const onSortNodes = (sortList) => {
       return (
         <Softmax
           params = {paramState}
-          layer={nowc}
+          layer={idState}
           open={modalOpen}
           save={saveModal}
           close={closeModal}
@@ -557,7 +557,7 @@ const onSortNodes = (sortList) => {
       return (
         <ConstantPad2d
           params = {paramState}
-          layer={nowc}
+          layer={idState}
           open={modalOpen}
           save={saveModal}
           close={closeModal}
@@ -568,7 +568,7 @@ const onSortNodes = (sortList) => {
       return (
         <BatchNorm2d
           params = {paramState}
-          layer={nowc}
+          layer={idState}
           open={modalOpen}
           save={saveModal}
           close={closeModal}
@@ -580,7 +580,7 @@ const onSortNodes = (sortList) => {
       return (
         <MSELoss
           params = {paramState}
-          layer={nowc}
+          layer={idState}
           open={modalOpen}
           save={saveModal}
           close={closeModal}
@@ -591,7 +591,7 @@ const onSortNodes = (sortList) => {
       return (
         <Tanh
           params = {paramState}
-          layer={nowc}
+          layer={idState}
           open={modalOpen}
           save={saveModal}
           close={closeModal}
@@ -602,7 +602,7 @@ const onSortNodes = (sortList) => {
       return (
         <Sigmoid
           params = {paramState}
-          layer={nowc}
+          layer={idState}
           open={modalOpen}
           save={saveModal}
           close={closeModal}
@@ -613,7 +613,7 @@ const onSortNodes = (sortList) => {
       return (
         <CrossEntropyLoss
           params = {paramState}
-          layer={nowc}
+          layer={idState}
           open={modalOpen}
           save={saveModal}
           close={closeModal}
@@ -624,7 +624,7 @@ const onSortNodes = (sortList) => {
       return (
         <Linear
           params = {paramState}
-          layer={nowc}
+          layer={idState}
           open={modalOpen}
           save={saveModal}
           close={closeModal}
@@ -635,7 +635,7 @@ const onSortNodes = (sortList) => {
       return (
         <Dropout
           params = {paramState}
-          layer={nowc}
+          layer={idState}
           open={modalOpen}
           save={saveModal}
           close={closeModal}
@@ -646,7 +646,7 @@ const onSortNodes = (sortList) => {
       return (
         <ZeroPad2d
           params = {paramState}
-          layer={nowc}
+          layer={idState}
           open={modalOpen}
           save={saveModal}
           close={closeModal}
@@ -657,7 +657,7 @@ const onSortNodes = (sortList) => {
       return (
         <BCELoss
           params = {paramState}
-          layer={nowc}
+          layer={idState}
           open={modalOpen}
           save={saveModal}
           close={closeModal}
@@ -668,7 +668,7 @@ const onSortNodes = (sortList) => {
       return (
         <LeakyReLU
           params = {paramState}
-          layer={nowc}
+          layer={idState}
           open={modalOpen}
           save={saveModal}
           close={closeModal}
@@ -679,7 +679,7 @@ const onSortNodes = (sortList) => {
       return (
         <ReLU
           params = {paramState}
-          layer={nowc}
+          layer={idState}
           open={modalOpen}
           save={saveModal}
           close={closeModal}
@@ -690,7 +690,7 @@ const onSortNodes = (sortList) => {
       return (
         <ReLU6
           params = {paramState}
-          layer={nowc}
+          layer={idState}
           open={modalOpen}
           save={saveModal}
           close={closeModal}
@@ -701,7 +701,7 @@ const onSortNodes = (sortList) => {
       return (
         <Flatten
           params = {paramState}
-          layer={nowc}
+          layer={idState}
           open={modalOpen}
           save={saveModal}
           close={closeModal}
@@ -712,7 +712,7 @@ const onSortNodes = (sortList) => {
       return (
         <BasicBlock
           params = {paramState}
-          layer={nowc}
+          layer={idState}
           open={modalOpen}
           save={saveModal}
           close={closeModal}
@@ -723,7 +723,7 @@ const onSortNodes = (sortList) => {
       return (
         <Bottleneck
           params = {paramState}
-          layer={nowc}
+          layer={idState}
           open={modalOpen}
           save={saveModal}
           close={closeModal}
@@ -735,7 +735,7 @@ const onSortNodes = (sortList) => {
       return (
         <Upsample
           params = {paramState}
-          layer={nowc}
+          layer={idState}
           open={modalOpen}
           save={saveModal}
           close={closeModal}
