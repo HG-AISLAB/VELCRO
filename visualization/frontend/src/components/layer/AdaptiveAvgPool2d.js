@@ -44,7 +44,7 @@ const AdaptiveAvgPool2d = (props) => {
       // node update하기 ********************
       axios.put("/api/node/".concat(String(props.layer).concat('/')),{
           order: String(props.layer),
-          layer: "AdaptiveAvgPool2d (ResNet)",
+          layer: "AdaptiveAvgPool2d",
           parameters: send_message
       }).then(function(response){
           console.log(response)

@@ -66,7 +66,7 @@ export const initialArch = () => {
     else if (nodeLabel === "AvgPool2d"){
        nodeColor = NodeColorProp.Pooling;
     }
-    else if (nodeLabel === "AdaptiveAvgPool2d (ResNet)"){
+    else if (nodeLabel === "AdaptiveAvgPool2d"){
        nodeColor = NodeColorProp.Pooling;
     }
     else if(nodeLabel === "ZeroPad2d"){

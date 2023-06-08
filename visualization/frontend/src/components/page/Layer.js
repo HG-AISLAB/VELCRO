@@ -1,4 +1,4 @@
-import React, {useState, useRef, useCallback} from "react";
+import React, {useState, useRef, useEffect} from "react";
 
 import "../../styles.css";
 
@@ -62,6 +62,26 @@ function LayerList() {
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
   const [elements, setElements] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [state, setState] = useState("");
+  const [idState, setIdState] = useState("");
+  const [paramState, setParam] = useState();
+
+  useEffect(()=>{
+    const get_params = async () => {
+      try {
+        await axios.get('/api/node/'.concat(String(idState)).concat('/')).then((response) => {
+           setParam(response.data.parameters);
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    get_params();
+  },[idState]);
+
+
+
+
 
 const onSortNodes = (sortList) => {
 
@@ -263,20 +283,23 @@ const onSortNodes = (sortList) => {
     deleteModal(remove);
   }
 
-  //default 값을 못받아오는 이유??
+
   const openModal = async () => {
-    const get_params = async () => {
-      try {
-        await axios.get('/api/node/'.concat(String(nowc)).concat('/')).then((response) => {
-          nowp = response.data.parameters;
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    await get_params();
+    // const get_params = async () => {
+    //   try {
+    //     await axios.get('/api/node/'.concat(String(idState)).concat('/')).then((response) => {
+    //        setParam(response.data.parameters);
+    //     });
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // };
+    // await get_params();
+    // console.log('get param double click')
     await setModalOpen(true);
+    console.log('open modal')
   };
+
 
   const closeModal = () => {
     setModalOpen(false);
@@ -324,14 +347,29 @@ const onSortNodes = (sortList) => {
     event.preventDefault();
     event.dataTransfer.dropEffect = "move";
   };
-  const [state, setState] = useState("");
-  const onNodeClick = (event, node) => {
-    setState(node.data.label);
-    nowc = node.id;
-   console.log(nowc);
-   console.log(state);
-   console.log(node.position);
-   console.log(node.sort);
+
+  const onNodeClick = async (event, node) => {
+      // if(modalOpen === true) {
+      //   const get_params = async () => {
+      //     try {
+      //       await axios.get('/api/node/'.concat(String(idState)).concat('/')).then((response) => {
+      //         setParam(response.data.parameters);
+      //       });
+      //     } catch (error) {
+      //       console.error(error);
+      //     }
+      //   };
+      //   await setState(node.data.label);
+      //   await setIdState(node.id);
+      //   await get_params();
+      //   console.log('get param one click');
+      // }
+      // else{
+        await setState(node.data.label);
+        await setIdState(node.id);
+
+      // }
+
   };
 
   const onDrop = async (event) => {
@@ -463,7 +501,7 @@ const onSortNodes = (sortList) => {
     if (state === "Conv2d")
       return (
         <EditModal
-          params={nowp}
+          params={paramState}
           layer={nowc}
           open={modalOpen}
           save={saveModal}
@@ -474,7 +512,7 @@ const onSortNodes = (sortList) => {
     if (state === "MaxPool2d")
       return (
         <MaxPoolModal
-          params = {nowp}
+          params = {paramState}
           layer={nowc}
           open={modalOpen}
           save={saveModal}
@@ -485,7 +523,7 @@ const onSortNodes = (sortList) => {
     if (state === "AvgPool2d")
       return (
         <AvgPool2d
-          params = {nowp}
+          params = {paramState}
           layer={nowc}
           open={modalOpen}
           save={saveModal}
@@ -493,10 +531,10 @@ const onSortNodes = (sortList) => {
           header={state}
         ></AvgPool2d>
       );
-    if (state === "AdaptiveAvgPool2d (ResNet)")
+    if (state === "AdaptiveAvgPool2d")
       return (
         <AdaptiveAvgPool2d
-          params = {nowp}
+          params = {paramState}
           layer={nowc}
           open={modalOpen}
           save={saveModal}
@@ -507,7 +545,7 @@ const onSortNodes = (sortList) => {
      if (state === "Softmax")
       return (
         <Softmax
-          params = {nowp}
+          params = {paramState}
           layer={nowc}
           open={modalOpen}
           save={saveModal}
@@ -518,7 +556,7 @@ const onSortNodes = (sortList) => {
     if (state === "ConstantPad2d")
       return (
         <ConstantPad2d
-          params = {nowp}
+          params = {paramState}
           layer={nowc}
           open={modalOpen}
           save={saveModal}
@@ -529,7 +567,7 @@ const onSortNodes = (sortList) => {
     if (state === "BatchNorm2d")
       return (
         <BatchNorm2d
-          params = {nowp}
+          params = {paramState}
           layer={nowc}
           open={modalOpen}
           save={saveModal}
@@ -541,7 +579,7 @@ const onSortNodes = (sortList) => {
     if (state === "MSELoss")
       return (
         <MSELoss
-          params = {nowp}
+          params = {paramState}
           layer={nowc}
           open={modalOpen}
           save={saveModal}
@@ -552,7 +590,7 @@ const onSortNodes = (sortList) => {
     if (state === "Tanh")
       return (
         <Tanh
-          params = {nowp}
+          params = {paramState}
           layer={nowc}
           open={modalOpen}
           save={saveModal}
@@ -563,7 +601,7 @@ const onSortNodes = (sortList) => {
     if (state === "Sigmoid")
       return (
         <Sigmoid
-          params = {nowp}
+          params = {paramState}
           layer={nowc}
           open={modalOpen}
           save={saveModal}
@@ -574,7 +612,7 @@ const onSortNodes = (sortList) => {
     if (state === "CrossEntropyLoss")
       return (
         <CrossEntropyLoss
-          params = {nowp}
+          params = {paramState}
           layer={nowc}
           open={modalOpen}
           save={saveModal}
@@ -585,7 +623,7 @@ const onSortNodes = (sortList) => {
     if (state === "Linear")
       return (
         <Linear
-          params = {nowp}
+          params = {paramState}
           layer={nowc}
           open={modalOpen}
           save={saveModal}
@@ -596,7 +634,7 @@ const onSortNodes = (sortList) => {
     if (state === "Dropout")
       return (
         <Dropout
-          params = {nowp}
+          params = {paramState}
           layer={nowc}
           open={modalOpen}
           save={saveModal}
@@ -607,7 +645,7 @@ const onSortNodes = (sortList) => {
       if (state === "ZeroPad2d")
       return (
         <ZeroPad2d
-          params = {nowp}
+          params = {paramState}
           layer={nowc}
           open={modalOpen}
           save={saveModal}
@@ -618,7 +656,7 @@ const onSortNodes = (sortList) => {
       if (state === "BCELoss")
       return (
         <BCELoss
-          params = {nowp}
+          params = {paramState}
           layer={nowc}
           open={modalOpen}
           save={saveModal}
@@ -629,7 +667,7 @@ const onSortNodes = (sortList) => {
       if (state === "LeakyReLU")
       return (
         <LeakyReLU
-          params = {nowp}
+          params = {paramState}
           layer={nowc}
           open={modalOpen}
           save={saveModal}
@@ -640,7 +678,7 @@ const onSortNodes = (sortList) => {
        if (state === "ReLU")
       return (
         <ReLU
-          params = {nowp}
+          params = {paramState}
           layer={nowc}
           open={modalOpen}
           save={saveModal}
@@ -651,7 +689,7 @@ const onSortNodes = (sortList) => {
       if (state === "ReLU6")
       return (
         <ReLU6
-          params = {nowp}
+          params = {paramState}
           layer={nowc}
           open={modalOpen}
           save={saveModal}
@@ -662,7 +700,7 @@ const onSortNodes = (sortList) => {
        if (state === "Flatten")
       return (
         <Flatten
-          params = {nowp}
+          params = {paramState}
           layer={nowc}
           open={modalOpen}
           save={saveModal}
@@ -673,7 +711,7 @@ const onSortNodes = (sortList) => {
        if (state === "BasicBlock")
       return (
         <BasicBlock
-          params = {nowp}
+          params = {paramState}
           layer={nowc}
           open={modalOpen}
           save={saveModal}
@@ -684,7 +722,7 @@ const onSortNodes = (sortList) => {
        if (state === "Bottleneck")
       return (
         <Bottleneck
-          params = {nowp}
+          params = {paramState}
           layer={nowc}
           open={modalOpen}
           save={saveModal}
@@ -696,7 +734,7 @@ const onSortNodes = (sortList) => {
     else
       return (
         <Upsample
-          params = {nowp}
+          params = {paramState}
           layer={nowc}
           open={modalOpen}
           save={saveModal}
@@ -799,7 +837,7 @@ const tabOnClick = (path) => {
             </Controls>
 
             <button className="inspect">Inspect</button>
-            <GenerateButton elements={elements} />
+            <GenerateButton className="inspect" elements={elements}  />
 
           </ReactFlow>
         </div>

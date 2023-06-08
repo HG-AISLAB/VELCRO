@@ -74,7 +74,7 @@ const layerToggle = () => {
                   <div
                     className="dndnode"
                     onDragStart={(event) =>
-                      onDragStart(event, "AdaptiveAvgPool2d (ResNet)",`${NodeColorProp.Pooling}`,"'output_size': (1, 1)")
+                      onDragStart(event, "AdaptiveAvgPool2d",`${NodeColorProp.Pooling}`,"'output_size': (1, 1)")
                     }
                     draggable
                   >

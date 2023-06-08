@@ -74,11 +74,11 @@ const Bottleneck = (props) => {
     var send_message = "'inplanes': ".concat(text)
         .concat(" \n 'plaens': ").concat(text2)
         .concat(" \n 'stride': ").concat(text3)
-        .concat(") \n 'downsample': ").concat(text4)
-        .concat(") \n 'groups': ").concat(text5)
-        .concat(") \n 'base_width': ").concat(text6)
-        .concat(") \n 'dilation': ").concat(text7)
-        .concat(") \n 'norm_layer': ").concat(text8)
+        .concat(" \n 'downsample': ").concat(text4)
+        .concat(" \n 'groups': ").concat(text5)
+        .concat(" \n 'base_width': ").concat(text6)
+        .concat(" \n 'dilation': ").concat(text7)
+        .concat(" \n 'norm_layer': ").concat(text8)
       console.log(send_message);
       // node update하기 ********************
       axios.put("/api/node/".concat(String(props.layer).concat('/')),{
