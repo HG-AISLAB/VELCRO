@@ -71,7 +71,7 @@ const AvgPool2d = (props) => {
   
   //    console.log(text8, "text7");
   //    console.log(text9, "text7");
-  
+        props.setState("");
       save();
     };
 

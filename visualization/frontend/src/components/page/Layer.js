@@ -310,20 +310,20 @@ const onSortNodes = (sortList) => {
   };
 
   const deleteModal = (remove) => {
-    axios.get("/api/node/".concat(String(nowc)).concat('/'))
+    axios.get("/api/node/".concat(String(idState)).concat('/'))
     .then(function(response){
     console.log(response)});
     console.log("remove", remove)
     if(remove[0].data){
         console.log('node')
-        axios.delete("/api/node/".concat(String(nowc)).concat('/'));
+        axios.delete("/api/node/".concat(String(idState)).concat('/'));
         axios.get("/api/edge/")
         .then(function(response){
         for(var i=0;i<response.data.length;i++){
-            if(String(response.data[i].prior) === String(nowc)){
+            if(String(response.data[i].prior) === String(idState)){
                 axios.delete("/api/edge/".concat(String(response.data[i].id)).concat('/'));
             }
-            if(String(response.data[i].next) === String(nowc)){
+            if(String(response.data[i].next) === String(idState)){
                 axios.delete("/api/edge/".concat(String(response.data[i].id)).concat('/'));
             }
         }
@@ -507,6 +507,7 @@ const onSortNodes = (sortList) => {
           save={saveModal}
           close={closeModal}
           header={state}
+          setState={setIdState}
         ></EditModal>
       );
     if (state === "MaxPool2d")
@@ -518,6 +519,7 @@ const onSortNodes = (sortList) => {
           save={saveModal}
           close={closeModal}
           header={state}
+          setState={setIdState}
         ></MaxPoolModal>
       );
     if (state === "AvgPool2d")
@@ -529,6 +531,7 @@ const onSortNodes = (sortList) => {
           save={saveModal}
           close={closeModal}
           header={state}
+          setState={setIdState}
         ></AvgPool2d>
       );
     if (state === "AdaptiveAvgPool2d")
@@ -540,6 +543,7 @@ const onSortNodes = (sortList) => {
           save={saveModal}
           close={closeModal}
           header={state}
+          setState={setIdState}
         ></AdaptiveAvgPool2d>
       );
      if (state === "Softmax")
@@ -551,6 +555,7 @@ const onSortNodes = (sortList) => {
           save={saveModal}
           close={closeModal}
           header={state}
+          setState={setIdState}
         ></Softmax>
       );
     if (state === "ConstantPad2d")
@@ -562,6 +567,7 @@ const onSortNodes = (sortList) => {
           save={saveModal}
           close={closeModal}
           header={state}
+          setState={setIdState}
         ></ConstantPad2d>
         );
     if (state === "BatchNorm2d")
@@ -573,6 +579,7 @@ const onSortNodes = (sortList) => {
           save={saveModal}
           close={closeModal}
           header={state}
+          setState={setIdState}
         ></BatchNorm2d>
       );
 
@@ -585,6 +592,7 @@ const onSortNodes = (sortList) => {
           save={saveModal}
           close={closeModal}
           header={state}
+          setState={setIdState}
         ></MSELoss>
       );
     if (state === "Tanh")
@@ -596,6 +604,7 @@ const onSortNodes = (sortList) => {
           save={saveModal}
           close={closeModal}
           header={state}
+          setState={setIdState}
         ></Tanh>
       );
     if (state === "Sigmoid")
@@ -607,6 +616,7 @@ const onSortNodes = (sortList) => {
           save={saveModal}
           close={closeModal}
           header={state}
+          setState={setIdState}
         ></Sigmoid>
       );
     if (state === "CrossEntropyLoss")
@@ -618,6 +628,7 @@ const onSortNodes = (sortList) => {
           save={saveModal}
           close={closeModal}
           header={state}
+          setState={setIdState}
         ></CrossEntropyLoss>
       );
     if (state === "Linear")
@@ -629,6 +640,7 @@ const onSortNodes = (sortList) => {
           save={saveModal}
           close={closeModal}
           header={state}
+          setState={setIdState}
         ></Linear>
       );
     if (state === "Dropout")
@@ -640,6 +652,7 @@ const onSortNodes = (sortList) => {
           save={saveModal}
           close={closeModal}
           header={state}
+          setState={setIdState}
         ></Dropout>
       );
       if (state === "ZeroPad2d")
@@ -651,6 +664,7 @@ const onSortNodes = (sortList) => {
           save={saveModal}
           close={closeModal}
           header={state}
+          setState={setIdState}
         ></ZeroPad2d>
       );
       if (state === "BCELoss")
@@ -662,6 +676,7 @@ const onSortNodes = (sortList) => {
           save={saveModal}
           close={closeModal}
           header={state}
+          setState={setIdState}
         ></BCELoss>
       );
       if (state === "LeakyReLU")
@@ -673,6 +688,7 @@ const onSortNodes = (sortList) => {
           save={saveModal}
           close={closeModal}
           header={state}
+          setState={setIdState}
         ></LeakyReLU>
       );
        if (state === "ReLU")
@@ -684,6 +700,7 @@ const onSortNodes = (sortList) => {
           save={saveModal}
           close={closeModal}
           header={state}
+          setState={setIdState}
         ></ReLU>
       );
       if (state === "ReLU6")
@@ -695,6 +712,7 @@ const onSortNodes = (sortList) => {
           save={saveModal}
           close={closeModal}
           header={state}
+          setState={setIdState}
         ></ReLU6>
       );
        if (state === "Flatten")
@@ -706,6 +724,7 @@ const onSortNodes = (sortList) => {
           save={saveModal}
           close={closeModal}
           header={state}
+          setState={setIdState}
         ></Flatten>
       );
        if (state === "BasicBlock")
@@ -717,6 +736,7 @@ const onSortNodes = (sortList) => {
           save={saveModal}
           close={closeModal}
           header={state}
+          setState={setIdState}
         ></BasicBlock>
       );
        if (state === "Bottleneck")
@@ -728,6 +748,7 @@ const onSortNodes = (sortList) => {
           save={saveModal}
           close={closeModal}
           header={state}
+          setState={setIdState}
         ></Bottleneck>
       );
 
@@ -740,6 +761,7 @@ const onSortNodes = (sortList) => {
           save={saveModal}
           close={closeModal}
           header={state}
+          setState={setIdState}
         ></Upsample>
       );
   };

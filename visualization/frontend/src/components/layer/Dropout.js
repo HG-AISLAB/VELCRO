@@ -55,7 +55,7 @@ const Dropout = (props) => {
     }).then(function(response){
         console.log(response)
     }).catch(err=>console.log(err));
-
+props.setState("");
     save();
   };
 

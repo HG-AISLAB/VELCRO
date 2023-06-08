@@ -52,7 +52,7 @@ const ReLU = (props) => {
     }).catch(err=>console.log(err));
     // node update하기 ********************
 
-
+props.setState("");
     save();
   };
 

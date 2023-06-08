@@ -9,7 +9,7 @@ import axios from 'axios';
 
 const BatchNorm2d = (props) => {
   const [text, setText] = React.useState(
-    String(props.params).substr(16, 3)
+    String(props.params).substr(16, 10)
   );
 
   const { open, save, close, header } = props;
@@ -32,7 +32,7 @@ const BatchNorm2d = (props) => {
 
 //    console.log(text8, "text7");
 //    console.log(text9, "text7");
-
+    props.setState("");
     save();
   };
 

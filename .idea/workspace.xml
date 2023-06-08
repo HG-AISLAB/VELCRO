@@ -6,6 +6,27 @@
   <component name="ChangeListManager">
     <list default="true" id="c37fedf2-fb03-49ed-9cc9-f68edf231ff8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/layer/AdaptiveAvgPool2d.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/layer/AdaptiveAvgPool2d.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/layer/AvgPool2d.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/layer/AvgPool2d.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/layer/BCELoss.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/layer/BCELoss.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/layer/BasicBlock.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/layer/BasicBlock.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/layer/BatchNorm2d.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/layer/BatchNorm2d.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/layer/Bottleneck.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/layer/Bottleneck.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/layer/ConstantPad2d.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/layer/ConstantPad2d.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/layer/CrossEntropyLoss.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/layer/CrossEntropyLoss.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/layer/Dropout.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/layer/Dropout.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/layer/Flatten.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/layer/Flatten.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/layer/LeakyReLU.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/layer/LeakyReLU.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/layer/Linear.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/layer/Linear.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/layer/MSELoss.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/layer/MSELoss.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/layer/MaxPool.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/layer/MaxPool.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/layer/PopupModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/layer/PopupModal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/layer/ReLU.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/layer/ReLU.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/layer/ReLU6.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/layer/ReLU6.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/layer/Softmax.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/layer/Softmax.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/layer/Upsample.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/layer/Upsample.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/layer/ZeroPad2d.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/layer/ZeroPad2d.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/page/Layer.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/page/Layer.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +59,7 @@
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -64,7 +86,8 @@
       <workItem from="1685969088684" duration="1999000" />
       <workItem from="1685979129736" duration="206000" />
       <workItem from="1686030116259" duration="220000" />
-      <workItem from="1686204676197" duration="12718000" />
+      <workItem from="1686204676197" duration="14316000" />
+      <workItem from="1686232003926" duration="774000" />
     </task>
     <servers />
   </component>

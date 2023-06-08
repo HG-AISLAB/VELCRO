@@ -48,7 +48,7 @@ const ReLU6 = (props) => {
     }).catch(err=>console.log(err));
     // node update하기 ********************
 
-
+props.setState("");
     save();
   };
 
