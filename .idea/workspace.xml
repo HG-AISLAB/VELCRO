@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c37fedf2-fb03-49ed-9cc9-f68edf231ff8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/visualization/frontend/src/resnet50.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/TANGO.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/TANGO.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/layer/Bottleneck.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/layer/Bottleneck.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/page/Layer.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/page/Layer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/visualization/frontend/src/initialArch.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/initialArch.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visualization/main/graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/main/graph.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/visualization/viz2code/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/viz2code/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -81,6 +77,7 @@
       <workItem from="1686204676197" duration="14316000" />
       <workItem from="1686232003926" duration="1183000" />
       <workItem from="1686239887790" duration="6152000" />
+      <workItem from="1686467450218" duration="5120000" />
     </task>
     <servers />
   </component>
@@ -97,5 +94,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

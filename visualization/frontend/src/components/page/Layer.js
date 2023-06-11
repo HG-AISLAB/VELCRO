@@ -33,7 +33,7 @@ import ReactFlow, {
   MiniMap,
   ReactFlowProvider,
   removeElements,
-    Controls,ControlButton,Panel
+    Controls,ControlButton
 } from "react-flow-renderer";
 import GenerateButton from "../GenerateButton";
 import Tab from "../sidebar/Tab";
@@ -97,7 +97,7 @@ const onSortNodes = (sortList) => {
   let sort_y_pos = 100 + sortCount;
 
    let isBlock = undefined;
-    if(sortedElements[sortList[0]].sort !== "0"){
+  if(sortedElements[sortList[0]].sort !== "0"){
       isBlock = true;
   }else{
       isBlock = false;
@@ -111,33 +111,25 @@ const onSortNodes = (sortList) => {
         if(i === 0){
           sort_x_pos = 100 + sortCount;
           sort_y_pos = 100 + sortCount;
-        }
-        else if(isBlock){
+        } else if(isBlock){
           if ((sort_y_pos + 330) <= 639){
             sort_y_pos += 330;
+            console.log('plus 330');
           }else{
             sort_x_pos += 200;
-            sort_y_pos = 100;
+            sort_y_pos = 100 + sortCount;
+            console.log('new line');
           }
         } else if (sort_y_pos < 589){
-            if(sortedElements[j].sort === "0"){
+            if(sortedElements[j].sort !== undefined){
                sort_y_pos += 70;
+               console.log('589 else');
             }
         } else{
           sort_x_pos += 200;
-          sort_y_pos = 100;
+          sort_y_pos = 100 + sortCount;
+          console.log('last else');
         }
-        // else if ((sort_y_pos < 589) || ((sort_y_pos + 330) <= 639)){
-        //   if(isBlock){
-        //     sort_y_pos += 330;
-        //   }
-        //   else if (i>=1){
-        //     sort_y_pos += 70;
-        //   }
-        // } else {
-        //   sort_x_pos += 200;
-        //   sort_y_pos = 100;
-        // }
 
         sortedElements[j].position = {
           x: sort_x_pos,
@@ -146,6 +138,7 @@ const onSortNodes = (sortList) => {
 
         console.log(sort_x_pos, sort_y_pos);
         console.log(sortedElements[j].position);
+        console.log(isBlock);
         console.log(sortedElements[j].sort);
 
         if ((sortedElements[j].sort !== "0") && (sortedElements[j].sort !== undefined)){
@@ -366,6 +359,7 @@ const onSortNodes = (sortList) => {
       // else{
         await setState(node.data.label);
         await setIdState(node.id);
+        console.log(node.position);
 
       // }
 

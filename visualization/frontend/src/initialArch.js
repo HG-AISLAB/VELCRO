@@ -1,5 +1,7 @@
 import axios from 'axios';
 import NodeColorProp from "./NodeColor";
+import BottleNeckimg from "./img/bottleneck.png";
+import BasicBlockimg from "./img/basicblock.png";
 
 export const initialArch = () => {
   var checkFirst = 0;
@@ -48,7 +50,7 @@ export const initialArch = () => {
   var edge_id = 1;
   var x_pos = 100;
   var y_pos = 100;
-
+  var isBlock = undefined;
 
   var initElements = [];
 
@@ -115,6 +117,33 @@ export const initialArch = () => {
     }
     else  if(nodeLabel === "MSELoss"){
         nodeColor = NodeColorProp.Loss;
+    }else if(nodeLabel === "BasicBlock"){
+      nodeColor = NodeColorProp.Residual;
+    }else if(nodeLabel === "Bottleneck"){
+      nodeColor = NodeColorProp.Residual;
+    }
+
+    if(i === 0){
+      x_pos = 100;
+      y_pos = 100;
+    } else if(isBlock){
+      if((y_pos + 330) <= 639){
+        y_pos += 330;
+      }else{
+        x_pos += 200;
+        y_pos = 100;
+      }
+    } else if(y_pos < 589){
+      y_pos += 70;
+    } else {
+      x_pos += 200;
+      y_pos = 100;
+    }
+
+    if((String(nodeLabel) === 'BasicBlock') || (String(nodeLabel) === 'Bottleneck')){
+      isBlock = true;
+    }else{
+      isBlock = false;
     }
 
     const newNode = {
@@ -137,8 +166,57 @@ export const initialArch = () => {
         label: `${nodeLabel}`,
         subparam: `${nodeParam}`
       }
+    };
 
-
+    const newResidualNode1 = {
+      // 노드 내부에 residual block 이미지 넣기 - bottleneck
+      id: String(nodeOrder),
+      type: "default",
+      position:{x: x_pos, y:y_pos},
+      sort: "2",
+      style: {
+        background: `${nodeColor}`,
+        fontSize: "20px",
+        width: "135px",
+        height: "280px",
+        boxShadow: "7px 7px 7px 0px rgba(0,0,0,.20)",
+        border: "0px",
+        borderRadius: "10px",
+        backgroundImage: `url(${BottleNeckimg})`, //사진 나오게
+        backgroundPosition: "center",
+        backgroundSize: "135px 280px",
+        backgroundRepeat: "no-repeat",
+        color: "rgba(0, 0, 0, 0)",
+      },
+      data: {
+        label: `${nodeLabel}`,
+        subparam: `${nodeParam}`
+      }
+    };
+    const newResidualNode2 = {
+      // 노드 내부에 residual block 이미지 넣기 - basic block
+      id: String(nodeOrder),
+      type: "default",
+      position:{x: x_pos, y:y_pos},
+      sort: "1",
+      style: {
+        background: `${nodeColor}`,
+        fontSize: "20px",
+        width: "135px",
+        height: "280px",
+        boxShadow: "7px 7px 7px 0px rgba(0,0,0,.20)",
+        border: "0px",
+        borderRadius: "10px",
+        backgroundImage: `url(${BasicBlockimg})`, //사진 나오게
+        backgroundPosition: "center",
+        backgroundSize: "135px 280px",
+        backgroundRepeat: "no-repeat",
+         color: "rgba(0, 0, 0, 0)",
+      },
+      data: {
+        label: `${nodeLabel}`,
+        subparam: `${nodeParam}`
+      }
     };
 
      //post the new node
@@ -149,15 +227,23 @@ export const initialArch = () => {
     }).then(function(response){
       console.log(response)
     });
-
-    initElements.push(newNode);
-    // node_id += 1;
-    if (i % 8 == 7) {
-      x_pos += 200;
-      y_pos = 100;
-    } else {
-      y_pos += 70;
+    if(String(nodeLabel) === 'Bottleneck'){
+      initElements.push(newResidualNode1);
+    } else if(String(nodeLabel) === 'BasicBlock'){
+      initElements.push(newResidualNode2);
+    } else{
+      initElements.push(newNode);
     }
+
+    // node_id += 1;
+    // if ((i % 8 === 7) || (y_pos  > 430)) {
+    //   x_pos += 200;
+    //   y_pos = 100;
+    // } else if((String(nodeLabel) === 'BasicBlock') || (String(nodeLabel) === 'Bottleneck')){
+    //   y_pos += 330;
+    // } else {
+    //   y_pos += 70;
+    // }
     node_id += 1;
   }
 
