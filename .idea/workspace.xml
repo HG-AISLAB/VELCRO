@@ -5,10 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c37fedf2-fb03-49ed-9cc9-f68edf231ff8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/visualization/frontend/src/resnet50.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/TANGO.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/TANGO.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/GenerateButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/GenerateButton.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/page/Layer.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/page/Layer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/layer/Bottleneck.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/layer/Bottleneck.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/initialArch.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/initialArch.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/main/graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/main/graph.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/viz2code/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/viz2code/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,15 +39,21 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/visualization/frontend/src" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\minyoung\PycharmProjects\2023_ETRI_all\visualization\frontend\src" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/visualization/frontend/src/img" />
     </key>
@@ -87,6 +97,5 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

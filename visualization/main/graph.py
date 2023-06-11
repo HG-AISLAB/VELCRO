@@ -313,7 +313,7 @@ class CNode:
                     'recompute_scale_factor': type(None),
                     'inplanes': int,
                     'planes': int,
-                    'downsample': type(None),
+                    'downsample': str,
                     'base_width': int,
                     'norm_layer': type(None)
                     }

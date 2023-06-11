@@ -42,7 +42,7 @@ export const initialArch = () => {
      });
     }
 
-  const jsonData = require('./VGG16.json');
+  const jsonData = require('./resnet50.json');
 
   var node_id = 1;
   var edge_id = 1;
@@ -138,10 +138,10 @@ export const initialArch = () => {
         subparam: `${nodeParam}`
       }
 
-      
+
     };
 
-    // post the new node
+     //post the new node
     axios.post("/api/node/",{
       order: String(nodeOrder),
       layer: nodeLabel,

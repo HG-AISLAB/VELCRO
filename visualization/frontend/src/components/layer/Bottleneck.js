@@ -37,7 +37,17 @@ const Bottleneck = (props) => {
                 break;
 
             case 3:  // 'stride': (1, 1) 이므로, 괄호 안에서 1과 1을 따로 분리해주어야함
+                //console.log(typeof(eachParam[1]))
+//                if (String(eachParam[1]) === 'None'){
                 text4_value = String(eachParam[1]);
+//                }
+//
+//                else{
+//                    text4_value = Number(eachParam[1]);
+//
+//
+//                }
+
                 break;
             case 4:  // 'stride': (1, 1) 이므로, 괄호 안에서 1과 1을 따로 분리해주어야함
                 text5_value = String(eachParam[1]);
@@ -72,7 +82,7 @@ const Bottleneck = (props) => {
   const bfsave=(event)=>{
 
     var send_message = "'inplanes': ".concat(text)
-        .concat(" \n 'plaens': ").concat(text2)
+        .concat(" \n 'planes': ").concat(text2)
         .concat(" \n 'stride': ").concat(text3)
         .concat(" \n 'downsample': ").concat(text4)
         .concat(" \n 'groups': ").concat(text5)
@@ -83,7 +93,7 @@ const Bottleneck = (props) => {
       // node update하기 ********************
       axios.put("/api/node/".concat(String(props.layer).concat('/')),{
           order: String(props.layer),
-          layer: "BasicBlock",
+          layer: "Bottleneck",
           parameters: send_message
       }).then(function(response){
           console.log(response)
