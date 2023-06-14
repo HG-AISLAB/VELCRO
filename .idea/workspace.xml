@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c37fedf2-fb03-49ed-9cc9-f68edf231ff8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/layer/BasicBlock.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/layer/BasicBlock.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/visualization/viz2code/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/viz2code/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -77,7 +78,7 @@
       <workItem from="1686239887790" duration="6152000" />
       <workItem from="1686467450218" duration="5554000" />
       <workItem from="1686474207181" duration="200000" />
-      <workItem from="1686753012021" duration="428000" />
+      <workItem from="1686753012021" duration="836000" />
     </task>
     <servers />
   </component>
