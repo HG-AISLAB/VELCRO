@@ -1,6 +1,6 @@
 ﻿{
   "node": [
-    {"order":1,"layer":"Conv2d","parameters":"'in_channels': 3 \n 'out_channels': 64 \n 'kernel_size': (7, 7) \n 'stride': (2, 2) \n 'padding': (3, 3)"},
+    {"order":1,"layer":"Conv2d","parameters":"'in_channels': 3 \n 'out_channels': 64 \n 'kernel_size': (7, 7) \n 'stride': (2, 2) \n 'padding': (3, 3) \n 'bias': False"},
     {"order":2,"layer":"BatchNorm2d","parameters":"'num_features': 64"},
     {"order":3,"layer":"ReLU","parameters":"'inplace': True"},
     {"order":4,"layer":"MaxPool2d","parameters":"'kernel_size': (3, 3) \n 'stride': (2, 2) \n 'padding': (1, 1) \n 'dilation': 1 \n 'return_indices': False \n  'ceil_mode': False"},

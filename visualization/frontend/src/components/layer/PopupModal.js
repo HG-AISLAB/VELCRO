@@ -18,6 +18,7 @@ const EditModal = (props) => {
   var text6_value = ''
   var text7_value = ''
   var text8_value = ''
+  var radio1_value = ''
 
   var parmArr = String(props.params).split(' \n ')  // 파라미터별로 각각 분리
 
@@ -49,9 +50,16 @@ const EditModal = (props) => {
                 var paddingArray = String(eachParam[1]).split(', ');
                 text7_value = String(paddingArray[0]).replace("(", "");
                 text8_value = String(paddingArray[1]).replace(")", "");
+                break;
+            case 5:
+                var paddingArray = String(eachParam[1]).split(', ');
+                radio1_value = String(eachParam[1]);
         }
     }
-
+    const handleClickRadioButton1 = (e) => {
+    console.log(e.target.value)
+    setRadio1(e.target.value)
+  }
   const [text, setText] = React.useState(text_value);
   const [text2, setText2] = React.useState(text2_value);
   const [text3, setText3] = React.useState(text3_value);
@@ -60,7 +68,7 @@ const EditModal = (props) => {
   const [text6, setText6] = React.useState(text6_value);
   const [text7, setText7] = React.useState(text7_value);
   const [text8, setText8] = React.useState(text8_value);
-
+  const [radio1, setRadio1] = React.useState(radio1_value);
 
   // 수정된 부분
   const { open, save, close, header } = props;
@@ -71,7 +79,8 @@ const EditModal = (props) => {
         .concat(" \n 'out_channels': ").concat(text2)
         .concat(" \n 'kernel_size': (").concat(text3).concat(', ').concat(text4)
         .concat(") \n 'stride': (").concat(text5).concat(', ').concat(text6)
-        .concat(") \n 'padding': (").concat(text7).concat(', ').concat(text8).concat(')')
+        .concat(") \n 'padding': (").concat(text7).concat(', ').concat(text8)
+        .concat(") \n 'bias': ").concat(radio1)
 
     console.log(send_message);
     // node update하기 ********************
@@ -166,6 +175,11 @@ const EditModal = (props) => {
                       <EditText name="padding2" type="number" style={{width: '40px'}} value={text8}
                 onChange={setText8} inline/>
                   </li>
+                  <li>
+                      <label htmlFor="text">bias:</label>
+                      <label> <input type="radio" name="radio1" value="True" onChange={handleClickRadioButton1} checked={radio1.includes("T")===true ? true : false}/>True </label>
+                      <label> <input type="radio" name="radio1" value="False" onChange={handleClickRadioButton1} checked={radio1.includes("F")===true ? true : false}/>False </label>
+                  </li>
               </div>
 
 
@@ -182,6 +196,7 @@ const EditModal = (props) => {
               setText6('1')
               setText7('1')
               setText8('1')
+              //setRadio1('True')
               }} >
               default
             </button>

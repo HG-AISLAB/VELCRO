@@ -41,7 +41,7 @@ const layerToggle = () => {
               <li>
                   <div
                     className="dndnode"
-                    onDragStart={(event) => onDragStart(event, "Conv2d", `${NodeColorProp.Conv}`,"'in_channels': 3 \n 'out_channels': 64 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)")}
+                    onDragStart={(event) => onDragStart(event, "Conv2d", `${NodeColorProp.Conv}`,"'in_channels': 3 \n 'out_channels': 64 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1) \n 'bias': True")}
                     draggable
                   >
                       Conv2d
