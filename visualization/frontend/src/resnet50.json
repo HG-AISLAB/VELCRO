@@ -21,7 +21,8 @@
     {"order":19,"layer":"Bottleneck","parameters":"'inplanes': 2048 \n 'planes': 512 \n 'stride': 1 \n 'downsample': False \n 'groups': 1 \n 'base_width': 64 \n 'dilation': 1 \n 'norm_layer': None"},
     {"order":20,"layer":"Bottleneck","parameters":"'inplanes': 2048 \n 'planes': 512 \n 'stride': 1 \n 'downsample': False \n 'groups': 1 \n 'base_width': 64 \n 'dilation': 1 \n 'norm_layer': None"},
     {"order":21,"layer":"AdaptiveAvgPool2d","parameters":"'output_size': (1, 1)"},
-    {"order":22,"layer":"Linear","parameters":"'in_features': 2048 \n 'out_features': 1000 \n 'bias': True"}
+    {"order":22,"layer":"Flatten","parameters":"'start_dim': 1 \n 'end_dim': -1"},
+    {"order":23,"layer":"Linear","parameters":"'in_features': 2048 \n 'out_features': 1000 \n 'bias': True"}
   ],
   "edge": [
     {"id":1,"prior":1,"next":2},
