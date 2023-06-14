@@ -63,12 +63,12 @@ class CDefaults:
                          'recompute_scale_factor': None},
 
             'Bottleneck': {'inplanes': 1, 'planes': 1,
-                           'stride': (1, 1), 'downsample':None,
+                           'stride': (1, 1), 'downsample':False,
                            'groups': 1, 'base_width': 64,
                            'dilation': 1, 'norm_layer': None},
 
             'BasicBlock': {'inplanes': 1, 'planes': 1,
-                           'stride': (1, 1), 'downsample':None,
+                           'stride': (1, 1), 'downsample':False,
                            'groups': 1, 'base_width': 64,
                            'dilation': 1, 'norm_layer': None},
         }

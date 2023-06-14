@@ -53,7 +53,7 @@ class CNode:
                     'align_corners': type(None),
                     'recompute_scale_factor': type(None),
                     'inplanes': int, 'planes': int,
-                    'downsample': type(None), 'base_width': int,
+                    'downsample': bool, 'base_width': int,
                     'norm_layer': type(None)
                     }
 

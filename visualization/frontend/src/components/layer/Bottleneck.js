@@ -10,7 +10,7 @@ const Bottleneck = (props) => {
   var text_value = ''  // 변수 선언
   var text2_value = ''
   var text3_value = ''
-  var text4_value = ''
+  var radio1_value = ''
   var text5_value = ''
   var text6_value = ''
   var text7_value = ''
@@ -39,7 +39,7 @@ const Bottleneck = (props) => {
             case 3:  // 'stride': (1, 1) 이므로, 괄호 안에서 1과 1을 따로 분리해주어야함
                 //console.log(typeof(eachParam[1]))
 //                if (String(eachParam[1]) === 'None'){
-                text4_value = String(eachParam[1]);
+                radio1_value = String(eachParam[1]);
 //                }
 //
 //                else{
@@ -65,11 +65,15 @@ const Bottleneck = (props) => {
 
         }
     }
-
+  //라디오 버튼 값 조회
+  const handleClickRadioButton1 = (e) => {
+    console.log(e.target.value)
+    setRadio1(e.target.value)
+  }
   const [text, setText] = React.useState(text_value);
   const [text2, setText2] = React.useState(text2_value);
   const [text3, setText3] = React.useState(text3_value);
-  const [text4, setText4] = React.useState(text4_value);
+  const [radio1, setRadio1] = React.useState(radio1_value);
   const [text5, setText5] = React.useState(text5_value);
   const [text6, setText6] = React.useState(text6_value);
   const [text7, setText7] = React.useState(text7_value);
@@ -84,7 +88,7 @@ const Bottleneck = (props) => {
     var send_message = "'inplanes': ".concat(text)
         .concat(" \n 'planes': ").concat(text2)
         .concat(" \n 'stride': ").concat(text3)
-        .concat(" \n 'downsample': ").concat(text4)
+        .concat(" \n 'downsample': ").concat(radio1)
         .concat(" \n 'groups': ").concat(text5)
         .concat(" \n 'base_width': ").concat(text6)
         .concat(" \n 'dilation': ").concat(text7)
@@ -159,14 +163,8 @@ props.setState("");
                 </li>
                 <li>
                   <label htmlFor="text">downsample:</label>
-                <EditText
-                  name="downsample"
-                  type="text"
-                  style={{ width: "40px" }}
-                  value={text4}
-                  onChange={setText4}
-                  inline
-                />
+                  <label> <input type="radio" name="radio1" value="True" onChange={handleClickRadioButton1} checked={radio1.includes("T")===true ? true : false}/>True </label>
+                  <label> <input type="radio" name="radio1" value="False" onChange={handleClickRadioButton1} checked={radio1.includes("F")===true ? true : false}/>False </label>
                 </li>
                 <li>
                   <label htmlFor="text">groups:</label>
@@ -220,6 +218,7 @@ props.setState("");
               className="close"
               onClick={() => {
                 setText("1");
+                //setRadio1('False');
               }}
             >
               default

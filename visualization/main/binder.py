@@ -210,7 +210,21 @@ class CPyBinder:
                 planes = 1
 
             if m__.get('downsample'):
-                downsample = m__.get('downsample')
+                print(m__.get('downsample'), type(m__.get('downsample')))
+                if m__.get('downsample') == 'False':
+                    downsample = None
+                elif m__.get('downsample') == 'True' and name == 'BasicBlock':
+                    downsample = nn.Sequential(
+                        nn.Conv2d(m__.get('inplanes'), m__.get('planes')*1, stride=m__.get('stride'), kernel_size=1, bias=False),
+                        nn.BatchNorm2d(m__.get('planes')*1),
+                    )
+                    print('123')
+                elif m__.get('downsample') == 'True' and name == 'Bottleneck':
+                    downsample = nn.Sequential(
+                        nn.Conv2d(m__.get('inplanes'), m__.get('planes')*4, stride=m__.get('stride'), kernel_size=1, bias=False),
+                        nn.BatchNorm2d(m__.get('planes')*4),
+                    )
+                    print('123')
             else:
                 downsample = None
 
