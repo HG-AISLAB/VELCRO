@@ -75,7 +75,7 @@ const BasicBlock = (props) => {
   const bfsave=(event)=>{
 
     var send_message = "'inplanes': ".concat(text)
-        .concat(" \n 'plaens': ").concat(text2)
+        .concat(" \n 'planes': ").concat(text2)
         .concat(" \n 'stride': ").concat(text3)
         .concat(") \n 'downsample': ").concat(radio1)
         .concat(") \n 'groups': ").concat(text5)
