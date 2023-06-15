@@ -92,7 +92,7 @@ def pthlist(request):
         if nodes and edges:
             created_model = make_branches(nodes, edges)
             file_path = (os.getcwd() + '/model_' +
-                         random_char(8) + '.pth').replace("\\", '/')
+                         random_char(8) + '.pt').replace("\\", '/')
 
             torch.save(created_model, file_path)
             serializer = PthSerializer(data={'model_output': file_path})
