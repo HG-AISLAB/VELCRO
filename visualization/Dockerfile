@@ -19,13 +19,13 @@ RUN pip install torch torchvision torchaudio --extra-index-url https://download.
 COPY . .
 RUN pwd
 RUN ls
+WORKDIR ./frontend
 RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y nodejs \
     npm                       # note this one
 RUN apt-get install -y postgresql postgresql-contrib
 RUN npm install pnpm -g
 RUN npm install
-WORKDIR ./frontend
 RUN npm install react-router-dom@6.3.0
 RUN npm run build
 WORKDIR ../
