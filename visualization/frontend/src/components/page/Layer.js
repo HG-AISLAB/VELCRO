@@ -42,6 +42,7 @@ import NetworkInformation  from "../sidebar/NetworkInformation";
 import arange_icon from "../../img/swap.png";
 import BasicBlockimg from "../../img/basicblock.png";
 import BottleNeckimg from "../../img/bottleneck.png";
+import AbstractNetwork from "../sidebar/AbstractNetwork";
 
 let id = 1;
 const getId = () => `${id}`;
@@ -764,8 +765,10 @@ const tabOnClick = (path) => {
   console.log(path)
   if (path == 'info icon') {
     setTabtoggle(2)
-  } else {
+  } else if (path == 'layer icon') {
     setTabtoggle(1)
+  } else if (path == 'abstract icon') {
+    setTabtoggle(3)
   }
 
 }
@@ -815,7 +818,7 @@ const tabOnClick = (path) => {
       <div className="FullPage">
         <div className="Sidebar">
           <Tab tabOnClick={tabOnClick}/>
-          {(tabToggle === 1)?<LayerToggle />:<NetworkInformation />}
+          {(tabToggle === 1)?<LayerToggle />:((tabToggle === 2)?<NetworkInformation />:<AbstractNetwork />)}
           {/*<LayerToggle/>*/}
           <div className="LayerInfo">
             <h3>Layer Information</h3>
@@ -823,7 +826,6 @@ const tabOnClick = (path) => {
               <C />
             </div>
          </div>
-
 
     <div className="dndflow" >
       <ReactFlowProvider>

@@ -15,7 +15,9 @@ class App extends React.Component {
                 <Routes>
                     <Route path="/" exact element={<Flow/>}/>
                     <Route path="/info" exact element={<Flow />}/>
+                    <Route path="/abstract" exact element={<Flow />}/>
                 </Routes>
+
             </Router>
         </div>
     );

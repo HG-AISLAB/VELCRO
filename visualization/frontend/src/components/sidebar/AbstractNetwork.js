@@ -8,7 +8,7 @@ const AbstractNetwork = () => {
   };
   return (
       <div className="AbstractNetwork">
-          <h2 className="AbstractText">Abstract Network</h2>
+          <h2 className="AbstractText">Abstract Architecture</h2>
 
           <aside>
               <div className="AutoGroup">
