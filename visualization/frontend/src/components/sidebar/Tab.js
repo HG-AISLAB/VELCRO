@@ -19,11 +19,11 @@ const Tab = ({tabOnClick}) => {
             image: info_icon,
             alt: "info icon"
         },
-        // {
-        //     path: "/abstract",
-        //     image: abstract_icon,
-        //     alt: "abstract_icon"
-        // },
+        {
+            path: "/abstract",
+            image: abstract_icon,
+            alt: "abstract icon"
+        },
         // {
         //     path: "/code",
         //     image: code_icon,
