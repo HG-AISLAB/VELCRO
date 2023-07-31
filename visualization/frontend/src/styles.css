@@ -503,3 +503,7 @@ margin-top: 58%;
     margin-left: 17.5%;
     margin-right: 2.5%;
 }
+
+.react-flow__node.selected{
+  outline: 5px solid #4E5057 !important;
+}

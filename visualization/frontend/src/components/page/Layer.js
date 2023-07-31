@@ -65,6 +65,7 @@ function LayerList() {
   const [state, setState] = useState("");
   const [idState, setIdState] = useState("");
   const [paramState, setParam] = useState();
+  const [colorState,setColorState] = useState();
 
   useEffect(()=>{
     const get_params = async () => {
@@ -84,8 +85,6 @@ function LayerList() {
 
 
 const onSortNodes = (sortList) => {
-
-
     console.log('back code');
 
     sortList = sortList.split(",");
@@ -103,7 +102,6 @@ const onSortNodes = (sortList) => {
   }else{
       isBlock = false;
     }
-
 
   for(var i = 0; i < sortList.length; i++) {
     for (var j = 0; j < sortedElements.length; j++) {
@@ -362,6 +360,8 @@ const onSortNodes = (sortList) => {
         await setIdState(node.id);
         console.log(node.position);
 
+        setColorState(node.borderColor);
+
       // }
 
   };
@@ -420,7 +420,6 @@ const onSortNodes = (sortList) => {
         width: 135,
         fontSize: "20px",
         fontFamily: "Helvetica",
-        // boxShadow: "5px 5px 5px 0px rgba(0,0,0,.10)",
         boxShadow: "7px 7px 7px 0px rgba(0, 0, 0, 0.2)",
         borderRadius: "10px",
         border: "none"
