@@ -503,3 +503,16 @@ margin-top: 58%;
     margin-left: 17.5%;
     margin-right: 2.5%;
 }
+
+.react-flow__node.selected{
+  outline: 5px solid #4E5057 !important;
+}
+
+.react-flow__node-default .react-flow__handle{
+    background: rgba(217, 217, 217, 1)!important;
+    border: 1px solid #4E5058;
+}
+.react-flow__edge-path {
+    stroke: #000000 !important;
+    stroke-width: 1 !important;
+}
