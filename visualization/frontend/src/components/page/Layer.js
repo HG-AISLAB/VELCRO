@@ -57,6 +57,7 @@ var running_id = 0;
 var sortCount = 1;
 var sortHeight = 0;
 let sortList = [];
+let clickedNodeList = [];
 function LayerList() {
   const reactFlowWrapper = useRef(null);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
@@ -65,7 +66,6 @@ function LayerList() {
   const [state, setState] = useState("");
   const [idState, setIdState] = useState("");
   const [paramState, setParam] = useState();
-  const [colorState,setColorState] = useState();
 
   useEffect(()=>{
     const get_params = async () => {
@@ -356,12 +356,27 @@ const onSortNodes = (sortList) => {
       //   console.log('get param one click');
       // }
       // else{
-        await setState(node.data.label);
-        await setIdState(node.id);
-        console.log(node.position);
+      //   await setState(node.data.label);
+      //   await setIdState(node.id);
+      //   console.log(node.position);
+      //
+      //   setColorState(node.borderColor);
 
-        setColorState(node.borderColor);
-
+     // const isCtrlKey = event.ctrlKey || event.metaKey;
+     //  if (isCtrlKey) {
+     //    node.selected = true
+     //    if (node.selected === true)
+     //      clickedNodeList.push(node.id)
+     //    console.log(clickedNodeList);
+     //  }
+     //  else {
+     //    node.selected = false;
+     //    clickedNodeList = []
+     //    // await setState(node.data.label);
+     //    // await setIdState(node.id);
+     //    // console.log(node.position);
+     //    console.log(clickedNodeList);
+     //  }
       // }
 
   };
