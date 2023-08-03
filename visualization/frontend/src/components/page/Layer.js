@@ -66,6 +66,7 @@ function LayerList() {
   const [state, setState] = useState("");
   const [idState, setIdState] = useState("");
   const [paramState, setParam] = useState();
+  const [isPaneClicked, setIsPaneClicked] = useState(false);
 
   useEffect(()=>{
     const get_params = async () => {
@@ -338,7 +339,9 @@ const onSortNodes = (sortList) => {
     event.preventDefault();
     event.dataTransfer.dropEffect = "move";
   };
-
+  const onPaneClick = () => {
+    clickedNodeList = [];
+  }
   const onNodeClick = async (event, node) => {
       // if(modalOpen === true) {
       //   const get_params = async () => {
@@ -362,22 +365,22 @@ const onSortNodes = (sortList) => {
       //
       //   setColorState(node.borderColor);
 
-     // const isCtrlKey = event.ctrlKey || event.metaKey;
-     //  if (isCtrlKey) {
-     //    node.selected = true
-     //    if (node.selected === true)
-     //      clickedNodeList.push(node.id)
-     //    console.log(clickedNodeList);
-     //  }
-     //  else {
-     //    node.selected = false;
-     //    clickedNodeList = []
-     //    // await setState(node.data.label);
-     //    // await setIdState(node.id);
-     //    // console.log(node.position);
-     //    console.log(clickedNodeList);
-     //  }
-      // }
+     const isCtrlKey = event.ctrlKey || event.metaKey;
+
+      if (isCtrlKey) {
+        node.selected = true
+        if (node.selected === true)
+          clickedNodeList.push(node.id)
+        console.log(clickedNodeList);
+      }
+      else {
+        node.selected = false;
+        clickedNodeList = []
+        // await setState(node.data.label);
+        // await setIdState(node.id);
+        // console.log(node.position);
+        console.log(clickedNodeList);
+      }
 
   };
 
@@ -859,7 +862,7 @@ const tabOnClick = (path) => {
             onEdgeDoubleClick={onDeleteEdge}
             onElementsRemove={onElementsRemove}
             onElementClick={onNodeClick}
-
+            onPaneClick={onPaneClick}
           >
             <Controls showZoom="" showInteractive="" showFitView="">
               {/*정렬된 노드 get 요청*/}
