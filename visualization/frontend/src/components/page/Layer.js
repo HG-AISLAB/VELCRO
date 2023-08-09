@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import "../../styles.css";
 
@@ -25,30 +25,31 @@ import Flatten from "../layer/Flatten";
 import Upsample from "../layer/Upsample";
 import BasicBlock from "../layer/BasicBlock";
 import Bottleneck from "../layer/Bottleneck";
-import axios from 'axios';
-import { initialArch } from '../../initialArch';
-import ReactFlow, {
+import axios from "axios";
 
+import ReactFlow, {
   addEdge,
   MiniMap,
   ReactFlowProvider,
   removeElements,
-    Controls,ControlButton
+  Controls,
+  ControlButton,
 } from "react-flow-renderer";
 import GenerateButton from "../GenerateButton";
 import Tab from "../sidebar/Tab";
 import LayerToggle from "../sidebar/LayerToggle";
-import NetworkInformation  from "../sidebar/NetworkInformation";
+import NetworkInformation from "../sidebar/NetworkInformation";
 import arange_icon from "../../img/swap.png";
 import BasicBlockimg from "../../img/basicblock.png";
 import BottleNeckimg from "../../img/bottleneck.png";
 import AbstractNetwork from "../sidebar/AbstractNetwork";
+import useInitialArch from "../../useInitialArch";
 
 let id = 1;
 const getId = () => `${id}`;
-let nowc= 0;
+let nowc = 0;
 const edgeTypes = {
-  custom: CustomEdge
+  custom: CustomEdge,
 };
 let nowp = "";
 var checkFirst = 0;
@@ -57,177 +58,188 @@ var running_id = 0;
 var sortCount = 1;
 var sortHeight = 0;
 let sortList = [];
-let clickedNodeList = [];
 function LayerList() {
   const reactFlowWrapper = useRef(null);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
-  const [elements, setElements] = useState([]);
+  // const [elements, setElements] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [state, setState] = useState("");
   const [idState, setIdState] = useState("");
   const [paramState, setParam] = useState();
-  const [isPaneClicked, setIsPaneClicked] = useState(false);
+  const [colorState, setColorState] = useState();
 
-  useEffect(()=>{
+  const [level, setLevel] = useState(1);
+  const [elements, setElements, isLoading] = useInitialArch(level);
+
+  useEffect(() => {
     const get_params = async () => {
       try {
-        await axios.get('/api/node/'.concat(String(idState)).concat('/')).then((response) => {
-           setParam(response.data.parameters);
-        });
+        await axios
+          .get(
+            "/api/node/"
+              .concat(String(idState))
+              .concat("/")
+          )
+          .then((response) => {
+            setParam(response.data.parameters);
+          });
       } catch (error) {
         console.error(error);
       }
     };
     get_params();
-  },[idState]);
+  }, [idState]);
 
-
-
-
-
-const onSortNodes = (sortList) => {
-    console.log('back code');
+  const onSortNodes = (sortList) => {
+    console.log("back code");
 
     sortList = sortList.split(",");
     console.log(sortList);
 
-  const sortedElements = elements.slice(); // elements 배열을 복사하여 새로운 배열을 생성합니다.
-  console.log(sortedElements);
-  console.log(' my code ');
-  let sort_x_pos = 100 + sortCount;
-  let sort_y_pos = 100 + sortCount;
+    const sortedElements = elements.slice(); // elements 배열을 복사하여 새로운 배열을 생성합니다.
+    console.log(sortedElements);
+    console.log(" my code ");
+    let sort_x_pos = 100 + sortCount;
+    let sort_y_pos = 100 + sortCount;
 
-   let isBlock = undefined;
-  if(sortedElements[sortList[0]].sort !== "0"){
+    let isBlock = undefined;
+    if (sortedElements[sortList[0]].sort !== "0") {
       isBlock = true;
-  }else{
+    } else {
       isBlock = false;
     }
 
-  for(var i = 0; i < sortList.length; i++) {
-    for (var j = 0; j < sortedElements.length; j++) {
-      if (Number(sortedElements[j].id) === Number(sortList[i])) {
-
-        if(i === 0){
-          sort_x_pos = 100 + sortCount;
-          sort_y_pos = 100 + sortCount;
-        } else if(isBlock){
-          if ((sort_y_pos + 330) <= 639){
-            sort_y_pos += 330;
-            console.log('plus 330');
-          }else{
+    for (var i = 0; i < sortList.length; i++) {
+      for (var j = 0; j < sortedElements.length; j++) {
+        if (Number(sortedElements[j].id) === Number(sortList[i])) {
+          if (i === 0) {
+            sort_x_pos = 100 + sortCount;
+            sort_y_pos = 100 + sortCount;
+          } else if (isBlock) {
+            if (sort_y_pos + 330 <= 639) {
+              sort_y_pos += 330;
+              console.log("plus 330");
+            } else {
+              sort_x_pos += 200;
+              sort_y_pos = 100 + sortCount;
+              console.log("new line");
+            }
+          } else if (sort_y_pos < 589) {
+            if (sortedElements[j].sort !== undefined) {
+              sort_y_pos += 70;
+              console.log("589 else");
+            }
+          } else {
             sort_x_pos += 200;
             sort_y_pos = 100 + sortCount;
-            console.log('new line');
+            console.log("last else");
           }
-        } else if (sort_y_pos < 589){
-            if(sortedElements[j].sort !== undefined){
-               sort_y_pos += 70;
-               console.log('589 else');
-            }
-        } else{
-          sort_x_pos += 200;
-          sort_y_pos = 100 + sortCount;
-          console.log('last else');
-        }
 
-        sortedElements[j].position = {
-          x: sort_x_pos,
-          y: sort_y_pos,
-        };
+          sortedElements[j].position = {
+            x: sort_x_pos,
+            y: sort_y_pos,
+          };
 
-        console.log(sort_x_pos, sort_y_pos);
-        console.log(sortedElements[j].position);
-        console.log(isBlock);
-        console.log(sortedElements[j].sort);
+          console.log(sort_x_pos, sort_y_pos);
+          console.log(sortedElements[j].position);
+          console.log(isBlock);
+          console.log(sortedElements[j].sort);
 
-        if ((sortedElements[j].sort !== "0") && (sortedElements[j].sort !== undefined)){
-          isBlock = true
-        } else{
-          isBlock = false;
+          if (
+            sortedElements[j].sort !== "0" &&
+            sortedElements[j].sort !== undefined
+          ) {
+            isBlock = true;
+          } else {
+            isBlock = false;
+          }
         }
       }
     }
-  }
-   setElements(sortedElements);
-  console.log(elements)
-  sortCount *= -1;
+    setElements(sortedElements);
+    console.log(elements);
+    sortCount *= -1;
   };
 
-
   // 정렬한 노드 list 받아오기
-  const sortActive=(event)=>{
-    console.log('생성버튼클릭');
-    axios.delete("/api/sort/1/")
-    .then(function(response){
-        console.log(response)
-        })
-        .catch(e => console.log(e))
-    console.log('delete done');
-    axios.post("/api/sort/")
-        .then(function(response){
-        console.log(response)
-        axios.get('/api/sort/1/')
-            .then(function(response2){
-            console.log('정렬된 list: ', response2.data.sorted_ids)
-              onSortNodes(response2.data.sorted_ids);
-
-            })
-        })
-        .catch(e => console.log(e))
-    console.log('post done');
+  const sortActive = (event) => {
+    console.log("생성버튼클릭");
+    axios
+      .delete("/api/sort/1/")
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch((e) => console.log(e));
+    console.log("delete done");
+    axios
+      .post("/api/sort/")
+      .then(function (response) {
+        console.log(response);
+        axios
+          .get("/api/sort/1/")
+          .then(function (response2) {
+            console.log("정렬된 list: ", response2.data.sorted_ids);
+            onSortNodes(response2.data.sorted_ids);
+          });
+      })
+      .catch((e) => console.log(e));
+    console.log("post done");
   };
 
   const onLoad = (rFInstance) => setReactFlowInstance(rFInstance);
 
-
-
-
-
   //
-  if(checkFirst == 0){
-      console.log('실행')
-      // axios.post("/api/running/",{     // status_report에 started 저장 (메인페이지 첫 실행시)
-      //       timestamp: Date.now(),
-      //       msg: 'started'
-      //     }).then(function(response){
-      //       console.log(response)
-      //     }).catch(err=>console.log(err));
-      //       // Initializate selected architecture
-    var initElement = initialArch();
-    for (var i=0;i<initElement.length;i++) {
-      elements.push(initElement[i]);
+  /*
+  if (checkFirst === 0) {
+    console.log("실행");
+    // axios.post("/api/running/",{     // status_report에 started 저장 (메인페이지 첫 실행시)
+    //       timestamp: Date.now(),
+    //       msg: 'started'
+    //     }).then(function(response){
+    //       console.log(response)
+    //     }).catch(err=>console.log(err));
+    //       // Initializate selected architecture
+    // var initElement = initialArch();
+
+    var initElement = nodeData;
+    let tmp = [];
+    for (var i = 0; i < initElement.length; i++) {
+      tmp.push(initElement[i]);
       // setElements((es) => es.concat(initElement[i]));
     }
-    checkFirst=1;
+    setElements([...tmp]);
+    checkFirst = 1;
   }
+  */
 
-  const notRunningState = setInterval(()=>{
-////    console.log("[post] 동작 중지");
-//    running_id += 1;
-    axios.post("/api/status_report/", {
-
-      timestamp: Date.now(),
-//      running: 0,
-    }).then(function(response){
+  const notRunningState = setInterval(() => {
+    ////    console.log("[post] 동작 중지");
+    //    running_id += 1;
+    axios
+      .post("/api/status_report/", {
+        timestamp: Date.now(),
+        //      running: 0,
+      })
+      .then(function (response) {
         //console.log(timestamp)
-        })
-        .catch(e => console.log(e));
-    }, initRunningStateTime * 1000)
+      })
+      .catch((e) => console.log(e));
+  }, initRunningStateTime * 1000);
 
- const onRunningState = (()=>{
-//    console.log("[post] 동작 중");
+  const onRunningState = () => {
+    //    console.log("[post] 동작 중");
 
-   running_id += 1;
-   axios.post("/api/running/", {
-     id : running_id,
-     running: 1,
-   }).then(function(response){
-     console.log(response)
-     })
-     .catch(e => console.log(e));
- })
-
+    running_id += 1;
+    axios
+      .post("/api/running/", {
+        id: running_id,
+        running: 1,
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch((e) => console.log(e));
+  };
 
   const onRunningStateClick = (e) => {
     e.preventDefault();
@@ -239,42 +251,42 @@ const onSortNodes = (sortList) => {
 
   const onConnect = async (params) => {
     setElements((els) => addEdge(params, els));
-      // edge create **********************
+    // edge create **********************
 
-      const get_edge = async () => {
-        try {
-          return await axios.get('/api/edge/');
-        } catch (error) {
-          console.error(error);
-        }
-      };
-      const cedge = await get_edge();
-      var maxId = 0;
-      for(var i=0; i<cedge.data.length; i++){
-       if(maxId<cedge.data[i].id){
-        maxId = cedge.data[i].id
-       }
+    const get_edge = async () => {
+      try {
+        return await axios.get("/api/edge/");
+      } catch (error) {
+        console.error(error);
       }
-      axios.post("/api/edge/",{
-        id: maxId+1,
+    };
+    const cedge = await get_edge();
+    var maxId = 0;
+    for (var i = 0; i < cedge.data.length; i++) {
+      if (maxId < cedge.data[i].id) {
+        maxId = cedge.data[i].id;
+      }
+    }
+    axios
+      .post("/api/edge/", {
+        id: maxId + 1,
         prior: params.source,
-        next: params.target
-      }).then(function(response){
-        console.log(response)
-      }).catch(err=>console.log(err));
+        next: params.target,
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch((err) => console.log(err));
   };
 
   const onDeleteEdge = (e) => {
     console.log(e.target);
-  }
-
-
+  };
 
   const onElementsRemove = (remove) => {
-    setElements((els)=>removeElements(remove, els));
+    setElements((els) => removeElements(remove, els));
     deleteModal(remove);
-  }
-
+  };
 
   const openModal = async () => {
     // const get_params = async () => {
@@ -289,9 +301,8 @@ const onSortNodes = (sortList) => {
     // await get_params();
     // console.log('get param double click')
     await setModalOpen(true);
-    console.log('open modal')
+    console.log("open modal");
   };
-
 
   const closeModal = () => {
     setModalOpen(false);
@@ -302,36 +313,52 @@ const onSortNodes = (sortList) => {
   };
 
   const deleteModal = (remove) => {
-    axios.get("/api/node/".concat(String(idState)).concat('/'))
-    .then(function(response){
-    console.log(response)});
-    console.log("remove", remove)
-    if(remove[0].data){
-        console.log('node')
-        axios.delete("/api/node/".concat(String(idState)).concat('/'));
-        axios.get("/api/edge/")
-        .then(function(response){
-        for(var i=0;i<response.data.length;i++){
-            if(String(response.data[i].prior) === String(idState)){
-                axios.delete("/api/edge/".concat(String(response.data[i].id)).concat('/'));
-            }
-            if(String(response.data[i].next) === String(idState)){
-                axios.delete("/api/edge/".concat(String(response.data[i].id)).concat('/'));
-            }
-        }
-        });
-    } else{
-    console.log('edge')
-    axios.get("/api/edge/")
-    .then(function(response){
-      for(var i=0;i<response.data.length;i++){
-        if(String(response.data[i].prior) === String(remove[0].source)){
-          if(String(response.data[i].next) === String(remove[0].target)){
-            axios.delete("/api/edge/".concat(String(response.data[i].id)).concat('/'));
+    axios
+      .get(
+        "/api/node/".concat(String(idState)).concat("/")
+      )
+      .then(function (response) {
+        console.log(response);
+      });
+    console.log("remove", remove);
+    if (remove[0].data) {
+      console.log("node");
+      axios.delete(
+        "/api/node/".concat(String(idState)).concat("/")
+      );
+      axios.get("/api/edge/").then(function (response) {
+        for (var i = 0; i < response.data.length; i++) {
+          if (String(response.data[i].prior) === String(idState)) {
+            axios.delete(
+              "/api/edge/"
+                .concat(String(response.data[i].id))
+                .concat("/")
+            );
+          }
+          if (String(response.data[i].next) === String(idState)) {
+            axios.delete(
+              "/api/edge/"
+                .concat(String(response.data[i].id))
+                .concat("/")
+            );
           }
         }
-      }
-  });
+      });
+    } else {
+      console.log("edge");
+      axios.get("/api/edge/").then(function (response) {
+        for (var i = 0; i < response.data.length; i++) {
+          if (String(response.data[i].prior) === String(remove[0].source)) {
+            if (String(response.data[i].next) === String(remove[0].target)) {
+              axios.delete(
+                "/api/edge/"
+                  .concat(String(response.data[i].id))
+                  .concat("/")
+              );
+            }
+          }
+        }
+      });
     }
   };
 
@@ -339,64 +366,47 @@ const onSortNodes = (sortList) => {
     event.preventDefault();
     event.dataTransfer.dropEffect = "move";
   };
-  const onPaneClick = () => {
-    clickedNodeList = [];
-  }
+
   const onNodeClick = async (event, node) => {
-      // if(modalOpen === true) {
-      //   const get_params = async () => {
-      //     try {
-      //       await axios.get('/api/node/'.concat(String(idState)).concat('/')).then((response) => {
-      //         setParam(response.data.parameters);
-      //       });
-      //     } catch (error) {
-      //       console.error(error);
-      //     }
-      //   };
-      //   await setState(node.data.label);
-      //   await setIdState(node.id);
-      //   await get_params();
-      //   console.log('get param one click');
-      // }
-      // else{
-      //   await setState(node.data.label);
-      //   await setIdState(node.id);
-      //   console.log(node.position);
-      //
-      //   setColorState(node.borderColor);
+    console.log(node);
+    // if(modalOpen === true) {
+    //   const get_params = async () => {
+    //     try {
+    //       await axios.get('/api/node/'.concat(String(idState)).concat('/')).then((response) => {
+    //         setParam(response.data.parameters);
+    //       });
+    //     } catch (error) {
+    //       console.error(error);
+    //     }
+    //   };
+    //   await setState(node.data.label);
+    //   await setIdState(node.id);
+    //   await get_params();
+    //   console.log('get param one click');
+    // }
+    // else{
+    await setState(node.data.label);
+    await setIdState(node.id);
+    console.log(node.position);
 
-     const isCtrlKey = event.ctrlKey || event.metaKey;
+    setColorState(node.borderColor);
 
-      if (isCtrlKey) {
-        node.selected = true
-        if (node.selected === true)
-          clickedNodeList.push(node.id)
-        console.log(clickedNodeList);
-      }
-      else {
-        node.selected = false;
-        clickedNodeList = []
-        // await setState(node.data.label);
-        // await setIdState(node.id);
-        // console.log(node.position);
-        console.log(clickedNodeList);
-      }
-
+    // }
   };
 
   const onDrop = async (event) => {
     event.preventDefault();
     const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
     const name = event.dataTransfer.getData("application/reactflow");
-    const color = event.dataTransfer.getData('colorNode');
+    const color = event.dataTransfer.getData("colorNode");
     const subp = event.dataTransfer.getData("subparameters");
     const position = reactFlowInstance.project({
       x: event.clientX - reactFlowBounds.left - 72,
-      y: event.clientY - reactFlowBounds.top - 10
+      y: event.clientY - reactFlowBounds.top - 10,
     });
     const get_node = async () => {
       try {
-        return await axios.get('/api/node/');
+        return await axios.get("/api/node/");
       } catch (error) {
         console.error(error);
       }
@@ -404,29 +414,33 @@ const onSortNodes = (sortList) => {
 
     const cnode = await get_node();
 
+    console.log(`[onDrop]`);
+    console.log(cnode);
     // cnode의 order값이 가장 큰 값 탐색
     var maxOrder = 0;
     for (var i = 0; i < cnode.data.length; i++) {
       if (maxOrder < cnode.data[i].order) {
-        maxOrder = cnode.data[i].order
+        maxOrder = cnode.data[i].order;
       }
     }
 
     // 가장 큰 order+1로 id값 설정
     const nid = maxOrder + 1;
-    id = nid
+    id = nid;
 
     //node create **********************
     //const cnode = plusId()
-    axios.post("/api/node/", {
-      order: id,
-      layer: name,
-      parameters: subp
-    }).then(function (response) {
-      console.log(response)
-    }).catch(err => console.log(err));
+    axios
+      .post("/api/node/", {
+        order: id,
+        layer: name,
+        parameters: subp,
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch((err) => console.log(err));
     //node create **********************
-
 
     const newNode = {
       id: getId(),
@@ -440,12 +454,12 @@ const onSortNodes = (sortList) => {
         fontFamily: "Helvetica",
         boxShadow: "7px 7px 7px 0px rgba(0, 0, 0, 0.2)",
         borderRadius: "10px",
-        border: "none"
+        border: "none",
       },
       data: {
         label: `${name}`,
-        subparam: `${subp}`
-      }
+        subparam: `${subp}`,
+      },
     };
 
     const newResidualNode1 = {
@@ -470,8 +484,8 @@ const onSortNodes = (sortList) => {
       },
       data: {
         label: `${name}`,
-        subparam: `${subp}`
-      }
+        subparam: `${subp}`,
+      },
     };
     const newResidualNode2 = {
       // 노드 내부에 residual block 이미지 넣기 - basic block
@@ -491,24 +505,27 @@ const onSortNodes = (sortList) => {
         backgroundPosition: "center",
         backgroundSize: "135px 280px",
         backgroundRepeat: "no-repeat",
-         color: "rgba(0, 0, 0, 0)",
+        color: "rgba(0, 0, 0, 0)",
       },
       data: {
         label: `${name}`,
-        subparam: `${subp}`
-      }
+        subparam: `${subp}`,
+      },
     };
 
     if (name == "Bottleneck") {
+      console.log("bottleneck");
       setElements((nds) => nds.concat(newResidualNode1));
     } else if (name == "BasicBlock") {
+      console.log("basicBlock");
       setElements((nds) => nds.concat(newResidualNode2));
     } else {
+      console.log("else");
       setElements((nds) => nds.concat(newNode));
     }
   };
 
-  const   C = () => {
+  const C = () => {
     if (state === "Conv2d")
       return (
         <EditModal
@@ -524,7 +541,7 @@ const onSortNodes = (sortList) => {
     if (state === "MaxPool2d")
       return (
         <MaxPoolModal
-          params = {paramState}
+          params={paramState}
           layer={idState}
           open={modalOpen}
           save={saveModal}
@@ -536,7 +553,7 @@ const onSortNodes = (sortList) => {
     if (state === "AvgPool2d")
       return (
         <AvgPool2d
-          params = {paramState}
+          params={paramState}
           layer={idState}
           open={modalOpen}
           save={saveModal}
@@ -548,7 +565,7 @@ const onSortNodes = (sortList) => {
     if (state === "AdaptiveAvgPool2d")
       return (
         <AdaptiveAvgPool2d
-          params = {paramState}
+          params={paramState}
           layer={idState}
           open={modalOpen}
           save={saveModal}
@@ -557,10 +574,10 @@ const onSortNodes = (sortList) => {
           setState={setIdState}
         ></AdaptiveAvgPool2d>
       );
-     if (state === "Softmax")
+    if (state === "Softmax")
       return (
         <Softmax
-          params = {paramState}
+          params={paramState}
           layer={idState}
           open={modalOpen}
           save={saveModal}
@@ -572,7 +589,7 @@ const onSortNodes = (sortList) => {
     if (state === "ConstantPad2d")
       return (
         <ConstantPad2d
-          params = {paramState}
+          params={paramState}
           layer={idState}
           open={modalOpen}
           save={saveModal}
@@ -580,11 +597,11 @@ const onSortNodes = (sortList) => {
           header={state}
           setState={setIdState}
         ></ConstantPad2d>
-        );
+      );
     if (state === "BatchNorm2d")
       return (
         <BatchNorm2d
-          params = {paramState}
+          params={paramState}
           layer={idState}
           open={modalOpen}
           save={saveModal}
@@ -597,7 +614,7 @@ const onSortNodes = (sortList) => {
     if (state === "MSELoss")
       return (
         <MSELoss
-          params = {paramState}
+          params={paramState}
           layer={idState}
           open={modalOpen}
           save={saveModal}
@@ -609,7 +626,7 @@ const onSortNodes = (sortList) => {
     if (state === "Tanh")
       return (
         <Tanh
-          params = {paramState}
+          params={paramState}
           layer={idState}
           open={modalOpen}
           save={saveModal}
@@ -621,7 +638,7 @@ const onSortNodes = (sortList) => {
     if (state === "Sigmoid")
       return (
         <Sigmoid
-          params = {paramState}
+          params={paramState}
           layer={idState}
           open={modalOpen}
           save={saveModal}
@@ -633,7 +650,7 @@ const onSortNodes = (sortList) => {
     if (state === "CrossEntropyLoss")
       return (
         <CrossEntropyLoss
-          params = {paramState}
+          params={paramState}
           layer={idState}
           open={modalOpen}
           save={saveModal}
@@ -645,7 +662,7 @@ const onSortNodes = (sortList) => {
     if (state === "Linear")
       return (
         <Linear
-          params = {paramState}
+          params={paramState}
           layer={idState}
           open={modalOpen}
           save={saveModal}
@@ -657,7 +674,7 @@ const onSortNodes = (sortList) => {
     if (state === "Dropout")
       return (
         <Dropout
-          params = {paramState}
+          params={paramState}
           layer={idState}
           open={modalOpen}
           save={saveModal}
@@ -666,10 +683,10 @@ const onSortNodes = (sortList) => {
           setState={setIdState}
         ></Dropout>
       );
-      if (state === "ZeroPad2d")
+    if (state === "ZeroPad2d")
       return (
         <ZeroPad2d
-          params = {paramState}
+          params={paramState}
           layer={idState}
           open={modalOpen}
           save={saveModal}
@@ -678,10 +695,10 @@ const onSortNodes = (sortList) => {
           setState={setIdState}
         ></ZeroPad2d>
       );
-      if (state === "BCELoss")
+    if (state === "BCELoss")
       return (
         <BCELoss
-          params = {paramState}
+          params={paramState}
           layer={idState}
           open={modalOpen}
           save={saveModal}
@@ -690,10 +707,10 @@ const onSortNodes = (sortList) => {
           setState={setIdState}
         ></BCELoss>
       );
-      if (state === "LeakyReLU")
+    if (state === "LeakyReLU")
       return (
         <LeakyReLU
-          params = {paramState}
+          params={paramState}
           layer={idState}
           open={modalOpen}
           save={saveModal}
@@ -702,10 +719,10 @@ const onSortNodes = (sortList) => {
           setState={setIdState}
         ></LeakyReLU>
       );
-       if (state === "ReLU")
+    if (state === "ReLU")
       return (
         <ReLU
-          params = {paramState}
+          params={paramState}
           layer={idState}
           open={modalOpen}
           save={saveModal}
@@ -714,10 +731,10 @@ const onSortNodes = (sortList) => {
           setState={setIdState}
         ></ReLU>
       );
-      if (state === "ReLU6")
+    if (state === "ReLU6")
       return (
         <ReLU6
-          params = {paramState}
+          params={paramState}
           layer={idState}
           open={modalOpen}
           save={saveModal}
@@ -726,10 +743,10 @@ const onSortNodes = (sortList) => {
           setState={setIdState}
         ></ReLU6>
       );
-       if (state === "Flatten")
+    if (state === "Flatten")
       return (
         <Flatten
-          params = {paramState}
+          params={paramState}
           layer={idState}
           open={modalOpen}
           save={saveModal}
@@ -738,10 +755,10 @@ const onSortNodes = (sortList) => {
           setState={setIdState}
         ></Flatten>
       );
-       if (state === "BasicBlock")
+    if (state === "BasicBlock")
       return (
         <BasicBlock
-          params = {paramState}
+          params={paramState}
           layer={idState}
           open={modalOpen}
           save={saveModal}
@@ -750,10 +767,10 @@ const onSortNodes = (sortList) => {
           setState={setIdState}
         ></BasicBlock>
       );
-       if (state === "Bottleneck")
+    if (state === "Bottleneck")
       return (
         <Bottleneck
-          params = {paramState}
+          params={paramState}
           layer={idState}
           open={modalOpen}
           save={saveModal}
@@ -762,11 +779,10 @@ const onSortNodes = (sortList) => {
           setState={setIdState}
         ></Bottleneck>
       );
-
     else
       return (
         <Upsample
-          params = {paramState}
+          params={paramState}
           layer={idState}
           open={modalOpen}
           save={saveModal}
@@ -777,110 +793,116 @@ const onSortNodes = (sortList) => {
       );
   };
 
-  const [tabToggle, setTabtoggle] = useState(1)
-const tabOnClick = (path) => {
-  console.log(path)
-  if (path == 'info icon') {
-    setTabtoggle(2)
-  } else if (path == 'layer icon') {
-    setTabtoggle(1)
-  } else if (path == 'abstract icon') {
-    setTabtoggle(3)
+  const [tabToggle, setTabtoggle] = useState(1);
+  const tabOnClick = (path) => {
+    console.log(path);
+    if (path == "info icon") {
+      setTabtoggle(2);
+    } else if (path == "layer icon") {
+      setTabtoggle(1);
+    } else if (path == "abstract icon") {
+      setTabtoggle(3);
+    }
+  };
+
+  // const onSortNodes = () => {
+  //     console.log('back code');
+  //     sortActive();
+  //     console.log(sortList);
+  //   console.log(' my code ');
+  //   const sortList = [1, 2, 288, 4, 5, 6, 7, 8, 9]; // 정렬된 노드 ID 리스트
+  //   const sortedElements = elements.slice(); // elements 배열을 복사하여 새로운 배열을 생성합니다.
+  //   let sort_x_pos = 100 + sortCount;
+  //   let sort_y_pos = 100 + sortCount;
+  //
+  //
+  //   for(var i = 0; i < sortList.length; i++) {
+  //     for (var j = 0; j < sortedElements.length; j++) {
+  //       if (sortedElements[j].id === sortList[i]) {
+  //         console.log('arrange');
+  //         console.log(sortList[i]);
+  //         // node = sortedElements[j];
+  //
+  //         if ((i % 8 === 0) && (i >= 8)){
+  //           sort_x_pos += 200;
+  //           sort_y_pos = 100;
+  //         } else if (i>=1) {
+  //           sort_y_pos += 70;
+  //         };
+  //
+  //         sortedElements[j].position = {
+  //           x: sort_x_pos,
+  //           y: sort_y_pos,
+  //         };
+  //
+  //         console.log(sort_x_pos, sort_y_pos);
+  //         console.log(sortedElements[j].position)
+  //       }
+  //     }
+  //   }
+  //    setElements(sortedElements);
+  //   console.log(elements)
+  //   sortCount *= -1;
+  //   };
+
+  if (isLoading) {
+    return <div>로딩중...</div>;
   }
 
-}
-
-// const onSortNodes = () => {
-//     console.log('back code');
-//     sortActive();
-//     console.log(sortList);
-//   console.log(' my code ');
-//   const sortList = [1, 2, 288, 4, 5, 6, 7, 8, 9]; // 정렬된 노드 ID 리스트
-//   const sortedElements = elements.slice(); // elements 배열을 복사하여 새로운 배열을 생성합니다.
-//   let sort_x_pos = 100 + sortCount;
-//   let sort_y_pos = 100 + sortCount;
-//
-//
-//   for(var i = 0; i < sortList.length; i++) {
-//     for (var j = 0; j < sortedElements.length; j++) {
-//       if (sortedElements[j].id === sortList[i]) {
-//         console.log('arrange');
-//         console.log(sortList[i]);
-//         // node = sortedElements[j];
-//
-//         if ((i % 8 === 0) && (i >= 8)){
-//           sort_x_pos += 200;
-//           sort_y_pos = 100;
-//         } else if (i>=1) {
-//           sort_y_pos += 70;
-//         };
-//
-//         sortedElements[j].position = {
-//           x: sort_x_pos,
-//           y: sort_y_pos,
-//         };
-//
-//         console.log(sort_x_pos, sort_y_pos);
-//         console.log(sortedElements[j].position)
-//       }
-//     }
-//   }
-//    setElements(sortedElements);
-//   console.log(elements)
-//   sortCount *= -1;
-//   };
-
-
   return (
-      <div className="FullPage">
-        <div className="Sidebar">
-          <Tab tabOnClick={tabOnClick}/>
-          {(tabToggle === 1)?<LayerToggle />:((tabToggle === 2)?<NetworkInformation />:<AbstractNetwork />)}
-          {/*<LayerToggle/>*/}
-          <div className="LayerInfo">
-            <h3>Layer Information</h3>
-            {/*<div className="Modal">*/}
-              <C />
-            </div>
-         </div>
-
-    <div className="dndflow" >
-      <ReactFlowProvider>
-        <div className="reactflow-wrapper" ref={reactFlowWrapper}>
-          <ReactFlow
-//            onClick={onRunningStateClick}
-            initElement={initialArch}
-            onConnect={onConnect}
-            elements={elements}
-            onLoad={onLoad}
-            onDrop={onDrop}
-            onDragOver={onDragOver}
-            snapToGrid={true}
-            edgeTypes={edgeTypes}
-            key="edges"
-            onNodeDoubleClick={openModal}
-            onEdgeDoubleClick={onDeleteEdge}
-            onElementsRemove={onElementsRemove}
-            onElementClick={onNodeClick}
-            onPaneClick={onPaneClick}
-          >
-            <Controls showZoom="" showInteractive="" showFitView="">
-              {/*정렬된 노드 get 요청*/}
-              <ControlButton onClick={sortActive} title="action">
-                <img src={arange_icon}/>
-              </ControlButton>
-            </Controls>
-          <div className="reactBtn" style={{position:'absolute' ,zIndex:100}}>
-
-            <GenerateButton  elements={elements}  />
-            </div>
-
-          </ReactFlow>
+    <div className="FullPage">
+      <div className="Sidebar">
+        <Tab tabOnClick={tabOnClick} />
+        {tabToggle === 1 ? (
+          <LayerToggle />
+        ) : tabToggle === 2 ? (
+          <NetworkInformation />
+        ) : (
+          <AbstractNetwork onClickLevel={setLevel} />
+        )}
+        {/*<LayerToggle/>*/}
+        <div className="LayerInfo">
+          <h3>Layer Information</h3>
+          {/*<div className="Modal">*/}
+          <C />
         </div>
-        </ReactFlowProvider>
-
-    </div>
       </div>
+
+      <div className="dndflow">
+        <ReactFlowProvider>
+          <div className="reactflow-wrapper" ref={reactFlowWrapper}>
+            <ReactFlow
+              //            onClick={onRunningStateClick}
+              onConnect={onConnect}
+              elements={elements}
+              onLoad={onLoad}
+              onDrop={onDrop}
+              onDragOver={onDragOver}
+              snapToGrid={true}
+              edgeTypes={edgeTypes}
+              key="edges"
+              onNodeDoubleClick={openModal}
+              onEdgeDoubleClick={onDeleteEdge}
+              onElementsRemove={onElementsRemove}
+              onElementClick={onNodeClick}
+            >
+              <Controls showZoom="" showInteractive="" showFitView="">
+                {/*정렬된 노드 get 요청*/}
+                <ControlButton onClick={sortActive} title="action">
+                  <img src={arange_icon} />
+                </ControlButton>
+              </Controls>
+              <div
+                className="reactBtn"
+                style={{ position: "absolute", zIndex: 100 }}
+              >
+                <GenerateButton elements={elements} />
+              </div>
+            </ReactFlow>
+          </div>
+        </ReactFlowProvider>
+      </div>
+    </div>
   );
 }
 
