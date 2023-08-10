@@ -29,7 +29,7 @@ export default App;
 
 
 
-// const jsonData= require('./VGG16.json');
+// const jsonData= require('./VGG16_level1.json');
 // console.log(jsonData.node[0].layer)
 
 
