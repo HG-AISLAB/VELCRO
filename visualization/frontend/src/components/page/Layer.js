@@ -438,6 +438,7 @@ const onPaneClick = () => {
     for (var i = 0; i < cnode.data.length; i++) {
       if (maxOrder < cnode.data[i].order) {
         maxOrder = cnode.data[i].order;
+        console.log(cnode.data);
       }
     }
 
