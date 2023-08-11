@@ -1,10 +1,31 @@
 import React from "react";
+import {clickedNodeList} from "../page/Layer"
+import axios from 'axios';
 const AbstractNetwork = ({ onClickLevel }) => {
   const onDragStart = (event, nodeName, nodeColor, subpm) => {
     event.dataTransfer.setData("application/reactflow", nodeName);
     event.dataTransfer.setData("subparameters", subpm);
     event.dataTransfer.setData("colorNode", nodeColor);
     event.dataTransfer.effectAllowed = "move";
+  };
+
+  // var Gid = 0;
+    const onClickAbstract = () => {
+      // console.log(clickedNodeList);
+      //
+      // axios.post("/api/group/", {
+      //   group_id: ++Gid,
+      //   layer_type: clickedNodeList
+      // }).then(function (response) {
+      // console.log(response);
+      // }).catch(err => console.log(err))
+      //
+      // axios.post("/api/sort_group/").then(function(response2){
+      //   console.log(response2);
+      // }).catch(err => console.log(err))
+
+      
+
   };
   return (
     <div className="AbstractNetwork">
@@ -37,7 +58,7 @@ const AbstractNetwork = ({ onClickLevel }) => {
         </div>
         <div className="CustomGroup">
           <div className="GroupText"> Custom Group </div>
-          <button type="button" className="AbstractBtn">
+          <button type="button" onClick={onClickAbstract} className="AbstractBtn">
             Group
           </button>
           <button type="button" className="AbstractBtn">
