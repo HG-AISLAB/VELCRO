@@ -18,35 +18,30 @@ const AbstractNetwork = ({ onClickLevel }) => {
             className="AbstractBtn"
             onClick={() => onClickLevel(1)}
           >
-            {" "}
-            Level 1{" "}
+            Level 1
           </button>
           <button
             type="button"
             className="AbstractBtn"
             onClick={() => onClickLevel(2)}
           >
-            {" "}
-            Level 2{" "}
+            Level 2
           </button>
           <button
             type="button"
             className="AbstractBtn"
             onClick={() => onClickLevel(3)}
           >
-            {" "}
-            Level 3{" "}
+            Level 3
           </button>
         </div>
         <div className="CustomGroup">
           <div className="GroupText"> Custom Group </div>
           <button type="button" className="AbstractBtn">
-            {" "}
-            Group{" "}
+            Group
           </button>
           <button type="button" className="AbstractBtn">
-            {" "}
-            Ungroup{" "}
+            Ungroup
           </button>
         </div>
         <div className="GroupInformation">

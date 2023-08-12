@@ -67,7 +67,6 @@ function LayerList() {
   const [state, setState] = useState("");
   const [idState, setIdState] = useState("");
   const [paramState, setParam] = useState();
-  const [colorState, setColorState] = useState();
 
   const [level, setLevel] = useState(1);
   const [elements, setElements, isLoading] = useInitialArch(level);
