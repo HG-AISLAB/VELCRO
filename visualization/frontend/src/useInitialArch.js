@@ -52,6 +52,21 @@ function useInitialArch(level) {
             });
         }
 
+         // group 삭제하기
+      for (var j=0; j<20; j++){
+
+      axios.delete('/api/group/'.concat(j).concat('/'))
+       .then(function (response) {
+         // handle success
+       })
+       .catch(function (error) {
+         // handle error
+       })
+       .then(function () {
+         // always executed
+       });
+      }
+
         const jsonData = require(`./VGG16_level${level}.json`);
 
         var node_id = 1;
@@ -66,6 +81,7 @@ function useInitialArch(level) {
           let nodeOrder = jsonData.node[i].order;
           let nodeLabel = jsonData.node[i].layer;
           let nodeParam = jsonData.node[i].parameters;
+          let nodeGroupId = jsonData.node[i].group_id;
           let nodeColor;
           if (nodeLabel === "Conv2d") {
             nodeColor = NodeColorProp.Conv;

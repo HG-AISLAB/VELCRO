@@ -59,7 +59,6 @@ var sortCount = 1;
 var sortHeight = 0;
 let sortList = [];
 let clickedNodeList = [];
-
 function LayerList() {
   const reactFlowWrapper = useRef(null);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
@@ -68,6 +67,7 @@ function LayerList() {
   const [state, setState] = useState("");
   const [idState, setIdState] = useState("");
   const [paramState, setParam] = useState();
+
   const [level, setLevel] = useState(1);
   const [elements, setElements, isLoading] = useInitialArch(level);
 
@@ -366,38 +366,39 @@ function LayerList() {
     event.preventDefault();
     event.dataTransfer.dropEffect = "move";
   };
-const onPaneClick = () => {
+  const onPaneClick = (event) => {
     clickedNodeList = [];
   }
   const onNodeClick = async (event, node) => {
-      // if(modalOpen === true) {
-      //   const get_params = async () => {
-      //     try {
-      //       await axios.get('/api/node/'.concat(String(idState)).concat('/')).then((response) => {
-      //         setParam(response.data.parameters);
-      //       });
-      //     } catch (error) {
-      //       console.error(error);
-      //     }
-      //   };
-      //   await setState(node.data.label);
-      //   await setIdState(node.id);
-      //   await get_params();
-      //   console.log('get param one click');
-      // }
-      // else{
-      //   await setState(node.data.label);
-      //   await setIdState(node.id);
-      //   console.log(node.position);
-      //
-      //   setColorState(node.borderColor);
+    console.log(node);
+    // if(modalOpen === true) {
+    //   const get_params = async () => {
+    //     try {
+    //       await axios.get('/api/node/'.concat(String(idState)).concat('/')).then((response) => {
+    //         setParam(response.data.parameters);
+    //       });
+    //     } catch (error) {
+    //       console.error(error);
+    //     }
+    //   };
+    //   await setState(node.data.label);
+    //   await setIdState(node.id);
+    //   await get_params();
+    //   console.log('get param one click');
+    // }
+    // else{
+    await setState(node.data.label);
+    await setIdState(node.id);
+    // console.log(node.position);
+    //
+    // setColorState(node.borderColor);
 
      const isCtrlKey = event.ctrlKey || event.metaKey;
 
       if (isCtrlKey) {
         node.selected = true
-        if (node.selected === true && !clickedNodeList.includes(node.id))
-          clickedNodeList.push(node.id)
+        if (node.selected === true && !clickedNodeList.includes(node.data.label))
+          clickedNodeList.push(node.data.label)
         console.log(clickedNodeList);
       }
       else {
@@ -408,6 +409,7 @@ const onPaneClick = () => {
         // console.log(node.position);
         console.log(clickedNodeList);
       }
+    // }
   };
 
   const onDrop = async (event) => {
@@ -926,3 +928,5 @@ const onPaneClick = () => {
 export default function Layer() {
   return <LayerList />;
 }
+
+export {clickedNodeList}

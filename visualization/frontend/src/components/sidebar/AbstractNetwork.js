@@ -1,6 +1,7 @@
 import React from "react";
 import {clickedNodeList} from "../page/Layer"
 import axios from 'axios';
+
 const AbstractNetwork = ({ onClickLevel }) => {
   const onDragStart = (event, nodeName, nodeColor, subpm) => {
     event.dataTransfer.setData("application/reactflow", nodeName);
@@ -8,25 +9,23 @@ const AbstractNetwork = ({ onClickLevel }) => {
     event.dataTransfer.setData("colorNode", nodeColor);
     event.dataTransfer.effectAllowed = "move";
   };
+  var Gid = 0;
+  const onClickAbstract = () => {
+      console.log(clickedNodeList);
 
-  // var Gid = 0;
-    const onClickAbstract = () => {
-      // console.log(clickedNodeList);
-      //
-      // axios.post("/api/group/", {
-      //   group_id: ++Gid,
-      //   layer_type: clickedNodeList
-      // }).then(function (response) {
-      // console.log(response);
-      // }).catch(err => console.log(err))
-      //
-      // axios.post("/api/sort_group/").then(function(response2){
-      //   console.log(response2);
-      // }).catch(err => console.log(err))
+      axios.post("/api/group/", {
+        group_id: ++Gid,
+        layer_type: clickedNodeList
+      }).then(function (response) {
+      console.log(response);
+      }).catch(err => console.log(err))
 
-      
+      axios.post("/api/sort_group/").then(function(response2){
+        console.log(response2);
+      }).catch(err => console.log(err))
 
   };
+
   return (
     <div className="AbstractNetwork">
       <h2 className="AbstractText">Abstract Architecture</h2>
