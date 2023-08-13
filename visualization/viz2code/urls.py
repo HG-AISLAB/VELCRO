@@ -22,6 +22,7 @@ from main import views
 router = routers.DefaultRouter()
 router.register('node', views.NodeView, 'node')
 router.register('edge', views.EdgeView, 'edge')
+router.register('group', views.GroupView, 'group')
 router.register('architecture', views.ArchitectureView, 'architecture')
 router.register('running', views.RunningView, 'running')
 # router.register('pth',views.PthView,'pth')
@@ -32,6 +33,7 @@ urlpatterns = [
     path('api/pth/', views.pthlist),
     path('api/sort/', views.sortlist),
     path('api/sort/<int:pk>/', views.sortlist_detail),
+    path('api/sort_group/', views.sort_group_list),
     path('start', views.startList),
     path('stop', views.stopList),
     path('status_report', views.statusList),

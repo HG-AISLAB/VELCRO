@@ -19,6 +19,7 @@ from django.http import HttpResponse
 from .serializers import NodeSerializer
 from .serializers import PthSerializer
 from .serializers import EdgeSerializer
+from .serializers import GroupSerializer
 from .serializers import ArchitectureSerializer
 from .serializers import StartSerializer
 from .serializers import StatusSerializer
@@ -28,6 +29,7 @@ from .serializers import SortSerializer
 
 from .models import Node
 from .models import Edge
+from .models import Group
 from .models import Pth
 from .models import Architecture
 from .models import Start
@@ -36,6 +38,9 @@ from .models import Sort
 
 from .graph import CGraph, CEdge, CNode, CShow2
 from .binder import CPyBinder
+
+import json
+from collections import OrderedDict
 
 # Create your views here.
 
@@ -71,6 +76,14 @@ def edgelist():
     serializer = EdgeSerializer(edges, many=True)
     return Response(serializer.data)
 
+@api_view(['GET', 'POST'])
+def grouplist():
+    '''
+    node list
+    '''
+    groups = Group.objects.all()
+    serializer = GroupSerializer(groups, many=True)
+    return Response(serializer.data)
 
 @api_view(['GET', 'POST', 'DELETE', 'UPDATE'])
 def pthlist(request):
@@ -117,7 +130,6 @@ def pthlist(request):
 
     return None
 
-
 @api_view(['GET', 'POST', 'DELETE', 'UPDATE'])
 def sortlist(request):
     '''
@@ -130,35 +142,155 @@ def sortlist(request):
         return Response(serializer.data)
     if request.method == 'POST':
         print("post")
-        #CShow2()
+        # CShow2()
         host_ip = str(request.get_host())[:-5]
         print(host_ip)
         edges = Edge.objects.all()
         nodes = Node.objects.all()
         if nodes and edges:
             sorted_ids = post_sorted_id(nodes, edges)
-            print("33333333333333333333333", type(str(sorted_ids)))
             sorted_ids_str = ''
             for id in sorted_ids:
                 sorted_ids_str = sorted_ids_str+id+','
+            #print('3435453254', sorted_ids_str)
+
             serializer = SortSerializer(data={'id': 1, 'sorted_ids': sorted_ids_str[:-1]})
-            print()
             if serializer.is_valid():
                 print("valid")
                 serializer.save()
                 # pylint: disable = invalid-name, missing-timeout, unused-variable
                 return Response(serializer.data,
                                 status=status.HTTP_201_CREATED)
-
             if not serializer.is_valid():
                 print("invalid")
                 print(serializer.errors)
                 serializer.save()
-                return Response("invalid sort",
+                return Response("invalid pth",
                                 status=status.HTTP_400_BAD_REQUEST)
         return Response("invalid node or edge",
                         status=status.HTTP_400_BAD_REQUEST)
+
     return None
+
+
+@api_view(['GET', 'POST', 'DELETE', 'UPDATE'])
+def sort_group_list(request):
+    '''
+    pth list
+    '''
+    print("sort")
+    if request.method == 'GET':
+        sort = Sort.objects.all()
+        serializer = SortSerializer(sort, many=True)
+        return Response(serializer.data)
+    if request.method == 'POST':
+        print("post")
+        # CShow2()
+        host_ip = str(request.get_host())[:-5]
+        print(host_ip)
+        edges = Edge.objects.all()
+        nodes = Node.objects.all()
+        if nodes and edges:
+            sorted_ids = post_sorted_id(nodes, edges)
+            sorted_ids_str = []
+            for id in sorted_ids:
+                sorted_ids_str.append(id)
+            print(sorted_ids_str)
+            ###type list
+            sorted_type_str = []
+            for node_id in sorted_ids:
+                d1 = Node.objects.get(order=node_id)
+                sorted_type_str.append(d1.layer)
+
+            groups = Group.objects.all()
+            for group in groups:
+                for i in range(len(sorted_ids_str)):
+                    is_group = 0
+                    node = Node.objects.get(order=sorted_ids_str[i])
+                    if node.group_id != 0:
+                        continue
+
+                    for j in range(len(group.layer_type)):
+                        if sorted_type_str[i+j] == group.layer_type[j]:
+                            is_group = 1
+                        else:
+                            is_group = 0
+                            break
+
+                    if is_group == 1:
+                        for k in range(len(group.layer_type)):
+                            change_node = Node.objects.get(order=sorted_ids_str[i+k])
+                            change_node.group_id = group.group_id
+                            change_node.save()
+                print('group.group_id: ', group.group_id)
+                print('group.layer_type: ', group.layer_type)
+
+            sorted_ids_grouped = sorted_ids_str.copy()
+            sorted_types_grouped = sorted_type_str.copy()
+
+            for group in groups:
+                m = group.group_id
+                n = group.layer_type
+
+                tmp = 0
+                for i in range(len(sorted_ids_str)):
+                    x = Node.objects.get(order = sorted_ids_str[i])
+                    if x.group_id == m:
+                        if i < tmp:
+                            continue
+                        tmp_id = []
+                        tmp_type = []
+                        for j in range(len(n)):
+                            tmp_id.append(sorted_ids_str[i+j])
+                            tmp_type.append(sorted_type_str[i+j])
+                        sorted_ids_grouped[i] = tmp_id
+                        sorted_types_grouped[i] = tmp_type
+                        for k in range(len(n)-1):
+                            sorted_ids_grouped[i+k+1] = '0'
+                            sorted_types_grouped[i + k + 1] = '0'
+
+                        tmp = i + len(n)
+
+            remove_set=['0']
+            sorted_ids_grouped = [g for g in sorted_ids_grouped if g not in remove_set]
+            sorted_types_grouped = [g for g in sorted_types_grouped if g not in remove_set]
+            sorted_group_id_grouped = [0 for i in range(len(sorted_types_grouped))]
+
+            for a in range (len(sorted_types_grouped)):
+                for group in groups:
+                    if(sorted_types_grouped[a]==group.layer_type):
+                        sorted_group_id_grouped[a] = group.group_id
+                    elif sorted_types_grouped[a]!=group.layer_type and sorted_types_grouped[a]!=0:
+                        continue
+                    else:
+                        sorted_group_id_grouped[a] = 0
+
+            # print('removed_sorted_ids_grouped: ', sorted_ids_grouped)
+            # print('removed_sorted_types_grouped: ', sorted_types_grouped)
+            # print('sorted_group_id_grouped: ', sorted_group_id_grouped)
+
+            file_data = OrderedDict()
+            file_data['output'] = []
+
+            for c in range(len(sorted_group_id_grouped)):
+                file_data['output'].append({
+                    "group_id": sorted_group_id_grouped[c],
+                    "layer": sorted_types_grouped[c],
+                    "node_id": sorted_ids_grouped[c]
+                })
+
+            #print(file_data)
+
+            # print(json.dumps(file_data, ensure_ascii=False, indent="\t"))
+
+            #return Response(status=status.HTTP_201_CREATED)
+            return Response(file_data, status=status.HTTP_201_CREATED)
+
+        return Response("invalid node or edge",
+                        status=status.HTTP_400_BAD_REQUEST)
+
+    return None
+
 
 @api_view(['GET', 'POST', 'DELETE', 'UPDATE'])
 def sortlist_detail(request, pk):
@@ -366,6 +498,26 @@ class EdgeView(viewsets.ModelViewSet):
         print objects
         '''
         print("Edge objects")
+
+class GroupView(viewsets.ModelViewSet):
+    # pylint: disable=too-many-ancestors
+    '''
+    Edge View
+    '''
+    serializer_class = GroupSerializer
+    queryset = Group.objects.all()
+
+    def print_serializer(self):
+        '''
+        print serializer class
+        '''
+        print("Group serializer")
+
+    def print_objects(self):
+        '''
+        print objects
+        '''
+        print("Group objects")
 
 
 class PthView(viewsets.ModelViewSet):

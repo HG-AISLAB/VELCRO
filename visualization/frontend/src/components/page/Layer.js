@@ -397,8 +397,8 @@ function LayerList() {
 
       if (isCtrlKey) {
         node.selected = true
-        if (node.selected === true && !clickedNodeList.includes(node.id))
-          clickedNodeList.push(node.id)
+        if (node.selected === true && !clickedNodeList.includes(node.data.label))
+          clickedNodeList.push(node.data.label)
         console.log(clickedNodeList);
       }
       else {
@@ -928,3 +928,5 @@ function LayerList() {
 export default function Layer() {
   return <LayerList />;
 }
+
+export {clickedNodeList}
