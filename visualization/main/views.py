@@ -274,9 +274,9 @@ def sort_group_list(request):
 
             for c in range(len(sorted_group_id_grouped)):
                 file_data['output'].append({
-                    "group_id": sorted_group_id_grouped[c],
+                    "groupId": sorted_group_id_grouped[c],
                     "layer": sorted_types_grouped[c],
-                    "node_id": sorted_ids_grouped[c]
+                    "nodeId": sorted_ids_grouped[c]
                 })
 
             #print(file_data)
