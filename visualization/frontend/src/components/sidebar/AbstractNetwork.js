@@ -2,13 +2,7 @@ import React from "react";
 import {clickedNodeList} from "../page/Layer"
 import axios from 'axios';
 
-const AbstractNetwork = ({ onClickLevel }) => {
-  const onDragStart = (event, nodeName, nodeColor, subpm) => {
-    event.dataTransfer.setData("application/reactflow", nodeName);
-    event.dataTransfer.setData("subparameters", subpm);
-    event.dataTransfer.setData("colorNode", nodeColor);
-    event.dataTransfer.effectAllowed = "move";
-  };
+const AbstractNetwork = ({ onClickLevel, onClickGroup}) => {
   var Gid = 0;
   const onClickAbstract = () => {
       console.log(clickedNodeList);
@@ -23,7 +17,7 @@ const AbstractNetwork = ({ onClickLevel }) => {
       axios.post("/api/sort_group/").then(function(response2){
         console.log(response2);
       }).catch(err => console.log(err))
-
+      onClickGroup(true);
   };
 
   return (
