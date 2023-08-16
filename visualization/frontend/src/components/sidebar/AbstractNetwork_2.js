@@ -1,8 +1,9 @@
 import React from "react";
 import {clickedNodeList} from "../page/Layer"
 import axios from 'axios';
+import NodeColorProp from "../../NodeColor";
 
-const AbstractNetwork = ({ onClickLevel, onClickGroup}) => {
+const AbstractNetwork_2 = ({ onClickLevel, onClickGroup}) => {
   var Gid = 0;
   const onClickAbstract = () => {
       console.log(clickedNodeList);
@@ -59,11 +60,31 @@ const AbstractNetwork = ({ onClickLevel, onClickGroup}) => {
           </button>
         </div>
         <div className="GroupInformation">
-          <div className="GroupText"> Group Information </div>
+            <div className="GroupText"> Group Information </div>
+            <details className="Group1">
+              <summary className="layerName">Group 1</summary>
+                  <ul>
+                      <li>
+                          <div className="dndnode_Conv2d">
+                              Conv2d
+                          </div>
+                      </li>
+                      <li>
+                          <div className="dndnode_BatchNorm2d">
+                              BatchNorm2d
+                          </div>
+                      </li>
+                      <li>
+                          <div className="dndnode_ReLU">
+                              ReLU
+                          </div>
+                      </li>
+                  </ul>
+            </details>
         </div>
       </aside>
     </div>
   );
 };
 
-export default AbstractNetwork;
+export default AbstractNetwork_2;
