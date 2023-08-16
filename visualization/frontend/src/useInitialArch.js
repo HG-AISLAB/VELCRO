@@ -225,6 +225,8 @@ function useInitialArch(level, group) {
               .then(function (response) {
                 // console.log(response);
               });
+
+
             if (String(nodeLabel) === "Bottleneck") {
               initElements.push(newResidualNode1);
             } else if (String(nodeLabel) === "BasicBlock") {
@@ -322,6 +324,7 @@ function useInitialArch(level, group) {
                   // always executed
                 });
           }
+
 
           const jsonData = require(`./VGG16_level${level}.json`);
           // node_id 와 edge_id로 json 파일을 읽어 순서대로 새로운 id 를 부여함

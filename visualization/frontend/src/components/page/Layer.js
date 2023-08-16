@@ -42,7 +42,9 @@ import NetworkInformation from "../sidebar/NetworkInformation";
 import arange_icon from "../../img/swap.png";
 import BasicBlockimg from "../../img/basicblock.png";
 import BottleNeckimg from "../../img/bottleneck.png";
-import AbstractNetwork from "../sidebar/AbstractNetwork";
+import AbstractNetwork_1 from "../sidebar/AbstractNetwork_1";
+import AbstractNetwork_2 from "../sidebar/AbstractNetwork_2";
+import AbstractNetwork_3 from "../sidebar/AbstractNetwork_3";
 import useInitialArch from "../../useInitialArch";
 
 let id = 1;
@@ -59,6 +61,7 @@ var sortCount = 1;
 var sortHeight = 0;
 let sortList = [];
 let clickedNodeList = [];
+let clickedNodeIdList = [];
 function LayerList() {
   const reactFlowWrapper = useRef(null);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
@@ -431,6 +434,7 @@ function LayerList() {
   };
   const onPaneClick = (event) => {
     clickedNodeList = [];
+    clickedNodeIdList = [];
   }
   const onNodeClick = async (event, node) => {
     console.log(node);
@@ -460,14 +464,19 @@ function LayerList() {
 
       if (isCtrlKey) {
         node.selected = true;
-        if (node.selected === true && !clickedNodeList.includes(node.id))
+        if (node.selected === true && !clickedNodeIdList.includes(node.id)) {
           clickedNodeList.push(node.data.label);
+          clickedNodeIdList.push(node.id);
+        }
         console.log(clickedNodeList);
+        console.log(clickedNodeIdList);
       }
       else {
         node.selected = false;
         clickedNodeList = [];
+        clickedNodeIdList = [];
         console.log(clickedNodeList);
+        console.log(clickedNodeIdList);
       }
     // }
   };
@@ -925,15 +934,19 @@ function LayerList() {
   }
 
   return (
-    <div className="FullPage">
+     <div className="FullPage">
       <div className="Sidebar">
         <Tab tabOnClick={tabOnClick} />
-        {tabToggle === 1 ? (
-          <LayerToggle />
-        ) : tabToggle === 2 ? (
+        {tabToggle === 2 ? (
           <NetworkInformation />
+        ) : (tabToggle === 3 && level === 1) ? (
+          <AbstractNetwork_1 onClickLevel={setLevel} onClickGroup={setGroup}/>
+        ) : (tabToggle === 3 && level === 2) ? (
+          <AbstractNetwork_2 onClickLevel={setLevel} onClickGroup={setGroup}/>
+        ) : (tabToggle === 3 && level === 3) ? (
+          <AbstractNetwork_3 onClickLevel={setLevel} onClickGroup={setGroup}/>
         ) : (
-          <AbstractNetwork onClickLevel={setLevel} onClickGroup={setGroup}/>
+          <LayerToggle />
         )}
         {/*<LayerToggle/>*/}
         <div className="LayerInfo">
