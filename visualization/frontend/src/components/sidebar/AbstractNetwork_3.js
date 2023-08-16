@@ -3,21 +3,8 @@ import {clickedNodeList} from "../page/Layer"
 import axios from 'axios';
 
 const AbstractNetwork_3 = ({ onClickLevel, onClickGroup}) => {
-  var Gid = 0;
-  const onClickAbstract = () => {
-      console.log(clickedNodeList);
-
-      axios.post("/api/group/", {
-        group_id: ++Gid,
-        layer_type: clickedNodeList
-      }).then(function (response) {
-      console.log(response);
-      }).catch(err => console.log(err))
-
-      axios.post("/api/sort_group/").then(function(response2){
-        console.log(response2);
-      }).catch(err => console.log(err))
-      onClickGroup(true);
+    const onClickAbstract = () => {
+      onClickGroup(false);
   };
 
   return (

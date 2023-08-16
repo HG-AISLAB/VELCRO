@@ -25,6 +25,7 @@ import Flatten from "../layer/Flatten";
 import Upsample from "../layer/Upsample";
 import BasicBlock from "../layer/BasicBlock";
 import Bottleneck from "../layer/Bottleneck";
+
 import axios from "axios";
 
 import ReactFlow, {
@@ -355,7 +356,7 @@ function LayerList() {
     deleteModal(remove);
   };
 
-  const openModal = async () => {
+  const openModal = async (node) => {
     // const get_params = async () => {
     //   try {
     //     await axios.get('/api/node/'.concat(String(idState)).concat('/')).then((response) => {
@@ -367,7 +368,12 @@ function LayerList() {
     // };
     // await get_params();
     // console.log('get param double click')
-    await setModalOpen(true);
+    if(state.includes('Group')) {
+      setModalOpen(false);
+    }
+    else {
+      await setModalOpen(true);
+    }
   };
 
   const closeModal = () => {
