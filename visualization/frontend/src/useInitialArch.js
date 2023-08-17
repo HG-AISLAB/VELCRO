@@ -311,6 +311,7 @@ function useInitialArch(level, group) {
       }
       else if(level === 1 && group === true) {
         // AbstractNetwork_1의 onClickAbstract()안에 있는 response2의 json 파일을 가공한 결과 값을 동일하게 initElement[]에 넣는 것이 가장 중요
+        // 화이팅
         axios.post("/api/sort_group/").then(function(response2){
           console.log(response2);
         }).catch(err => console.log(err))
