@@ -198,9 +198,12 @@ def sort_group_list(request):
             print(sorted_ids_str)
             ###type list
             sorted_type_str = []
+            sorted_parms_str = []
+
             for node_id in sorted_ids:
                 d1 = Node.objects.get(order=node_id)
                 sorted_type_str.append(d1.layer)
+                sorted_parms_str.append(d1.parameters)
 
             groups = Group.objects.all()
             for group in groups:
@@ -227,6 +230,7 @@ def sort_group_list(request):
 
             sorted_ids_grouped = sorted_ids_str.copy()
             sorted_types_grouped = sorted_type_str.copy()
+            sorted_params_grouped = sorted_parms_str.copy()
 
             for group in groups:
                 m = group.group_id
@@ -240,20 +244,24 @@ def sort_group_list(request):
                             continue
                         tmp_id = []
                         tmp_type = []
+                        tmp_params = []
                         for j in range(len(n)):
                             tmp_id.append(sorted_ids_str[i+j])
                             tmp_type.append(sorted_type_str[i+j])
+                            tmp_params.append(sorted_parms_str[i+j])
                         sorted_ids_grouped[i] = tmp_id
                         sorted_types_grouped[i] = tmp_type
+                        sorted_params_grouped[i] = tmp_params
                         for k in range(len(n)-1):
                             sorted_ids_grouped[i+k+1] = '0'
                             sorted_types_grouped[i + k + 1] = '0'
-
+                            sorted_params_grouped[i + k + 1] = '0'
                         tmp = i + len(n)
 
             remove_set=['0']
             sorted_ids_grouped = [g for g in sorted_ids_grouped if g not in remove_set]
             sorted_types_grouped = [g for g in sorted_types_grouped if g not in remove_set]
+            sorted_params_grouped = [g for g in sorted_params_grouped if g not in remove_set]
             sorted_group_id_grouped = [0 for i in range(len(sorted_types_grouped))]
 
             for a in range (len(sorted_types_grouped)):
@@ -273,11 +281,23 @@ def sort_group_list(request):
             file_data['output'] = []
 
             for c in range(len(sorted_group_id_grouped)):
-                file_data['output'].append({
-                    "groupId": sorted_group_id_grouped[c],
-                    "layer": sorted_types_grouped[c],
-                    "nodeId": sorted_ids_grouped[c]
-                })
+
+                #print('sorted_group_id_grouped[c]: ', type(sorted_group_id_grouped[c]))
+                if sorted_group_id_grouped[c] != 0:
+                    #print('heelo')
+                    file_data['output'].append({
+                        "groupId": sorted_group_id_grouped[c],
+                        "layer": sorted_types_grouped[c],
+                        "nodeId": sorted_ids_grouped[c],
+                        "parameters": None
+                    })
+                else:
+                    file_data['output'].append({
+                        "groupId": sorted_group_id_grouped[c],
+                        "layer": sorted_types_grouped[c],
+                        "nodeId": sorted_ids_grouped[c],
+                        "parameters": sorted_params_grouped[c]
+                    })
 
             #print(file_data)
 
