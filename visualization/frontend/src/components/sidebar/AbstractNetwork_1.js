@@ -13,10 +13,6 @@ const AbstractNetwork_1 = ({ onClickLevel, onClickGroup}) => {
       }).then(function (response) {
       console.log(response);
       }).catch(err => console.log(err))
-
-      axios.post("/api/sort_group/").then(function(response2){
-        console.log(response2);
-      }).catch(err => console.log(err))
       onClickGroup(true);
   };
 
