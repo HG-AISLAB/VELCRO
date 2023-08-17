@@ -3,7 +3,7 @@ import {clickedNodeList} from "../page/Layer"
 import axios from 'axios';
 
 const AbstractNetwork_1 = ({ onClickLevel, onClickGroup}) => {
-  var Gid = 0;
+    var Gid = 0;
   const onClickAbstract = () => {
       console.log(clickedNodeList);
 
@@ -30,21 +30,58 @@ const AbstractNetwork_1 = ({ onClickLevel, onClickGroup}) => {
           <button
             type="button"
             className="AbstractBtn"
-            onClick={() => onClickLevel(1)}
+            onClick={() => {
+                onClickLevel(1);}}
           >
             Level 1
           </button>
           <button
             type="button"
             className="AbstractBtn"
-            onClick={() => onClickLevel(2)}
+            onClick={()=>{
+                axios.post("/api/group/", {
+                    group_id: ++Gid,
+                    layer_type: ['Conv2d', 'BatchNorm2d', 'ReLU']
+                }).then(function (response) {
+                    console.log(response);
+                }).catch(err => console.log(err))
+
+                axios.post("/api/sort_group/").then(function(response2){
+                    console.log(response2);
+                }).catch(err => console.log(err));
+
+                onClickLevel(2);
+                onClickGroup(false);}}
           >
             Level 2
           </button>
           <button
             type="button"
             className="AbstractBtn"
-            onClick={() => onClickLevel(3)}
+            onClick={()=> {
+                axios.post("/api/group/", {
+                    group_id: ++Gid,
+                    layer_type: ['Conv2d', 'BatchNorm2d', 'ReLU', 'Conv2d', 'BatchNorm2d', 'ReLU', 'MaxPool2d']
+                }).then(function (response) {
+                    console.log(response);
+                }).catch(err => console.log(err))
+
+                axios.post("/api/sort_group/").then(function(response2){
+                    console.log(response2);
+                }).catch(err => console.log(err))
+                axios.post("/api/group/", {
+                    group_id: ++Gid,
+                    layer_type: ['Conv2d', 'BatchNorm2d', 'ReLU', 'Conv2d', 'BatchNorm2d', 'ReLU', 'Conv2d', 'BatchNorm2d', 'ReLU', 'MaxPool2d']
+                }).then(function (response) {
+                    console.log(response);
+                }).catch(err => console.log(err))
+
+                axios.post("/api/sort_group/").then(function(response2){
+                    console.log(response2);
+                }).catch(err => console.log(err))
+
+                onClickLevel(3);
+                onClickGroup(false);}}
           >
             Level 3
           </button>

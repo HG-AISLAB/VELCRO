@@ -1,25 +1,12 @@
 import React from "react";
-import {clickedNodeList} from "../page/Layer"
 import axios from 'axios';
-import NodeColorProp from "../../NodeColor";
 
 const AbstractNetwork_2 = ({ onClickLevel, onClickGroup}) => {
-  var Gid = 0;
-  const onClickAbstract = () => {
-      console.log(clickedNodeList);
 
-      axios.post("/api/group/", {
-        group_id: ++Gid,
-        layer_type: clickedNodeList
-      }).then(function (response) {
-      console.log(response);
-      }).catch(err => console.log(err))
-
-      axios.post("/api/sort_group/").then(function(response2){
-        console.log(response2);
-      }).catch(err => console.log(err))
-      onClickGroup(true);
-  };
+    var Gid = 0;
+    const onClickAbstract = () => {
+      onClickGroup(false);
+    };
 
   return (
     <div className="AbstractNetwork">
@@ -31,21 +18,58 @@ const AbstractNetwork_2 = ({ onClickLevel, onClickGroup}) => {
           <button
             type="button"
             className="AbstractBtn"
-            onClick={() => onClickLevel(1)}
+            onClick={() => {
+                onClickLevel(1);}}
           >
             Level 1
           </button>
           <button
             type="button"
             className="AbstractBtn"
-            onClick={() => onClickLevel(2)}
+            onClick={()=>{
+                axios.post("/api/group/", {
+                    group_id: ++Gid,
+                    layer_type: ['Conv2d', 'BatchNorm2d', 'ReLU']
+                }).then(function (response) {
+                    console.log(response);
+                }).catch(err => console.log(err))
+
+                axios.post("/api/sort_group/").then(function(response2){
+                    console.log(response2);
+                }).catch(err => console.log(err));
+
+                onClickLevel(2);
+                onClickGroup(false);}}
           >
             Level 2
           </button>
           <button
             type="button"
             className="AbstractBtn"
-            onClick={() => onClickLevel(3)}
+            onClick={()=> {
+                axios.post("/api/group/", {
+                    group_id: ++Gid,
+                    layer_type: ['Conv2d', 'BatchNorm2d', 'ReLU', 'Conv2d', 'BatchNorm2d', 'ReLU', 'MaxPool2d']
+                }).then(function (response) {
+                    console.log(response);
+                }).catch(err => console.log(err))
+
+                axios.post("/api/sort_group/").then(function(response2){
+                    console.log(response2);
+                }).catch(err => console.log(err))
+                axios.post("/api/group/", {
+                    group_id: ++Gid,
+                    layer_type: ['Conv2d', 'BatchNorm2d', 'ReLU', 'Conv2d', 'BatchNorm2d', 'ReLU', 'Conv2d', 'BatchNorm2d', 'ReLU', 'MaxPool2d']
+                }).then(function (response) {
+                    console.log(response);
+                }).catch(err => console.log(err))
+
+                axios.post("/api/sort_group/").then(function(response2){
+                    console.log(response2);
+                }).catch(err => console.log(err))
+
+                onClickLevel(3);
+                onClickGroup(false);}}
           >
             Level 3
           </button>
@@ -60,8 +84,8 @@ const AbstractNetwork_2 = ({ onClickLevel, onClickGroup}) => {
           </button>
         </div>
         <div className="GroupInformation">
-            <div className="GroupText"> Group Information </div>
-            <details className="Group1">
+          <div className="GroupText"> Group Information </div>
+       <details className="Group1">
               <summary className="layerName">Group 1</summary>
                   <ul>
                       <li>

@@ -25,7 +25,7 @@ function useInitialArch(level, group) {
           //        })
           //        .catch(e => console.log(e));
 
-          // 노드와 엣지 삭제하기
+          // 노드 삭제하기
           for (var j = 0; j < 100; j++) {
             axios
               .delete("/api/node/".concat(j).concat("/"))
@@ -40,7 +40,7 @@ function useInitialArch(level, group) {
               });
           }
 
-          //노드와 엣지 삭제하기
+          //엣지 삭제하기
           for (var j = 0; j < 100; j++) {
             axios
               .delete("/api/edge/".concat(j).concat("/"))
@@ -54,7 +54,33 @@ function useInitialArch(level, group) {
                 // always executed
               });
           }
+          //그룹 정보 삭제하기
+          for (var j=0; j<20; j++){
+            axios.delete('/api/group/'.concat(j).concat('/'))
+             .then(function (response) {
+               // handle success
+             })
+             .catch(function (error) {
+               // handle error
+             })
+             .then(function () {
+               // always executed
+             });
+          }
 
+          //그룹 정보 삭제하기
+          for (var j=0; j<20; j++){
+            axios.delete('/api/sort_group/'.concat(j).concat('/'))
+             .then(function (response) {
+               // handle success
+             })
+             .catch(function (error) {
+               // handle error
+             })
+             .then(function () {
+               // always executed
+             });
+          }
           const jsonData = require(`./VGG16_level${level}.json`);
 
           var node_id = 1;
@@ -277,6 +303,7 @@ function useInitialArch(level, group) {
             // _id = _id + 1;
           }
           checkFirst = 1;
+
           console.log(initElements);
           setData([...initElements]);
           setIsLoading(false);
@@ -285,7 +312,7 @@ function useInitialArch(level, group) {
       else if(level === 1 && group === true) {
         //마지막 <custom group>
       }
-      else if(level === 2 || level === 3) {
+      else if((level === 2 && group === false) || (level === 3 && group === false)) {
         var checkFirst = 0;
         if (checkFirst == 0) {
           //    axios.post("/api/start/", {
@@ -294,37 +321,6 @@ function useInitialArch(level, group) {
           //        console.log(response)
           //        })
           //        .catch(e => console.log(e));
-
-          // 노드와 엣지 삭제하기
-          for (var j = 0; j < 100; j++) {
-            axios
-                .delete("/api/node/".concat(j).concat("/"))
-                .then(function (response) {
-                  // handle success
-                })
-                .catch(function (error) {
-                  // handle error
-                })
-                .then(function () {
-                  // always executed
-                });
-          }
-
-          //노드와 엣지 삭제하기
-          for (var j = 0; j < 100; j++) {
-            axios
-                .delete("/api/edge/".concat(j).concat("/"))
-                .then(function (response) {
-                  // handle success
-                })
-                .catch(function (error) {
-                  // handle error
-                })
-                .then(function () {
-                  // always executed
-                });
-          }
-
 
           const jsonData = require(`./VGG16_level${level}.json`);
           // node_id 와 edge_id로 json 파일을 읽어 순서대로 새로운 id 를 부여함
@@ -624,7 +620,6 @@ function useInitialArch(level, group) {
           setIsLoading(false);
           }
           setIsLoading(false);
-
       }
     };
 
