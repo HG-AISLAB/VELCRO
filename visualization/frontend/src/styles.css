@@ -339,7 +339,7 @@ margin-top: 58%;
     align-content: center;
     justify-content: center;
     text-align: center;
-    height: 50%;
+    height: 20%;
     width: 100%;
 }
 
@@ -350,13 +350,14 @@ margin-top: 58%;
     align-content: center;
     justify-content: center;
     text-align: center;
-    height: 50%;
+    height: 20%;
     width: 100%;
 }
 
 .AbstractNetwork .GroupInformation {
-    height: 100%;
+    height: 300px;
     width: 100%;
+    overflow-y: scroll;
 }
 
 .GroupInformation details {
