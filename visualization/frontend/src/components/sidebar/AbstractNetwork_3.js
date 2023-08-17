@@ -85,9 +85,105 @@ const AbstractNetwork_3 = ({ onClickLevel, onClickGroup}) => {
         </div>
         <div className="GroupInformation">
           <div className="GroupText"> Group Information </div>
+        <details className="Group1">
+              <summary className="layerName">Group 1</summary>
+                  <ul>
+                      <li>
+                          <div className="dndnode_Conv2d">
+                              Conv2d
+                          </div>
+                      </li>
+                      <li>
+                          <div className="dndnode_BatchNorm2d">
+                              BatchNorm2d
+                          </div>
+                      </li>
+                      <li>
+                          <div className="dndnode_ReLU">
+                              ReLU
+                          </div>
+                      </li>
+                      <li>
+                          <div className="dndnode_Conv2d">
+                              Conv2d
+                          </div>
+                      </li>
+                      <li>
+                          <div className="dndnode_BatchNorm2d">
+                              BatchNorm2d
+                          </div>
+                      </li>
+                      <li>
+                          <div className="dndnode_ReLU">
+                              ReLU
+                          </div>
+                      </li>
+                      <li>
+                          <div className="dndnode_MaxPool2d">
+                              MaxPool2d
+                          </div>
+                      </li>
+                  </ul>
+            </details>
+            <details className="Group2">
+              <summary className="layerName">Group 2</summary>
+                  <ul>
+                      <li>
+                          <div className="dndnode_Conv2d">
+                              Conv2d
+                          </div>
+                      </li>
+                      <li>
+                          <div className="dndnode_BatchNorm2d">
+                              BatchNorm2d
+                          </div>
+                      </li>
+                      <li>
+                          <div className="dndnode_ReLU">
+                              ReLU
+                          </div>
+                      </li>
+                      <li>
+                          <div className="dndnode_Conv2d">
+                              Conv2d
+                          </div>
+                      </li>
+                      <li>
+                          <div className="dndnode_BatchNorm2d">
+                              BatchNorm2d
+                          </div>
+                      </li>
+                      <li>
+                          <div className="dndnode_ReLU">
+                              ReLU
+                          </div>
+                      </li>
+                      <li>
+                          <div className="dndnode_Conv2d">
+                              Conv2d
+                          </div>
+                      </li>
+                      <li>
+                          <div className="dndnode_BatchNorm2d">
+                              BatchNorm2d
+                          </div>
+                      </li>
+                      <li>
+                          <div className="dndnode_ReLU">
+                              ReLU
+                          </div>
+                      </li>
+                      <li>
+                          <div className="dndnode_MaxPool2d">
+                              MaxPool2d
+                          </div>
+                      </li>
+                  </ul>
+            </details>
         </div>
       </aside>
     </div>
   );
 };
+
 export default AbstractNetwork_3;

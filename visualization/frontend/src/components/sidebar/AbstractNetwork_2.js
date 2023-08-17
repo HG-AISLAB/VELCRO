@@ -85,9 +85,30 @@ const AbstractNetwork_2 = ({ onClickLevel, onClickGroup}) => {
         </div>
         <div className="GroupInformation">
           <div className="GroupText"> Group Information </div>
+       <details className="Group1">
+              <summary className="layerName">Group 1</summary>
+                  <ul>
+                      <li>
+                          <div className="dndnode_Conv2d">
+                              Conv2d
+                          </div>
+                      </li>
+                      <li>
+                          <div className="dndnode_BatchNorm2d">
+                              BatchNorm2d
+                          </div>
+                      </li>
+                      <li>
+                          <div className="dndnode_ReLU">
+                              ReLU
+                          </div>
+                      </li>
+                  </ul>
+            </details>
         </div>
       </aside>
     </div>
   );
 };
+
 export default AbstractNetwork_2;
