@@ -310,7 +310,11 @@ function useInitialArch(level, group) {
         }
       }
       else if(level === 1 && group === true) {
-        //마지막 <custom group>
+        // AbstractNetwork_1의 onClickAbstract()안에 있는 response2의 json 파일을 가공한 결과 값을 동일하게 initElement[]에 넣는 것이 가장 중요
+        axios.post("/api/sort_group/").then(function(response2){
+          console.log(response2);
+        }).catch(err => console.log(err))
+
       }
       else if((level === 2 && group === false) || (level === 3 && group === false)) {
         var checkFirst = 0;
@@ -321,7 +325,19 @@ function useInitialArch(level, group) {
           //        console.log(response)
           //        })
           //        .catch(e => console.log(e));
-
+          //그룹 정보 삭제하기
+          for (var j=0; j<20; j++){
+            axios.delete('/api/sort_group/'.concat(j).concat('/'))
+             .then(function (response) {
+               // handle success
+             })
+             .catch(function (error) {
+               // handle error
+             })
+             .then(function () {
+               // always executed
+             });
+          }
           const jsonData = require(`./VGG16_level${level}.json`);
           // node_id 와 edge_id로 json 파일을 읽어 순서대로 새로운 id 를 부여함
           var node_id = 1;
