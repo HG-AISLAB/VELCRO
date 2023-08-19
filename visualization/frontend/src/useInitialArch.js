@@ -625,7 +625,7 @@ function useInitialArch(level, group) {
               console.log(initElements);
               setData([...initElements]);
               setIsLoading(false);
-
+              group = false;
               }
             ////
           }
