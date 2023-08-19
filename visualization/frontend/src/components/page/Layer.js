@@ -110,20 +110,7 @@ function LayerList() {
 
     let isBlock = undefined;
     let isGroup = undefined;
-//    if (sortedElements[sortList[0]].sort !== "0") {
-//      isBlock = true;
-//      isGroup = false;
-//    }
-//    else if (level != 1){
-//        isGroup = true;
-//        isBlock = false;
-//    }
-//
-//    else {
-//      isBlock = false;
-//      isGroup = false;
-//    }
-//
+
     if(sortedElements[sortList[0]].sort === "0"){
     // 일반 노드인경우
       isBlock = false;

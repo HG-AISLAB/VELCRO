@@ -297,7 +297,6 @@ margin-top: 58%;
     flex-direction: column;
     height: 65%;
     width: 80%;
-    overflow-y: scroll;
 }
 
 .AbstractNetwork .AbstractText {
@@ -339,7 +338,7 @@ margin-top: 58%;
     align-content: center;
     justify-content: center;
     text-align: center;
-    height: 50%;
+    height: 15%;
     width: 100%;
 }
 
@@ -350,13 +349,15 @@ margin-top: 58%;
     align-content: center;
     justify-content: center;
     text-align: center;
-    height: 50%;
+    height: 15%;
     width: 100%;
 }
 
 .AbstractNetwork .GroupInformation {
-    height: 100%;
+    margin-top: 30px;
+    height: 380px;
     width: 100%;
+    overflow-y: scroll;
 }
 
 .GroupInformation details {
@@ -366,6 +367,7 @@ margin-top: 58%;
     margin-left: 8%;
     font-size: 115%;
     font-weight: 350;
+
 }
 
 .GroupInformation details summary::marker {
