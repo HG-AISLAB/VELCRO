@@ -73,7 +73,7 @@ function LayerList() {
   const [paramState, setParam] = useState();
   const [group, setGroup] = useState(false);
   const [level, setLevel] = useState(1);
-  const [elements, setElements, isLoading] = useInitialArch(level, group);
+  const [elements, setElements, isLoading] = useInitialArch(level, group, setGroup);
 
   useEffect(() => {
     const get_params = async () => {
