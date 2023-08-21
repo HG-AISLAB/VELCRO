@@ -1,45 +1,47 @@
 import React, { useState } from "react";
-import {clickedNodeList} from "../page/Layer"
-import axios from 'axios';
+import { clickedNodeList } from "../page/Layer";
+import axios from "axios";
 import "../../styles.css";
 
-const AbstractNetwork_1 = ({ onClickLevel, onClickGroup}) => {
+var Gid = 0;
+
+const AbstractNetwork_1 = ({ onClickLevel, onClickGroup }) => {
   const [currentGroupId, setCurrentGroupId] = useState(1);
   const [toggleList, setToggleList] = useState([]);
-  var Gid = 0;
-
+  const [groupedNodeList, setGroupedNodeList] = useState({});
 
   const onClickAbstract = () => {
-      console.log(clickedNodeList);
-      // 클릭한 노드리스트가 2개 이상일 때에만 group 만듦
-      if(clickedNodeList.length > 1){
-      setCurrentGroupId(currentGroupId + 1)
-      console.log("currentGroupId", currentGroupId);
-        axios.post("/api/group/", {
-        group_id: currentGroupId,
-        layer_type: clickedNodeList
-      }).then(function (response) {
-      console.log(response);
-      }).catch(err => console.log(err))
-      onClickGroup(true);
-      setToggleList([...toggleList, currentGroupId]); // 새로운 토글을 배열에 추가
-    }
+    console.log("onClickAbstract 실행중~");
+    setCurrentGroupId(currentGroupId + 1);
+    console.log(clickedNodeList);
+    onClickGroup(true);
+    axios
+      .post("/api/group/", {
+        group_id: ++Gid,
+        layer_type: clickedNodeList,
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch((err) => console.log(err));
+
+    setToggleList([...toggleList, { id: currentGroupId, nodes: clickedNodeList }]);
   };
-  const getToggleContent = (currentGroupId) => {
-  console.log("나 실행중!!!@");
-    if (toggleList.includes(currentGroupId))  {
-       console.log("클릭한 그룹에 대한 내용을 동적으로 생성하여 반환");
+
+  const getToggleContent = (groupId) => {
+    console.log("getToggleContent 실행중~");
+    const group = toggleList.find((item) => item.id === groupId);
+    if (group) {
+      const groupNodes = group.nodes;
       return (
         <ul>
-          {clickedNodeList.map((node, index) => (
-            <li key={index}>
-              {getNodeContent(node)}
-            </li>
+          {groupNodes.map((node, index) => (
+            <li key={index}>{getNodeContent(node)}</li>
           ))}
         </ul>
       );
+
     } else {
-        console.log("실패쓰");
       return null;
     }
   };
@@ -156,13 +158,12 @@ const AbstractNetwork_1 = ({ onClickLevel, onClickGroup}) => {
         </div>
         <div className="GroupInformation">
             <div className="GroupText"> Group Information </div>
-            {toggleList.map((currentGroupId) => (
-                <details key={currentGroupId} className={`Group${currentGroupId}`}>
-                  <summary className="layerName">Group {currentGroupId}</summary>
-                  {getToggleContent(currentGroupId)}
-                </details>
-              ))}
-
+             {toggleList.map((item) => (
+            <details key={item.id} className={`Group${item.id}`}>
+              <summary className="layerName">Group {item.id}</summary>
+              {getToggleContent(item.id)}
+            </details>
+          ))}
         </div>
 
       </aside>
