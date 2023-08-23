@@ -305,7 +305,7 @@ function useInitialArch(level, group, setGroup) {
           setCheckFirst(1);
         }
 
-        // ------ Custom Group ------\\
+        // ------ Custom Group ------\\x
         else if (level===1 && checkFirst === 1){
             console.log("// ------Custom Group ------\\");
             // ------Custom Group 변동시 ------\\
