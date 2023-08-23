@@ -173,6 +173,11 @@ function GenerateButton(props){
             }
 
             console.log(not_matchidx)
+            console.log(convIndex[not_matchidx[0]],convIndex[not_matchidx[0]+1])
+            props.func({
+                rapid:[rapid_node1, rapid_node2],
+                notmatch:[convIndex[not_matchidx[0]],convIndex[not_matchidx[0]+1]]
+            })
             Rapid_parameter()
             Dimension_error()
 

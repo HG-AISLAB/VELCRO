@@ -71,6 +71,11 @@ function LayerList() {
   const [isPaneClicked, setIsPaneClicked] = useState(false);
   const [level, setLevel] = useState(1);
   const [elements, setElements, isLoading] = useInitialArch(level);
+  const [inspect, setInspect] = useState();
+
+  const get_inspect = (e) => {
+    setInspect(e);
+  }
 
   useEffect(() => {
     const get_params = async () => {
@@ -90,6 +95,58 @@ function LayerList() {
     };
     get_params();
   }, [idState]);
+
+
+  useEffect(()=>{
+    const get_node = async () => {
+      try {
+        return await axios.get("/api/node/");
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+
+
+    for(var i=0;i<elements.length;i++){
+        console.log(elements[i].id)
+        if (Number(elements[i].id) === inspect.rapid[0]){
+            elements[inspect.rapid[0]-1].style = {
+        ...elements[inspect.rapid[0]-1].style,
+        border: "5px solid #0067A3",
+
+      }
+      elements[inspect.rapid[1]-1].style = {
+        ...elements[inspect.rapid[1]-1].style,
+        border: "5px solid #0067A3",
+
+      }
+            setElements([...elements]);
+
+        }
+
+        if (Number(elements[i].id) === inspect.notmatch[0]){
+            elements[inspect.notmatch[0]-1].style = {
+        ...elements[inspect.notmatch[0]-1].style,
+        border: "5px solid #9B111E",
+
+      }
+      elements[inspect.notmatch[1]-1].style = {
+        ...elements[inspect.notmatch[1]-1].style,
+        border: "5px solid #9B111E",
+
+      }
+            setElements([...elements]);
+        }
+    }
+
+    console.log(elements)
+
+
+  },[inspect])
+
+
+
 
   const onSortNodes = (sortList) => {
     console.log("back code");
@@ -465,6 +522,7 @@ const onPaneClick = () => {
       type: "default",
       position,
       sort: "0",
+      inspected:false,
       style: {
         background: `${color}`,
         width: 135,
@@ -915,7 +973,7 @@ const onPaneClick = () => {
                 className="reactBtn"
                 style={{ position: "absolute", zIndex: 100 }}
               >
-                <GenerateButton elements={elements} />
+                <GenerateButton elements={elements} func={get_inspect}/>
               </div>
             </ReactFlow>
           </div>

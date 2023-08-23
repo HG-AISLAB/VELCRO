@@ -508,6 +508,10 @@ margin-top: 58%;
   outline: 5px solid #4E5057 !important;
 }
 
+.react-flow__node.inspected{
+  outline: 5px solid #9B111E !important;
+}
+
 .react-flow__node-default .react-flow__handle{
     background: rgba(217, 217, 217, 1)!important;
     border: 1px solid #4E5058;
