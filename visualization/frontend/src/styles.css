@@ -310,6 +310,7 @@ margin-top: 58%;
     font-size: 115%;
     margin-bottom: 2%;
     width: 100%;
+    text-align: center;
 }
 
 .AbstractNetwork .AbstractBtn {
@@ -337,7 +338,7 @@ margin-top: 58%;
     align-content: center;
     justify-content: center;
     text-align: center;
-    height: 50%;
+    height: 15%;
     width: 100%;
 }
 
@@ -348,15 +349,110 @@ margin-top: 58%;
     align-content: center;
     justify-content: center;
     text-align: center;
-    height: 50%;
+    height: 15%;
     width: 100%;
 }
 
 .AbstractNetwork .GroupInformation {
-    height: 100%;
+    margin-top: 30px;
+    height: 330px;
     width: 100%;
-    text-align: center;
+    overflow-y: scroll;
 }
+
+.GroupInformation details {
+    cursor:pointer;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    margin-left: 8%;
+    font-size: 115%;
+    font-weight: 350;
+
+}
+
+.GroupInformation details summary::marker {
+    display:none;
+    content:"▶     ";
+}
+
+.GroupInformation details[open] summary::marker {
+    display:none;
+    content:"▽     " ;
+}
+
+.GroupInformation details ul {
+  list-style: none;
+}
+
+.GroupInformation .dndnode_Conv2d {
+    background-color:#F2E3DC;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 90%;
+    font-weight: 400;
+    font-family: Helvetica;
+    width: 60%;
+    border-radius: 10px;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    margin-left: 8%;
+    padding: 5%;
+    box-shadow: 7px 7px 7px 0px rgba(0, 0, 0, 0.2);
+}
+.GroupInformation .dndnode_BatchNorm2d {
+    background-color:#DEE8E4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 90%;
+    font-weight: 400;
+    font-family: Helvetica;
+    width: 60%;
+    border-radius: 10px;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    margin-left: 8%;
+    padding: 5%;
+    box-shadow: 7px 7px 7px 0px rgba(0, 0, 0, 0.2);
+}
+.GroupInformation .dndnode_MaxPool2d {
+    background-color:#FAF1CB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 90%;
+    font-weight: 400;
+    font-family: Helvetica;
+    width: 60%;
+    border-radius: 10px;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    margin-left: 8%;
+    padding: 5%;
+    box-shadow: 7px 7px 7px 0px rgba(0, 0, 0, 0.2);
+}
+.GroupInformation .dndnode_ReLU {
+    background-color:#D9E3E8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 90%;
+    font-weight: 400;
+    font-family: Helvetica;
+    width: 60%;
+    border-radius: 10px;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    margin-left: 8%;
+    padding: 5%;
+    box-shadow: 7px 7px 7px 0px rgba(0, 0, 0, 0.2);
+}
+
 
 .Sidebar .CodeTab {
     display: flex;

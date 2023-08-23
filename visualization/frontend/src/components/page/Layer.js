@@ -25,6 +25,7 @@ import Flatten from "../layer/Flatten";
 import Upsample from "../layer/Upsample";
 import BasicBlock from "../layer/BasicBlock";
 import Bottleneck from "../layer/Bottleneck";
+
 import axios from "axios";
 
 import ReactFlow, {
@@ -42,7 +43,9 @@ import NetworkInformation from "../sidebar/NetworkInformation";
 import arange_icon from "../../img/swap.png";
 import BasicBlockimg from "../../img/basicblock.png";
 import BottleNeckimg from "../../img/bottleneck.png";
-import AbstractNetwork from "../sidebar/AbstractNetwork";
+import AbstractNetwork_1 from "../sidebar/AbstractNetwork_1";
+import AbstractNetwork_2 from "../sidebar/AbstractNetwork_2";
+import AbstractNetwork_3 from "../sidebar/AbstractNetwork_3";
 import useInitialArch from "../../useInitialArch";
 
 let id = 1;
@@ -59,7 +62,7 @@ var sortCount = 1;
 var sortHeight = 0;
 let sortList = [];
 let clickedNodeList = [];
-
+let clickedNodeIdList = [];
 function LayerList() {
   const reactFlowWrapper = useRef(null);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
@@ -68,9 +71,9 @@ function LayerList() {
   const [state, setState] = useState("");
   const [idState, setIdState] = useState("");
   const [paramState, setParam] = useState();
-  const [isPaneClicked, setIsPaneClicked] = useState(false);
+  const [group, setGroup] = useState(false);
   const [level, setLevel] = useState(1);
-  const [elements, setElements, isLoading] = useInitialArch(level);
+  const [elements, setElements, isLoading] = useInitialArch(level, group, setGroup);
   const [rapid, setRapid] = useState([]);
   const [noMatch, setNoMatch] = useState([]);
 
@@ -79,6 +82,7 @@ function LayerList() {
 //  const get_inspect = (e) => {
 //    setInspect(e);
 //  }
+
 
   useEffect(() => {
     const get_params = async () => {
@@ -152,9 +156,11 @@ function LayerList() {
 
   const onSortNodes = (sortList) => {
     console.log("back code");
-
-    sortList = sortList.split(",");
     console.log(sortList);
+    if(level ===1){
+        sortList = sortList.split(",");
+        console.log(sortList);
+    }
 
     const sortedElements = elements.slice(); // elements 배열을 복사하여 새로운 배열을 생성합니다.
     console.log(sortedElements);
@@ -163,10 +169,22 @@ function LayerList() {
     let sort_y_pos = 100 + sortCount;
 
     let isBlock = undefined;
-    if (sortedElements[sortList[0]].sort !== "0") {
-      isBlock = true;
-    } else {
+    let isGroup = undefined;
+
+    if(sortedElements[sortList[0]].sort === "0"){
+    // 일반 노드인경우
       isBlock = false;
+      isGroup = false;
+    }
+    else if (sortedElements[sortList[0]].sort === "3"){
+    // 그룹노드인경우
+        isGroup = true;
+        isBlock = false;
+    }
+    else{
+    //  Residual 인 경우
+        isGroup = false;
+        isBlock = true;
     }
 
     for (var i = 0; i < sortList.length; i++) {
@@ -178,21 +196,27 @@ function LayerList() {
           } else if (isBlock) {
             if (sort_y_pos + 330 <= 639) {
               sort_y_pos += 330;
-              console.log("plus 330");
             } else {
               sort_x_pos += 200;
               sort_y_pos = 100 + sortCount;
-              console.log("new line");
             }
-          } else if (sort_y_pos < 589) {
+          }
+            else if(isGroup){
+              if (sort_y_pos + 330 <= 639) {
+                sort_y_pos += 200;
+              } else {
+                sort_x_pos += 200;
+                sort_y_pos = 100 + sortCount;
+              }
+            }
+
+          else if (sort_y_pos < 589) {
             if (sortedElements[j].sort !== undefined) {
               sort_y_pos += 70;
-              console.log("589 else");
             }
           } else {
             sort_x_pos += 200;
             sort_y_pos = 100 + sortCount;
-            console.log("last else");
           }
 
           sortedElements[j].position = {
@@ -206,12 +230,20 @@ function LayerList() {
           console.log(sortedElements[j].sort);
 
           if (
-            sortedElements[j].sort !== "0" &&
+            sortedElements[j].sort === "0"
+          ) {
+            isBlock = false;
+            isGroup = false;
+          }else if (
+            sortedElements[j].sort === "3" &&
             sortedElements[j].sort !== undefined
           ) {
-            isBlock = true;
-          } else {
             isBlock = false;
+            isGroup = true;
+          }
+          else {
+            isBlock = true;
+            isGroup = false;
           }
         }
       }
@@ -223,27 +255,50 @@ function LayerList() {
 
   // 정렬한 노드 list 받아오기
   const sortActive = (event) => {
-    console.log("생성버튼클릭");
-    axios
-      .delete("/api/sort/1/")
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch((e) => console.log(e));
-    console.log("delete done");
-    axios
-      .post("/api/sort/")
-      .then(function (response) {
-        console.log(response);
+    if(level === 1){
+        console.log(level)
+        console.log("생성버튼클릭");
         axios
-          .get("/api/sort/1/")
-          .then(function (response2) {
-            console.log("정렬된 list: ", response2.data.sorted_ids);
-            onSortNodes(response2.data.sorted_ids);
-          });
-      })
-      .catch((e) => console.log(e));
-    console.log("post done");
+          .delete("/api/sort/1/")
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch((e) => console.log(e));
+        console.log("delete done");
+        axios
+          .post("/api/sort/")
+          .then(function (response) {
+            console.log(response);
+            axios
+              .get("/api/sort/1/")
+              .then(function (response2) {
+                console.log("정렬된 list: ", response2.data.sorted_ids);
+                onSortNodes(response2.data.sorted_ids);
+              });
+          })
+          .catch((e) => console.log(e));
+        console.log("post done");
+    }
+    else{
+        // level 2, 3 인 경우
+
+        var nodeIdList =[];
+
+        //level 2인 경우 노드 갯수 25개
+        if (level ===2){
+            for (var i = 0 ; i<25; i++)
+                nodeIdList.push(i+1);
+        }
+        // level 3인 경우 노드 갯수 12개
+        else{
+            for (var i = 0 ; i<12; i++)
+                nodeIdList.push(i+1);
+        }
+
+        onSortNodes(nodeIdList);
+
+
+    }
   };
 
   const onLoad = (rFInstance) => setReactFlowInstance(rFInstance);
@@ -348,7 +403,7 @@ function LayerList() {
     deleteModal(remove);
   };
 
-  const openModal = async () => {
+  const openModal = async (node) => {
     // const get_params = async () => {
     //   try {
     //     await axios.get('/api/node/'.concat(String(idState)).concat('/')).then((response) => {
@@ -360,8 +415,12 @@ function LayerList() {
     // };
     // await get_params();
     // console.log('get param double click')
-    await setModalOpen(true);
-    console.log("open modal");
+    if(state.includes('Group')) {
+      setModalOpen(false);
+    }
+    else {
+      await setModalOpen(true);
+    }
   };
 
   const closeModal = () => {
@@ -426,48 +485,53 @@ function LayerList() {
     event.preventDefault();
     event.dataTransfer.dropEffect = "move";
   };
-const onPaneClick = () => {
+  const onPaneClick = (event) => {
     clickedNodeList = [];
+    clickedNodeIdList = [];
   }
   const onNodeClick = async (event, node) => {
-      // if(modalOpen === true) {
-      //   const get_params = async () => {
-      //     try {
-      //       await axios.get('/api/node/'.concat(String(idState)).concat('/')).then((response) => {
-      //         setParam(response.data.parameters);
-      //       });
-      //     } catch (error) {
-      //       console.error(error);
-      //     }
-      //   };
-      //   await setState(node.data.label);
-      //   await setIdState(node.id);
-      //   await get_params();
-      //   console.log('get param one click');
-      // }
-      // else{
-      //   await setState(node.data.label);
-      //   await setIdState(node.id);
-      //   console.log(node.position);
-      //
-      //   setColorState(node.borderColor);
+    console.log(node);
+    // if(modalOpen === true) {
+    //   const get_params = async () => {
+    //     try {
+    //       await axios.get('/api/node/'.concat(String(idState)).concat('/')).then((response) => {
+    //         setParam(response.data.parameters);
+    //       });
+    //     } catch (error) {
+    //       console.error(error);
+    //     }
+    //   };
+    //   await setState(node.data.label);
+    //   await setIdState(node.id);
+    //   await get_params();
+    //   console.log('get param one click');
+    // }
+    // else{
+    await setState(node.data.label);
+    await setIdState(node.id);
+    // console.log(node.position);
+    //
+    // setColorState(node.borderColor);
 
      const isCtrlKey = event.ctrlKey || event.metaKey;
 
       if (isCtrlKey) {
-        node.selected = true
-        if (node.selected === true && !clickedNodeList.includes(node.id))
-          clickedNodeList.push(node.id)
+        node.selected = true;
+        if (node.selected === true && !clickedNodeIdList.includes(node.id)) {
+          clickedNodeList.push(node.data.label);
+          clickedNodeIdList.push(node.id);
+        }
         console.log(clickedNodeList);
+        console.log(clickedNodeIdList);
       }
       else {
         node.selected = false;
-        clickedNodeList = []
-        // await setState(node.data.label);
-        // await setIdState(node.id);
-        // console.log(node.position);
+        clickedNodeList = [];
+        clickedNodeIdList = [];
         console.log(clickedNodeList);
+        console.log(clickedNodeIdList);
       }
+    // }
   };
 
   const onDrop = async (event) => {
@@ -592,13 +656,10 @@ const onPaneClick = () => {
     };
 
     if (name == "Bottleneck") {
-      console.log("bottleneck");
       setElements((nds) => nds.concat(newResidualNode1));
     } else if (name == "BasicBlock") {
-      console.log("basicBlock");
       setElements((nds) => nds.concat(newResidualNode2));
     } else {
-      console.log("else");
       setElements((nds) => nds.concat(newNode));
     }
   };
@@ -871,15 +932,15 @@ const onPaneClick = () => {
       );
   };
 
-  const [tabToggle, setTabtoggle] = useState(1);
+  const [tabToggle, setTabToggle] = useState(1);
   const tabOnClick = (path) => {
     console.log(path);
     if (path == "info icon") {
-      setTabtoggle(2);
+      setTabToggle(2);
     } else if (path == "layer icon") {
-      setTabtoggle(1);
+      setTabToggle(1);
     } else if (path == "abstract icon") {
-      setTabtoggle(3);
+      setTabToggle(3);
     }
   };
 
@@ -928,15 +989,19 @@ const onPaneClick = () => {
   }
 
   return (
-    <div className="FullPage">
+     <div className="FullPage">
       <div className="Sidebar">
         <Tab tabOnClick={tabOnClick} />
-        {tabToggle === 1 ? (
-          <LayerToggle />
-        ) : tabToggle === 2 ? (
+        {tabToggle === 2 ? (
           <NetworkInformation />
+        ) : (tabToggle === 3 && level === 1) ? (
+          <AbstractNetwork_1 onClickLevel={setLevel} onClickGroup={setGroup}/>
+        ) : (tabToggle === 3 && level === 2) ? (
+          <AbstractNetwork_2 onClickLevel={setLevel} onClickGroup={setGroup}/>
+        ) : (tabToggle === 3 && level === 3) ? (
+          <AbstractNetwork_3 onClickLevel={setLevel} onClickGroup={setGroup}/>
         ) : (
-          <AbstractNetwork onClickLevel={setLevel} />
+          <LayerToggle />
         )}
         {/*<LayerToggle/>*/}
         <div className="LayerInfo">
@@ -988,3 +1053,5 @@ const onPaneClick = () => {
 export default function Layer() {
   return <LayerList />;
 }
+
+export {clickedNodeList}

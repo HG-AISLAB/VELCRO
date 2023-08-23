@@ -4,6 +4,7 @@ high level support for doing this and that.
 from rest_framework import serializers
 from .models import Node
 from .models import Edge
+from .models import Group
 from .models import Pth
 from .models import Architecture
 from .models import Start
@@ -11,7 +12,7 @@ from .models import Status
 from .models import Running
 from .models import Stop
 from .models import Sort
-
+from .models import SortGroup
 
 # from .models import Stop
 
@@ -35,6 +36,14 @@ class EdgeSerializer(serializers.ModelSerializer):
         model = Edge
         fields = '__all__'
 
+class GroupSerializer(serializers.ModelSerializer):
+    # pylint: disable-msg=too-few-public-methods
+    """A dummy docstring."""
+
+    class Meta:  # pylint: disable-msg=too-few-public-methods
+        """A dummy docstring."""
+        model = Group
+        fields = '__all__'
 
 class PthSerializer(serializers.ModelSerializer):
     # pylint: disable-msg=too-few-public-methods
@@ -63,6 +72,16 @@ class SortSerializer(serializers.ModelSerializer):
     class Meta:  # pylint: disable-msg=too-few-public-methods
         """A dummy docstring."""
         model = Sort
+        fields = '__all__'
+
+
+class SortGroupSerializer(serializers.ModelSerializer):
+    # pylint: disable-msg=too-few-public-methods
+    """A dummy docstring."""
+
+    class Meta:  # pylint: disable-msg=too-few-public-methods
+        """A dummy docstring."""
+        model = SortGroup
         fields = '__all__'
 
 

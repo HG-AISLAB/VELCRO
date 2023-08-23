@@ -33,7 +33,7 @@ import ReactFlow, {
 } from "react-flow-renderer";
 import GenerateButton from "../GenerateButton";
 import Tab from "../sidebar/Tab";
-import AbstractNetwork from "../sidebar/AbstractNetwork";
+import AbstractNetwork_1 from "../sidebar/AbstractNetwork_1";
 
 let id = 1;
 const getId = () => `${id}`;
@@ -509,7 +509,7 @@ function AbstractList() {
       <div className="FullPage">
         <div className="Sidebar">
           <Tab/>
-          <AbstractNetwork />
+          <AbstractNetwork_1 />
           <div className="LayerInfo">
             <h3>Layer Information</h3>
             {/*<div className="Modal">*/}

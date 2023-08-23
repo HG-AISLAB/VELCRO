@@ -19,9 +19,11 @@ from . import views
 urlpatterns = [
     path('node/', views.NodeView.as_view()),
     path('edge/', views.EdgeView.as_view()),
+    path('group/', views.GroupView.as_view()),
     path('pth/', views.pthlist),
     path('sort/', views.sortlist),
     path('sort/<int:pk>/', views.sortlist_detail),
+    path('sort_group/', views.sort_group_list),
     path('architecture/', views.ArchitectureView.as_view()),
     path('start', views.startList),
     path('stop', views.stopList),
