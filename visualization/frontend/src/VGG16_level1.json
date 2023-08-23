@@ -3,257 +3,308 @@
     {
       "order": 1,
       "layer": "Conv2d",
-      "parameters": "'in_channels': 3 \n 'out_channels': 64 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)"
+      "parameters": "'in_channels': 3 \n 'out_channels': 64 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)",
+      "groupId": 0
     },
     {
       "order": 2,
       "layer": "BatchNorm2d",
-      "parameters": "'num_features': 64"
+      "parameters": "'num_features': 64",
+      "groupId": 0
     },
     {
       "order": 3,
       "layer": "ReLU",
-      "parameters": "'inplace': False"
+      "parameters": "'inplace': False",
+      "groupId": 0
     },
     {
       "order": 4,
       "layer": "Conv2d",
-      "parameters": "'in_channels': 64 \n 'out_channels': 128 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)"
+      "parameters": "'in_channels': 64 \n 'out_channels': 64 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)",
+      "groupId": 0
     },
     {
       "order": 5,
       "layer": "BatchNorm2d",
-      "parameters": "'num_features': 64"
+      "parameters": "'num_features': 64",
+      "groupId": 0
     },
     {
       "order": 6,
       "layer": "ReLU",
-      "parameters": "'inplace': False"
+      "parameters": "'inplace': False",
+      "groupId": 0
     },
     {
       "order": 7,
       "layer": "MaxPool2d",
-      "parameters": "'kernel_size': (2, 2) \n 'stride': (2, 2) \n 'padding': (0, 0) \n 'dilation': 1 \n 'return_indices': False \n 'ceil_mode': False"
+      "parameters": "'kernel_size': (2, 2) \n 'stride': (2, 2) \n 'padding': (0, 0) \n 'dilation': 1 \n 'return_indices': False \n 'ceil_mode': False",
+      "groupId": 0
     },
     {
       "order": 8,
       "layer": "Conv2d",
-      "parameters": "'in_channels': 64 \n 'out_channels': 128 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)"
+      "parameters": "'in_channels': 64 \n 'out_channels': 128 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)",
+      "groupId": 0
     },
     {
       "order": 9,
       "layer": "BatchNorm2d",
-      "parameters": "'num_features': 128"
+      "parameters": "'num_features': 128",
+      "groupId": 0
     },
     {
       "order": 10,
       "layer": "ReLU",
-      "parameters": "'inplace': False"
+      "parameters": "'inplace': False",
+      "groupId": 0
     },
     {
       "order": 11,
       "layer": "Conv2d",
-      "parameters": "'in_channels': 512 \n 'out_channels': 128 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)"
+      "parameters": "'in_channels': 128 \n 'out_channels': 128 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)",
+      "groupId": 0
     },
     {
       "order": 12,
       "layer": "BatchNorm2d",
-      "parameters": "'num_features': 128"
+      "parameters": "'num_features': 128",
+      "groupId": 0
     },
     {
       "order": 13,
       "layer": "ReLU",
-      "parameters": "'inplace': False"
+      "parameters": "'inplace': False",
+      "groupId": 0
     },
     {
       "order": 14,
       "layer": "MaxPool2d",
-      "parameters": "'kernel_size': (2, 2) \n 'stride': (2, 2) \n 'padding': (0, 0) \n 'dilation': 1 \n 'return_indices': False \n 'ceil_mode': False"
+      "parameters": "'kernel_size': (2, 2) \n 'stride': (2, 2) \n 'padding': (0, 0) \n 'dilation': 1 \n 'return_indices': False \n 'ceil_mode': False",
+      "groupId": 0
     },
     {
       "order": 15,
       "layer": "Conv2d",
-      "parameters": "'in_channels': 128 \n 'out_channels': 256 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)"
+      "parameters": "'in_channels': 128 \n 'out_channels': 256 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)",
+      "groupId": 0
     },
     {
       "order": 16,
       "layer": "BatchNorm2d",
-      "parameters": "'num_features': 256"
+      "parameters": "'num_features': 256",
+      "groupId": 0
     },
     {
       "order": 17,
       "layer": "ReLU",
-      "parameters": "'inplace': False"
+      "parameters": "'inplace': False",
+      "groupId": 0
     },
     {
       "order": 18,
       "layer": "Conv2d",
-      "parameters": "'in_channels': 256 \n 'out_channels': 256 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)"
+      "parameters": "'in_channels': 256 \n 'out_channels': 256 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)",
+      "groupId": 0
     },
     {
       "order": 19,
       "layer": "BatchNorm2d",
-      "parameters": "'num_features': 256"
+      "parameters": "'num_features': 256",
+      "groupId": 0
     },
     {
       "order": 20,
       "layer": "ReLU",
-      "parameters": "'inplace': False"
+      "parameters": "'inplace': False",
+      "groupId": 0
     },
     {
       "order": 21,
       "layer": "Conv2d",
-      "parameters": "'in_channels': 256 \n 'out_channels': 512 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)"
+      "parameters": "'in_channels': 256 \n 'out_channels': 512 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)",
+      "groupId": 0
     },
     {
       "order": 22,
       "layer": "BatchNorm2d",
-      "parameters": "'num_features': 512"
+      "parameters": "'num_features': 512",
+      "groupId": 0
     },
     {
       "order": 23,
       "layer": "ReLU",
-      "parameters": "'inplace': False"
+      "parameters": "'inplace': False",
+      "groupId": 0
     },
     {
       "order": 24,
       "layer": "MaxPool2d",
-      "parameters": "'kernel_size': (2, 2) \n 'stride': (2, 2) \n 'padding': (0, 0) \n 'dilation': 1 \n 'return_indices': False \n 'ceil_mode': False"
+      "parameters": "'kernel_size': (2, 2) \n 'stride': (2, 2) \n 'padding': (0, 0) \n 'dilation': 1 \n 'return_indices': False \n 'ceil_mode': False",
+      "groupId": 0
     },
     {
       "order": 25,
       "layer": "Conv2d",
-      "parameters": "'in_channels': 512 \n 'out_channels': 512 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)"
+      "parameters": "'in_channels': 512 \n 'out_channels': 512 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)",
+      "groupId": 0
     },
     {
       "order": 26,
       "layer": "BatchNorm2d",
-      "parameters": "'num_features': 512"
+      "parameters": "'num_features': 512",
+      "groupId": 0
     },
     {
       "order": 27,
       "layer": "ReLU",
-      "parameters": "'inplace': False"
+      "parameters": "'inplace': False",
+      "groupId": 0
     },
     {
       "order": 28,
       "layer": "Conv2d",
-      "parameters": "'in_channels': 512 \n 'out_channels': 512 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)"
+      "parameters": "'in_channels': 512 \n 'out_channels': 512 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)",
+      "groupId": 0
     },
     {
       "order": 29,
       "layer": "BatchNorm2d",
-      "parameters": "'num_features': 512"
+      "parameters": "'num_features': 512",
+      "groupId": 0
     },
     {
       "order": 30,
       "layer": "ReLU",
-      "parameters": "'inplace': False"
+      "parameters": "'inplace': False",
+      "groupId": 0
     },
     {
       "order": 31,
       "layer": "Conv2d",
-      "parameters": "'in_channels': 512 \n 'out_channels': 512 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)"
+      "parameters": "'in_channels': 512 \n 'out_channels': 512 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)",
+      "groupId": 0
     },
     {
       "order": 32,
       "layer": "BatchNorm2d",
-      "parameters": "'num_features': 512"
+      "parameters": "'num_features': 512",
+      "groupId": 0
     },
     {
       "order": 33,
       "layer": "ReLU",
-      "parameters": "'inplace' : False"
+      "parameters": "'inplace' : False",
+      "groupId": 0
     },
     {
       "order": 34,
       "layer": "MaxPool2d",
-      "parameters": "'kernel_size': (2, 2) \n 'stride': (2, 2) \n 'padding': (0, 0) \n 'dilation': 1 \n 'return_indices': False \n 'ceil_mode': False"
+      "parameters": "'kernel_size': (2, 2) \n 'stride': (2, 2) \n 'padding': (0, 0) \n 'dilation': 1 \n 'return_indices': False \n 'ceil_mode': False",
+      "groupId": 0
     },
     {
       "order": 35,
       "layer": "Conv2d",
-      "parameters": "'in_channels': 512 \n 'out_channels': 512 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)"
+      "parameters": "'in_channels': 512 \n 'out_channels': 512 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)",
+      "groupId": 0
     },
     {
       "order": 36,
       "layer": "BatchNorm2d",
-      "parameters": "'num_features': 512"
+      "parameters": "'num_features': 512",
+      "groupId": 0
     },
     {
       "order": 37,
       "layer": "ReLU",
-      "parameters": "'inplace' : False"
+      "parameters": "'inplace' : False",
+      "groupId": 0
     },
     {
       "order": 38,
       "layer": "Conv2d",
-      "parameters": "'in_channels': 512 \n 'out_channels': 512 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)"
+      "parameters": "'in_channels': 512 \n 'out_channels': 512 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)",
+      "groupId": 0
     },
     {
       "order": 39,
       "layer": "BatchNorm2d",
-      "parameters": "'num_features': 512"
+      "parameters": "'num_features': 512",
+      "groupId": 0
     },
     {
       "order": 40,
       "layer": "ReLU",
-      "parameters": "'inplace' : False"
+      "parameters": "'inplace' : False",
+      "groupId": 0
     },
     {
       "order": 41,
       "layer": "Conv2d",
-      "parameters": "'in_channels': 512 \n 'out_channels': 512 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)"
+      "parameters": "'in_channels': 512 \n 'out_channels': 512 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)",
+      "groupId": 0
     },
     {
       "order": 42,
       "layer": "BatchNorm2d",
-      "parameters": "'num_features': 512"
+      "parameters": "'num_features': 512",
+      "groupId": 0
     },
     {
       "order": 43,
       "layer": "ReLU",
-      "parameters": "'inplace': False"
+      "parameters": "'inplace': False",
+      "groupId": 0
     },
     {
       "order": 44,
       "layer": "MaxPool2d",
-      "parameters": "'kernel_size': (2, 2) \n 'stride': (2, 2) \n 'padding': (0, 0) \n 'dilation': 1 \n 'return_indices': False \n 'ceil_mode': False"
+      "parameters": "'kernel_size': (2, 2) \n 'stride': (2, 2) \n 'padding': (0, 0) \n 'dilation': 1 \n 'return_indices': False \n 'ceil_mode': False",
+      "groupId": 0
     },
     {
       "order": 45,
       "layer": "Linear",
-      "parameters": "'in_features': 25088 \n 'out_features': 4096 \n 'bias': True"
+      "parameters": "'in_features': 25088 \n 'out_features': 4096 \n 'bias': True",
+      "groupId": 0
     },
     {
       "order": 46,
       "layer": "ReLU",
-      "parameters": "'inplace': True"
+      "parameters": "'inplace': True",
+      "groupId": 0
     },
     {
       "order": 47,
       "layer": "Dropout",
-      "parameters": "'p': 0.5 \n 'inplace': False"
+      "parameters": "'p': 0.5 \n 'inplace': False",
+      "groupId": 0
     },
     {
       "order": 48,
       "layer": "Linear",
-      "parameters": "'in_features': 4096 \n 'out_features': 4096 \n 'bias': True"
+      "parameters": "'in_features': 4096 \n 'out_features': 4096 \n 'bias': True",
+      "groupId": 0
     },
     {
       "order": 49,
       "layer": "ReLU",
-      "parameters": "'inplace': True"
+      "parameters": "'inplace': True",
+      "groupId": 0
     },
     {
       "order": 50,
       "layer": "Dropout",
-      "parameters": "'p': 0.5 \n 'inplace': False"
+      "parameters": "'p': 0.5 \n 'inplace': False",
+      "groupId": 0
     },
     {
       "order": 51,
       "layer": "Linear",
-      "parameters": "'in_features': 4096 \n 'out_features': 10 \n 'bias': True"
+      "parameters": "'in_features': 4096 \n 'out_features': 10 \n 'bias': True",
+      "groupId": 0
     }
   ],
   "edge": [

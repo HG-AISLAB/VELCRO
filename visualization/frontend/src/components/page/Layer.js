@@ -71,11 +71,14 @@ function LayerList() {
   const [isPaneClicked, setIsPaneClicked] = useState(false);
   const [level, setLevel] = useState(1);
   const [elements, setElements, isLoading] = useInitialArch(level);
-  const [inspect, setInspect] = useState([]);
+  const [rapid, setRapid] = useState([]);
+  const [noMatch, setNoMatch] = useState([]);
 
-  const get_inspect = (e) => {
-    setInspect(e);
-  }
+
+
+//  const get_inspect = (e) => {
+//    setInspect(e);
+//  }
 
   useEffect(() => {
     const get_params = async () => {
@@ -106,18 +109,19 @@ function LayerList() {
       }
     };
 
-    console.log(inspect)
+
+    console.log(noMatch)
 
     for(var i=0;i<elements.length;i++){
-        console.log(elements[i].id)
-        if (Number(elements[i].id) === inspect.rapid[0]){
-            elements[inspect.rapid[0]-1].style = {
-        ...elements[inspect.rapid[0]-1].style,
+
+        if (Number(elements[i].id) === rapid[0]){
+            elements[rapid[0]-1].style = {
+        ...elements[rapid[0]-1].style,
         border: "5px solid #0067A3",
 
       }
-      elements[inspect.rapid[1]-1].style = {
-        ...elements[inspect.rapid[1]-1].style,
+      elements[rapid[1]-1].style = {
+        ...elements[rapid[1]-1].style,
         border: "5px solid #0067A3",
 
       }
@@ -125,25 +129,23 @@ function LayerList() {
 
         }
 
-        if (Number(elements[i].id) === inspect.notmatch[0]){
-            elements[inspect.notmatch[0]-1].style = {
-        ...elements[inspect.notmatch[0]-1].style,
-        border: "5px solid #9B111E",
+        if (Number(elements[i].id) === noMatch[0]){
+            elements[noMatch[0]-1].style = {
+        ...elements[noMatch[0]-1].style,
+        border: "5px solid #DD636E",
 
       }
-      elements[inspect.notmatch[1]-1].style = {
-        ...elements[inspect.notmatch[1]-1].style,
-        border: "5px solid #9B111E",
+      elements[noMatch[1]-1].style = {
+        ...elements[noMatch[1]-1].style,
+        border: "5px solid #DD636E",
 
       }
             setElements([...elements]);
         }
     }
 
-    console.log(elements)
 
-
-  },[inspect])
+  },[rapid, noMatch])
 
 
 
@@ -973,7 +975,7 @@ const onPaneClick = () => {
                 className="reactBtn"
                 style={{ position: "absolute", zIndex: 100 }}
               >
-                <GenerateButton elements={elements} func={get_inspect}/>
+                <GenerateButton elements={elements} setNoMatch={setNoMatch} noMatch={noMatch} setRapid={setRapid} rapid={rapid}/>
               </div>
             </ReactFlow>
           </div>

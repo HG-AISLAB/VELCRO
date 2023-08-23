@@ -28,8 +28,8 @@ function GenerateButton(props){
       }
 
 
-      function Dimension_error() {
-	    if ("" === "") {
+      function Dimension_error(arr) {
+	    if (arr.length !== 0) {
 		    setToastState2(true);
 		return false;
 	    }
@@ -162,7 +162,7 @@ function GenerateButton(props){
             var rapid_node2 = convIndex[rapid_index + 1]
 
 
-            console.log(matchArr)
+
             var not_matchidx = [];
             for(var i=0;i<matchArr.length;i++){
                 if(matchArr[i] == false){
@@ -170,16 +170,18 @@ function GenerateButton(props){
                 }
             }
 
-            console.log(not_matchidx)
-            props.func((nds) => nds.push(
-                [rapid_node1, rapid_node2]))
+            console.log(matchArr)
+            console.log(convIndex)
+            console.log(rapid_node1, rapid_node2)
+
+            props.setRapid([...props.rapid,rapid_node1, rapid_node2])
+
             for(var i=0;i<not_matchidx.length;i++){
-                props.func((nds) => nds.push(
-                [convIndex[not_matchidx[i]],convIndex[not_matchidx[i]+1]]
-                ))
-            console.log("12321312")
+                props.setNoMatch([...props.noMatch, convIndex[not_matchidx[i]], convIndex[not_matchidx[i]+1]])
+
+                console.log(convIndex[not_matchidx[i]],convIndex[not_matchidx[i]+1])
             }
-            console.log("1236546464521312")
+
 
 //            console.log(convIndex[not_matchidx[0]],convIndex[not_matchidx[0]+1])
 //            props.func((nds) => nds.push({
@@ -190,7 +192,7 @@ function GenerateButton(props){
 
 
             Rapid_parameter()
-            Dimension_error()
+            Dimension_error(not_matchidx)
 
     }
 

@@ -12,7 +12,7 @@ function ToastDimension(props) {
     useEffect(() => {
         let timer = setTimeout(() => {
             props.setToastState(false);		// 2초 뒤, toastState가 false가 되면서 알림창이 사라진다
-        }, 2000);
+        }, 5000);
 
         return () => { clearTimeout(timer) }
     }, []);
