@@ -71,7 +71,7 @@ function LayerList() {
   const [isPaneClicked, setIsPaneClicked] = useState(false);
   const [level, setLevel] = useState(1);
   const [elements, setElements, isLoading] = useInitialArch(level);
-  const [inspect, setInspect] = useState();
+  const [inspect, setInspect] = useState([]);
 
   const get_inspect = (e) => {
     setInspect(e);
@@ -106,7 +106,7 @@ function LayerList() {
       }
     };
 
-
+    console.log(inspect)
 
     for(var i=0;i<elements.length;i++){
         console.log(elements[i].id)

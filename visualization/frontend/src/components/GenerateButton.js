@@ -116,7 +116,7 @@ function GenerateButton(props){
         }
 
         const Inspect_match = (node1, node2) =>{
-            console.log(node1[1], node2[0])
+
             if(Number(node1[1]) == Number(node2[0])){
 
                 matchArr.push(true)
@@ -155,15 +155,13 @@ function GenerateButton(props){
             }
 
         }
-            console.log(rapidArr)
-            console.log('******');
+
             var rapid_index = rapidArr.indexOf(Math.max(...rapidArr));
-            console.log(rapid_index)
-            console.log(convIndex)
+
             var rapid_node1 = convIndex[rapid_index]
             var rapid_node2 = convIndex[rapid_index + 1]
 
-            console.log(rapid_node1, rapid_node2);
+
             console.log(matchArr)
             var not_matchidx = [];
             for(var i=0;i<matchArr.length;i++){
@@ -173,11 +171,24 @@ function GenerateButton(props){
             }
 
             console.log(not_matchidx)
-            console.log(convIndex[not_matchidx[0]],convIndex[not_matchidx[0]+1])
-            props.func({
-                rapid:[rapid_node1, rapid_node2],
-                notmatch:[convIndex[not_matchidx[0]],convIndex[not_matchidx[0]+1]]
-            })
+            props.func((nds) => nds.push(
+                [rapid_node1, rapid_node2]))
+            for(var i=0;i<not_matchidx.length;i++){
+                props.func((nds) => nds.push(
+                [convIndex[not_matchidx[i]],convIndex[not_matchidx[i]+1]]
+                ))
+            console.log("12321312")
+            }
+            console.log("1236546464521312")
+
+//            console.log(convIndex[not_matchidx[0]],convIndex[not_matchidx[0]+1])
+//            props.func((nds) => nds.push({
+//                rapid:[rapid_node1, rapid_node2],
+//                notmatch:[convIndex[not_matchidx[0]],convIndex[not_matchidx[0]+1]]
+//            }))
+
+
+
             Rapid_parameter()
             Dimension_error()
 

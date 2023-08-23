@@ -53,7 +53,7 @@
     {
       "order": 11,
       "layer": "Conv2d",
-      "parameters": "'in_channels': 128 \n 'out_channels': 128 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)"
+      "parameters": "'in_channels': 512 \n 'out_channels': 128 \n 'kernel_size': (3, 3) \n 'stride': (1, 1) \n 'padding': (1, 1)"
     },
     {
       "order": 12,
