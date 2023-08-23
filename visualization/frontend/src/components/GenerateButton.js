@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "../styles.css";
 import styled from "styled-components";
+import {ToastParameter} from "./ToastParameter.js";
+import {ToastDimension} from "./ToastDimension.js";
+
 
 function GenerateButton(props){
+    let [toastState1, setToastState1] = useState(false);
+    let [toastState2, setToastState2] = useState(false);
+
     const onShow=(event)=>{
         event.preventDefault();
         var data = props.elements;
@@ -16,7 +22,19 @@ function GenerateButton(props){
         .catch(e => console.log(e))
     };
 
+      function Rapid_parameter() {
+		setToastState1(true);
+	    return true;
+      }
 
+
+      function Dimension_error() {
+	    if ("" === "") {
+		    setToastState2(true);
+		return false;
+	    }
+	    return true;
+      }
 
 
     const Inspect = async () => {
@@ -155,6 +173,8 @@ function GenerateButton(props){
             }
 
             console.log(not_matchidx)
+            Rapid_parameter()
+            Dimension_error()
 
     }
 
@@ -164,6 +184,12 @@ function GenerateButton(props){
         <div>
             <button style={{marginRight: 5}} class="btn_fin" onClick={onShow}> Generate </button>
             <button  className="inspect"  onClick={Inspect}>Inspect</button>
+            {toastState1 === true ? (
+		        <ToastParameter setToastState={setToastState1} />
+	        ) : null}
+	        {toastState2 === true ? (
+		        <ToastDimension setToastState={setToastState2} />
+	        ) : null}
         </div>
     )
 }
