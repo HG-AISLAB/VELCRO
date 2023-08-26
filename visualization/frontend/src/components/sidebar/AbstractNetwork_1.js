@@ -4,7 +4,10 @@ import axios from "axios";
 import "../../styles.css";
 
 
-let Gid = 0;
+let Gid_1 = 0;
+let Gid_2 = 0;
+let Gid_3 = 0;
+
 const AbstractNetwork_1 = ({ onClickLevel, onClickGroup }) => {
 
   const [currentGroupId, setCurrentGroupId] = useState(1);
@@ -15,12 +18,12 @@ const AbstractNetwork_1 = ({ onClickLevel, onClickGroup }) => {
     console.log("onClickAbstract 실행중~");
 //    setCurrentGroupId(currentGroupId + 1);
 //    console.log("currentGroupId", currentGroupId);
-    console.log("Gid", Gid);
+    console.log("Gid_1", Gid_1);
     console.log(clickedNodeList);
     onClickGroup(true);
     axios
       .post("/api/group/", {
-        group_id: ++Gid,
+        group_id: ++Gid_1,
         layer_type: clickedNodeList,
       })
       .then(function (response) {
@@ -29,7 +32,7 @@ const AbstractNetwork_1 = ({ onClickLevel, onClickGroup }) => {
       .catch((err) => console.log(err));
 
 //    setToggleList([...toggleList, { id: Gid, nodes: clickedNodeList }]);
-    setToggleList(prevToggleList => [...prevToggleList, { id: Gid, nodes: clickedNodeList }]);
+    setToggleList(prevToggleList => [...prevToggleList, { id: Gid_1, nodes: clickedNodeList }]);
 //    console.log(onClickGroup);
 //    onClickGroup(false);
   };
@@ -193,6 +196,9 @@ const AbstractNetwork_1 = ({ onClickLevel, onClickGroup }) => {
             type="button"
             className="AbstractBtn"
             onClick={() => {
+                Gid_1 = 0;
+                Gid_2 = 0;
+                Gid_3 = 0;
                 onClickLevel(1);}}
           >
             Level 1
@@ -201,9 +207,11 @@ const AbstractNetwork_1 = ({ onClickLevel, onClickGroup }) => {
             type="button"
             className="AbstractBtn"
             onClick={()=>{
-                Gid = 0;
+                Gid_1 = 0;
+                Gid_2 = 0;
+                Gid_3 = 0;
                 axios.post("/api/group/", {
-                    group_id: ++Gid,
+                    group_id: ++Gid_2,
                     layer_type: ['Conv2d', 'BatchNorm2d', 'ReLU']
                 }).then(function (response) {
                     console.log(response);
@@ -222,9 +230,11 @@ const AbstractNetwork_1 = ({ onClickLevel, onClickGroup }) => {
             type="button"
             className="AbstractBtn"
             onClick={()=> {
-                Gid = 0;
+                Gid_1 = 0;
+                Gid_2 = 0;
+                Gid_3 = 0;
                 axios.post("/api/group/", {
-                    group_id: ++Gid,
+                    group_id: ++Gid_3,
                     layer_type: ['Conv2d', 'BatchNorm2d', 'ReLU', 'Conv2d', 'BatchNorm2d', 'ReLU', 'MaxPool2d']
                 }).then(function (response) {
                     console.log(response);
@@ -234,7 +244,7 @@ const AbstractNetwork_1 = ({ onClickLevel, onClickGroup }) => {
                     console.log(response2);
                 }).catch(err => console.log(err))
                 axios.post("/api/group/", {
-                    group_id: ++Gid,
+                    group_id: ++Gid_3,
                     layer_type: ['Conv2d', 'BatchNorm2d', 'ReLU', 'Conv2d', 'BatchNorm2d', 'ReLU', 'Conv2d', 'BatchNorm2d', 'ReLU', 'MaxPool2d']
                 }).then(function (response) {
                     console.log(response);
