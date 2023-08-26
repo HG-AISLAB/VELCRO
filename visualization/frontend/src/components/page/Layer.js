@@ -933,7 +933,7 @@ function LayerList() {
         {tabToggle === 2 ? (
           <NetworkInformation />
         ) : (tabToggle === 3 && level === 1) ? (
-          <AbstractNetwork_1 onClickLevel={setLevel} onClickGroup={setGroup}/>
+          <AbstractNetwork_1 onClickLevel={setLevel} onClickGroup={setGroup} group = {group}/>
         ) : (tabToggle === 3 && level === 2) ? (
           <AbstractNetwork_2 onClickLevel={setLevel} onClickGroup={setGroup}/>
         ) : (tabToggle === 3 && level === 3) ? (

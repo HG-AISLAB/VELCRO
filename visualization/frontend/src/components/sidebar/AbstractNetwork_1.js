@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { clickedNodeList } from "../page/Layer";
 import axios from "axios";
 import "../../styles.css";
@@ -7,55 +7,11 @@ import "../../styles.css";
 let Gid_1 = 0;
 let Gid_2 = 0;
 let Gid_3 = 0;
+var cF = 0;
 
-const AbstractNetwork_1 = ({ onClickLevel, onClickGroup }) => {
-
-  const [currentGroupId, setCurrentGroupId] = useState(1);
-  const [toggleList, setToggleList] = useState([]);
-  const [groupedNodeList, setGroupedNodeList] = useState({});
-
-  const onClickAbstract = () => {
-    console.log("onClickAbstract 실행중~");
-//    setCurrentGroupId(currentGroupId + 1);
-//    console.log("currentGroupId", currentGroupId);
-    console.log("Gid_1", Gid_1);
-    console.log(clickedNodeList);
-    onClickGroup(true);
-    axios
-      .post("/api/group/", {
-        group_id: ++Gid_1,
-        layer_type: clickedNodeList,
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch((err) => console.log(err));
-
-//    setToggleList([...toggleList, { id: Gid, nodes: clickedNodeList }]);
-    setToggleList(prevToggleList => [...prevToggleList, { id: Gid_1, nodes: clickedNodeList }]);
-//    console.log(onClickGroup);
-//    onClickGroup(false);
-  };
-
-  const getToggleContent = (groupId) => {
-    console.log("getToggleContent 실행중~");
-    console.log("toggleList", toggleList);
-    const groupInfo = toggleList.find((item) => item.id === groupId);
-    if (groupInfo) {
-      const groupNodes = groupInfo.nodes;
-      return (
-        <ul>
-          {groupNodes.map((node, index) => (
-            <li key={index}>{getNodeContent(node)}</li>
-          ))}
-        </ul>
-      );
-
-    } else {
-      return null;
-    }
-  };
-
+const initialToggleList = [];
+let accumulatedToggleList =[];
+let nodeList = [];
   const getNodeContent = (node) => {
       switch (node) {
         case 'Conv2d':
@@ -183,6 +139,124 @@ const AbstractNetwork_1 = ({ onClickLevel, onClickGroup }) => {
           return null;
     }
 };
+  const ToggleContent = ({ groupInfo }) => {
+  if (groupInfo) {
+    const groupNodes = groupInfo.nodes;
+    return (
+      <ul>
+        {groupNodes.map((node, index) => (
+          <li key={index}>{getNodeContent(node)}</li>
+        ))}
+      </ul>
+    );
+  } else {
+    return null;
+  }
+};
+
+const AbstractNetwork_1 = ({ onClickLevel, onClickGroup, group }) => {
+
+  const [currentGroupId, setCurrentGroupId] = useState(1);
+  const [toggleList, setToggleList] = useState([]);
+
+const addToToggleList = (id, nodes) => {
+  setToggleList(accumulatedToggleList => [
+    ...accumulatedToggleList,
+    { id: id, nodes: nodes }
+  ]);
+//  accumulatedToggleList.push(toggleList);
+    accumulatedToggleList.push({ id: id, nodes: nodes });
+};
+
+  useEffect(() => {
+    if (group === false && cF === 1) {
+      // group 값이 false로 변경되었을 때 실행할 로직
+      // 예시: 토글 띄워지지 않도록 하는 로직 등
+        console.log("if문 실행중~");
+        console.log("ToggleList, accumulatedToggleList", toggleList, accumulatedToggleList);
+        nodeList = clickedNodeList;
+    //    setToggleList(prevToggleList => [...prevToggleList, { id: Gid_1, nodes: clickedNodeList }]);
+          if (nodeList.length > 1) {
+            addToToggleList(Gid_1, nodeList);
+          }
+        cF = 0
+
+    } else {
+        console.log("else문 실행중~");
+        console.log("Group", group);
+//    setCurrentGroupId(currentGroupId + 1);
+//    console.log("currentGroupId", currentGroupId);
+        console.log("Gid_1", Gid_1);
+        console.log(clickedNodeList);
+        if(clickedNodeList.length > 1){
+          axios
+          .post("/api/group/", {
+            group_id: ++Gid_1,
+            layer_type: clickedNodeList,
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch((err) => console.log(err));
+        }
+
+//    console.log(onClickGroup);
+        onClickGroup(false);
+        cF =1;
+        console.log("ToggleList, accumulatedToggleList", toggleList, accumulatedToggleList);
+     }
+  }, [group]);
+
+
+  const onClickAbstract = () => {
+    console.log("onClickAbstract 실행중~");
+//    console.log("Group", group);
+////    setCurrentGroupId(currentGroupId + 1);
+////    console.log("currentGroupId", currentGroupId);
+//    console.log("Gid_1", Gid_1);
+//    console.log(clickedNodeList);
+    onClickGroup(true);
+//
+//    axios
+//      .post("/api/group/", {
+//        group_id: ++Gid_1,
+//        layer_type: clickedNodeList,
+//      })
+//      .then(function (response) {
+//        console.log(response);
+//      })
+//      .catch((err) => console.log(err));
+//
+////    setToggleList([...toggleList, { id: Gid, nodes: clickedNodeList }]);
+//    setToggleList(prevToggleList => [...prevToggleList, { id: Gid_1, nodes: clickedNodeList }]);
+////    console.log(onClickGroup);
+////    onClickGroup(false);
+////    onClickGroup(true);
+
+    console.log("Group", group);
+    console.log("ToggleList, accumulatedToggleList", toggleList, accumulatedToggleList);
+  };
+
+  const getToggleContent = (groupId) => {
+    console.log("getToggleContent 실행중~");
+    console.log("toggleList", toggleList);
+    const groupInfo = accumulatedToggleList.find((item) => item.id === groupId);
+    if (groupInfo) {
+      const groupNodes = groupInfo.nodes;
+      return (
+        <ul>
+          {groupNodes.map((node, index) => (
+            <li key={index}>{getNodeContent(node)}</li>
+          ))}
+        </ul>
+      );
+
+    } else {
+      return null;
+    }
+  };
+
+
 
 
   return (
@@ -199,6 +273,7 @@ const AbstractNetwork_1 = ({ onClickLevel, onClickGroup }) => {
                 Gid_1 = 0;
                 Gid_2 = 0;
                 Gid_3 = 0;
+                accumulatedToggleList =[];
                 onClickLevel(1);}}
           >
             Level 1
@@ -210,6 +285,7 @@ const AbstractNetwork_1 = ({ onClickLevel, onClickGroup }) => {
                 Gid_1 = 0;
                 Gid_2 = 0;
                 Gid_3 = 0;
+                accumulatedToggleList =[];
                 axios.post("/api/group/", {
                     group_id: ++Gid_2,
                     layer_type: ['Conv2d', 'BatchNorm2d', 'ReLU']
@@ -233,6 +309,7 @@ const AbstractNetwork_1 = ({ onClickLevel, onClickGroup }) => {
                 Gid_1 = 0;
                 Gid_2 = 0;
                 Gid_3 = 0;
+                accumulatedToggleList =[];
                 axios.post("/api/group/", {
                     group_id: ++Gid_3,
                     layer_type: ['Conv2d', 'BatchNorm2d', 'ReLU', 'Conv2d', 'BatchNorm2d', 'ReLU', 'MaxPool2d']
@@ -271,12 +348,12 @@ const AbstractNetwork_1 = ({ onClickLevel, onClickGroup }) => {
         </div>
         <div className="GroupInformation">
             <div className="GroupText"> Group Information </div>
-             {toggleList.map((item) => (
-            <details key={item.id} className={`Group${item.id}`}>
-              <summary className="layerName">Group {item.id}</summary>
-              {getToggleContent(item.id)}
-            </details>
-          ))}
+        {accumulatedToggleList.map((item) => (
+          <details key={item.id} className={`Group${item.id}`}>
+            <summary className="layerName">Group {item.id}</summary>
+            <ToggleContent groupInfo={item} />
+          </details>
+        ))}
         </div>
 
       </aside>
