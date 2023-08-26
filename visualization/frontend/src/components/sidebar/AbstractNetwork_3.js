@@ -1,9 +1,13 @@
 import React from "react";
 import axios from 'axios';
 
+let Gid_1 = 0;
+let Gid_2 = 0;
+let Gid_3 = 0;
+
 const AbstractNetwork_3 = ({ onClickLevel, onClickGroup}) => {
 
-    var Gid = 0;
+//    var Gid_3 = 0;
     const onClickAbstract = () => {
       onClickGroup(false);
     };
@@ -19,6 +23,9 @@ const AbstractNetwork_3 = ({ onClickLevel, onClickGroup}) => {
             type="button"
             className="AbstractBtn"
             onClick={() => {
+                Gid_1 = 0;
+                Gid_2 = 0;
+                Gid_3 = 0;
                 onClickLevel(1);}}
           >
             Level 1
@@ -27,8 +34,11 @@ const AbstractNetwork_3 = ({ onClickLevel, onClickGroup}) => {
             type="button"
             className="AbstractBtn"
             onClick={()=>{
+                Gid_1 = 0;
+                Gid_2 = 0;
+                Gid_3 = 0;
                 axios.post("/api/group/", {
-                    group_id: ++Gid,
+                    group_id: ++Gid_2,
                     layer_type: ['Conv2d', 'BatchNorm2d', 'ReLU']
                 }).then(function (response) {
                     console.log(response);
@@ -47,8 +57,11 @@ const AbstractNetwork_3 = ({ onClickLevel, onClickGroup}) => {
             type="button"
             className="AbstractBtn"
             onClick={()=> {
+                Gid_1 = 0;
+                Gid_2 = 0;
+                Gid_3 = 0;
                 axios.post("/api/group/", {
-                    group_id: ++Gid,
+                    group_id: ++Gid_3,
                     layer_type: ['Conv2d', 'BatchNorm2d', 'ReLU', 'Conv2d', 'BatchNorm2d', 'ReLU', 'MaxPool2d']
                 }).then(function (response) {
                     console.log(response);
@@ -58,7 +71,7 @@ const AbstractNetwork_3 = ({ onClickLevel, onClickGroup}) => {
                     console.log(response2);
                 }).catch(err => console.log(err))
                 axios.post("/api/group/", {
-                    group_id: ++Gid,
+                    group_id: ++Gid_3,
                     layer_type: ['Conv2d', 'BatchNorm2d', 'ReLU', 'Conv2d', 'BatchNorm2d', 'ReLU', 'Conv2d', 'BatchNorm2d', 'ReLU', 'MaxPool2d']
                 }).then(function (response) {
                     console.log(response);
