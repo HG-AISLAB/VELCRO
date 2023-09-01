@@ -12,6 +12,7 @@ var cF = 0;
 const initialToggleList = [];
 let accumulatedToggleList =[];
 let nodeList = [];
+
   const getNodeContent = (node) => {
       switch (node) {
         case 'Conv2d':
@@ -158,7 +159,7 @@ const AbstractNetwork_1 = ({ onClickLevel, onClickGroup, group }) => {
 
   const [currentGroupId, setCurrentGroupId] = useState(1);
   const [toggleList, setToggleList] = useState([]);
-
+const get_layer_type = []
 const addToToggleList = (id, nodes) => {
   setToggleList(accumulatedToggleList => [
     ...accumulatedToggleList,
@@ -174,11 +175,12 @@ const addToToggleList = (id, nodes) => {
       // 예시: 토글 띄워지지 않도록 하는 로직 등
         console.log("if문 실행중~");
         console.log("ToggleList, accumulatedToggleList", toggleList, accumulatedToggleList);
-        nodeList = clickedNodeList;
+
     //    setToggleList(prevToggleList => [...prevToggleList, { id: Gid_1, nodes: clickedNodeList }]);
-          if (nodeList.length > 1) {
-            addToToggleList(Gid_1, nodeList);
-          }
+//          if (clickedNodeList.length > 1) {
+//            nodeList = clickedNodeList;
+//            addToToggleList(Gid_1, nodeList);
+//          }
         cF = 0
 
     } else {
@@ -195,6 +197,8 @@ const addToToggleList = (id, nodes) => {
             layer_type: clickedNodeList,
           })
           .then(function (response) {
+            nodeList = clickedNodeList;
+            addToToggleList(Gid_1, nodeList);
             console.log(response);
           })
           .catch((err) => console.log(err));
@@ -235,6 +239,46 @@ const addToToggleList = (id, nodes) => {
 
     console.log("Group", group);
     console.log("ToggleList, accumulatedToggleList", toggleList, accumulatedToggleList);
+  };
+
+
+  const onClickUngroup = () => {
+
+
+
+    // 배열에서 숫자만 추출하는 함수
+    function extractNumbers(arr) {
+      const result = [];
+      for (const item of arr) {
+        // 정규 표현식을 사용하여 숫자만 추출
+        const matches = item.match(/\d+/);
+        if (matches) {
+          // 추출된 숫자를 정수로 변환하여 결과 배열에 추가
+          return parseInt(matches[0], 10);
+        }
+      }
+      return -1;
+    }
+
+    const ungroup_ids = extractNumbers(clickedNodeList);
+    console.log(ungroup_ids); // 1 이렇게 숫자 하나 나옴
+
+    axios.delete("/api/group/1/").then(function (response) {
+    //console.log(response);
+    }).catch(err => console.log(err));
+
+    axios.post("/api/ungroupid/", {id: 1, ungroup_id: ungroup_ids,}).then(function (response2){
+        console.log(response2);
+         axios.post("/api/sort_ungroup/").then(function (response3){
+        console.log(response3);
+        }).catch(err => console.log(err));}
+
+    );
+//        setToggleList([...toggleList, { id: currentGroupId, nodes: clickedNodeList }]);
+    // 토글 값 변경
+
+
+
   };
 
   const getToggleContent = (groupId) => {
@@ -342,7 +386,7 @@ const addToToggleList = (id, nodes) => {
           <button type="button" onClick={onClickAbstract} className="AbstractBtn">
             Group
           </button>
-          <button type="button" className="AbstractBtn">
+          <button type="button" onClick={onClickUngroup} className="AbstractBtn">
             Ungroup
           </button>
         </div>

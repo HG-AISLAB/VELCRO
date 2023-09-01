@@ -140,9 +140,8 @@ function LayerList() {
               sort_x_pos += 200;
               sort_y_pos = 100 + sortCount;
             }
-          }
-            else if(isGroup){
-              if (sort_y_pos + 330 <= 639) {
+          } else if(isGroup){
+              if (sort_y_pos + 200 <= 639) {
                 sort_y_pos += 200;
               } else {
                 sort_x_pos += 200;
@@ -164,27 +163,27 @@ function LayerList() {
             y: sort_y_pos,
           };
 
-          console.log(sort_x_pos, sort_y_pos);
-          console.log(sortedElements[j].position);
-          console.log(isBlock);
-          console.log(sortedElements[j].sort);
+//          console.log(sort_x_pos, sort_y_pos);
+//          console.log(sortedElements[j].position);
+//          console.log(isBlock);
+//          console.log(sortedElements[j].sort);
 
-          if (
-            sortedElements[j].sort === "0"
-          ) {
-            isBlock = false;
-            isGroup = false;
-          }else if (
-            sortedElements[j].sort === "3" &&
-            sortedElements[j].sort !== undefined
-          ) {
-            isBlock = false;
-            isGroup = true;
-          }
-          else {
-            isBlock = true;
-            isGroup = false;
-          }
+//          if (
+//            sortedElements[j].sort === "0"
+//          ) {
+//            isBlock = false;
+//            isGroup = false;
+//          }else if (
+//            sortedElements[j].sort === "3" &&
+//            sortedElements[j].sort !== undefined
+//          ) {
+//            isBlock = false;
+//            isGroup = true;
+//          }
+//          else {
+//            isBlock = true;
+//            isGroup = false;
+//          }
         }
       }
     }
@@ -933,7 +932,7 @@ function LayerList() {
         {tabToggle === 2 ? (
           <NetworkInformation />
         ) : (tabToggle === 3 && level === 1) ? (
-          <AbstractNetwork_1 onClickLevel={setLevel} onClickGroup={setGroup} group = {group}/>
+          <AbstractNetwork_1 onClickLevel={setLevel} onClickGroup={setGroup} group = {group}  />
         ) : (tabToggle === 3 && level === 2) ? (
           <AbstractNetwork_2 onClickLevel={setLevel} onClickGroup={setGroup}/>
         ) : (tabToggle === 3 && level === 3) ? (

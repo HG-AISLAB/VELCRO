@@ -63,7 +63,19 @@ function useInitialArch(level, group, setGroup) {
                // always executed
              });
           }
-
+            //그룹 정보 삭제하기
+          for (var j=0; j<20; j++){
+            axios.delete('/api/ungroupid/'.concat(j).concat('/'))
+             .then(function (response) {
+               // handle success
+             })
+             .catch(function (error) {
+               // handle error
+             })
+             .then(function () {
+               // always executed
+             });
+          }
           //그룹 정보 삭제하기
           for (var j=0; j<20; j++){
             axios.delete('/api/sort_group/'.concat(j).concat('/'))
