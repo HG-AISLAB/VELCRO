@@ -20,10 +20,25 @@ class Edge(models.Model):
     prior = models.IntegerField()
     next = models.IntegerField()
 
+
 class Group(models.Model):
     objects = models.Manager()
     group_id = models.IntegerField(primary_key=True)
     layer_type = ArrayField(models.CharField(max_length=100), blank=True)
+
+
+class UnGroupId(models.Model):
+    objects = models.Manager()
+    id = models.IntegerField(primary_key=True)
+    ungroup_id = models.IntegerField()
+
+
+
+class UnGroup(models.Model):
+    objects = models.Manager()
+    id = models.IntegerField(primary_key=True)
+    ungroup_id = models.IntegerField()
+
 
 class Pth(models.Model):
     # pylint: disable=too-few-public-methods, missing-class-docstring

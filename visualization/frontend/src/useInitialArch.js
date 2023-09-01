@@ -66,6 +66,20 @@ function useInitialArch(level, group, setGroup) {
 
           //그룹 정보 삭제하기
           for (var j=0; j<20; j++){
+            axios.delete('/api/ungroupid/'.concat(j).concat('/'))
+             .then(function (response) {
+               // handle success
+             })
+             .catch(function (error) {
+               // handle error
+             })
+             .then(function () {
+               // always executed
+             });
+          }
+
+          //그룹 정보 삭제하기
+          for (var j=0; j<20; j++){
             axios.delete('/api/sort_group/'.concat(j).concat('/'))
              .then(function (response) {
                // handle success
@@ -77,6 +91,7 @@ function useInitialArch(level, group, setGroup) {
                // always executed
              });
           }
+
           const jsonData = require(`./VGG16_level${level}.json`);
 //          console.log(jsonData);
           var node_id = 1;
@@ -305,7 +320,7 @@ function useInitialArch(level, group, setGroup) {
           setCheckFirst(1);
         }
 
-        // ------ Custom Group ------\\x
+        // ------ Custom Group ------\\
         else if (level===1 && checkFirst === 1){
             console.log("// ------Custom Group ------\\");
             // ------Custom Group 변동시 ------\\

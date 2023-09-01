@@ -3,19 +3,18 @@ import { clickedNodeList } from "../page/Layer";
 import axios from "axios";
 import "../../styles.css";
 
+var Gid = 0;
 
-let Gid = 0;
 const AbstractNetwork_1 = ({ onClickLevel, onClickGroup }) => {
-
   const [currentGroupId, setCurrentGroupId] = useState(1);
   const [toggleList, setToggleList] = useState([]);
   const [groupedNodeList, setGroupedNodeList] = useState({});
+  const get_layer_type = []
+  //const ungroup_id = 1
 
   const onClickAbstract = () => {
     console.log("onClickAbstract 실행중~");
-//    setCurrentGroupId(currentGroupId + 1);
-//    console.log("currentGroupId", currentGroupId);
-    console.log("Gid", Gid);
+    setCurrentGroupId(currentGroupId + 1);
     console.log(clickedNodeList);
     onClickGroup(true);
     axios
@@ -28,18 +27,70 @@ const AbstractNetwork_1 = ({ onClickLevel, onClickGroup }) => {
       })
       .catch((err) => console.log(err));
 
-//    setToggleList([...toggleList, { id: Gid, nodes: clickedNodeList }]);
-    setToggleList(prevToggleList => [...prevToggleList, { id: Gid, nodes: clickedNodeList }]);
-//    console.log(onClickGroup);
-//    onClickGroup(false);
+    setToggleList([...toggleList, { id: currentGroupId, nodes: clickedNodeList }]);
+  };
+
+  const onClickUngroup = () => {
+
+    const ungroup_ids = 1
+
+    axios.delete("/api/group/1/").then(function (response) {
+    //console.log(response);
+    }).catch(err => console.log(err));
+
+    axios.post("/api/ungroupid/", {id: 1, ungroup_id: 1,}).then(function (response2){
+        console.log(response2);
+         axios.post("/api/sort_ungroup/").then(function (response3){
+        console.log(response3);
+        }).catch(err => console.log(err));}
+        
+    );
+    
+    // setTimeout(() => {
+    //   axios.delete("/api/ungroupid/1/")
+    //   .then(function (response2) {
+    //     // handle success
+    //   })
+    //   .catch(err => console.log(err))},2000);
+
+//    axios.post("/api/ungroup/", {id: 1, ungroup_id: 1,}).then(function (response2){
+//        console.log(response2);
+//    }).catch(err => console.log(err));
+
+
+
+//    // Ungroup 이후, ungroup db 비우기
+//    axios.delete("/api/ungroup/").then(function (response) {
+//        console.log(response);
+//    }).catch(err => console.log(err))
+
+
+//    axios.post("/api/ungroup/", {id: 1, ungroup_id: 1,}).then(function (response2){
+//        console.log(response2);
+//        axios.get("/api/ungroup/1/").then(function (response3){
+//            console.log("help..", response3);
+//        });
+//    }).catch(err => console.log(err))
+
+//    axios.post("/api/ungroup/", {id: 1, ungroup_id: 1}).then(function (response2){
+//    console.log(response2);
+//    }).catch(err => console.log(err))
+
+//
+//    axios.delete("/api/group/1/").then(function (response) {
+//    console.log(response);
+//    }).catch(err => console.log(err))
+//
+
+
+    setToggleList([...toggleList, { id: currentGroupId, nodes: clickedNodeList }]);
   };
 
   const getToggleContent = (groupId) => {
     console.log("getToggleContent 실행중~");
-    console.log("toggleList", toggleList);
-    const groupInfo = toggleList.find((item) => item.id === groupId);
-    if (groupInfo) {
-      const groupNodes = groupInfo.nodes;
+    const group = toggleList.find((item) => item.id === groupId);
+    if (group) {
+      const groupNodes = group.nodes;
       return (
         <ul>
           {groupNodes.map((node, index) => (
@@ -61,34 +112,10 @@ const AbstractNetwork_1 = ({ onClickLevel, onClickGroup }) => {
               Conv2d
             </div>
           );
-        case 'MaxPool2d':
+        case 'BatchNorm2d':
           return (
-            <div className="dndnode_MaxPool2d">
-              MaxPool2d
-            </div>
-          );
-        case 'AvgPool2d':
-          return (
-            <div className="dndnode_AvgPool2d">
-              AvgPool2d
-            </div>
-          );
-        case 'AdaptiveAvgPool2d':
-          return (
-            <div className="dndnode_AdaptiveAvgPool2d">
-              AdaptiveAvgPool2d
-            </div>
-          );
-        case 'ZeroPad2d':
-          return (
-            <div className="dndnode_ZeroPad2d">
-              ZeroPad2d
-            </div>
-          );
-        case 'ConstantPad2d':
-          return (
-            <div className="dndnode_ConstantPad2d">
-              ConstantPad2d
+            <div className="dndnode_BatchNorm2d">
+              BatchNorm2d
             </div>
           );
         case 'ReLU':
@@ -97,85 +124,15 @@ const AbstractNetwork_1 = ({ onClickLevel, onClickGroup }) => {
               ReLU
             </div>
           );
-        case 'ReLU6':
+        case 'MaxPool2d':
           return (
-            <div className="dndnode_ReLU6">
-              ReLU6
-            </div>
-          );
-        case 'Sigmoid':
-          return (
-            <div className="dndnode_Sigmoid">
-              Sigmoid
-            </div>
-          );
-        case 'LeakyReLU':
-          return (
-            <div className="dndnode_LeakyReLU">
-              LeakyReLU
-            </div>
-          );
-        case 'Tanh':
-          return (
-            <div className="dndnode_Tanh">
-              Tanh
-            </div>
-          );
-        case 'Softmax':
-          return (
-            <div className="dndnode_Softmax">
-              Softmax
-            </div>
-          );
-        case 'BatchNorm2d':
-          return (
-            <div className="dndnode_BatchNorm2d">
-              BatchNorm2d
-            </div>
-          );
-        case 'Linear':
-          return (
-            <div className="dndnode_Linear">
-              Linear
-            </div>
-          );
-        case 'Dropout':
-          return (
-            <div className="dndnode_Dropout">
-              Dropout
-            </div>
-          );
-        case 'BCELoss':
-          return (
-            <div className="dndnode_BCELoss">
-              BCELoss
-            </div>
-          );
-        case 'CrossEntropyLoss':
-          return (
-            <div className="dndnode_CrossEntropyLoss">
-              CrossEntropyLoss
-            </div>
-          );
-        case 'Flatten':
-          return (
-            <div className="dndnode_Flatten">
-              Flatten
-            </div>
-          );
-        case 'Upsample':
-          return (
-            <div className="dndnode_Upsample">
-              Upsample
-            </div>
-          );
-        case 'MSELoss':
-          return (
-            <div className="dndnode_MSELoss">
-              MSELoss
+            <div className="dndnode_MaxPool2d">
+              MaxPool2d
             </div>
           );
 
+
+        // 다른 노드 타입에 대한 처리를 추가할 수 있음
         default:
           return null;
     }
@@ -201,7 +158,6 @@ const AbstractNetwork_1 = ({ onClickLevel, onClickGroup }) => {
             type="button"
             className="AbstractBtn"
             onClick={()=>{
-                Gid = 0;
                 axios.post("/api/group/", {
                     group_id: ++Gid,
                     layer_type: ['Conv2d', 'BatchNorm2d', 'ReLU']
@@ -222,7 +178,6 @@ const AbstractNetwork_1 = ({ onClickLevel, onClickGroup }) => {
             type="button"
             className="AbstractBtn"
             onClick={()=> {
-                Gid = 0;
                 axios.post("/api/group/", {
                     group_id: ++Gid,
                     layer_type: ['Conv2d', 'BatchNorm2d', 'ReLU', 'Conv2d', 'BatchNorm2d', 'ReLU', 'MaxPool2d']
@@ -255,7 +210,7 @@ const AbstractNetwork_1 = ({ onClickLevel, onClickGroup }) => {
           <button type="button" onClick={onClickAbstract} className="AbstractBtn">
             Group
           </button>
-          <button type="button" className="AbstractBtn">
+          <button type="button" onClick={onClickUngroup} className="AbstractBtn" >
             Ungroup
           </button>
         </div>

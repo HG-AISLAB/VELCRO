@@ -5,6 +5,7 @@ const AbstractNetwork_3 = ({ onClickLevel, onClickGroup}) => {
 
     var Gid = 0;
     const onClickAbstract = () => {
+      console.log('난 3번')
       onClickGroup(false);
     };
 

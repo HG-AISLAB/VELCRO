@@ -26,6 +26,8 @@ from .serializers import StatusSerializer
 from .serializers import RunningSerializer
 from .serializers import StopSerializer
 from .serializers import SortSerializer
+from .serializers import UnGroupSerializer
+from .serializers import UnGroupIdSerializer
 
 from .models import Node
 from .models import Edge
@@ -35,12 +37,16 @@ from .models import Architecture
 from .models import Start
 from .models import Running
 from .models import Sort
+from .models import UnGroup
+from .models import UnGroupId
 
 from .graph import CGraph, CEdge, CNode, CShow2
 from .binder import CPyBinder
 
 import json
 from collections import OrderedDict
+
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -76,6 +82,7 @@ def edgelist():
     serializer = EdgeSerializer(edges, many=True)
     return Response(serializer.data)
 
+
 @api_view(['GET', 'POST'])
 def grouplist():
     '''
@@ -84,6 +91,54 @@ def grouplist():
     groups = Group.objects.all()
     serializer = GroupSerializer(groups, many=True)
     return Response(serializer.data)
+
+
+@api_view(['GET', 'POST', 'DELETE', 'UPDATE'])
+def ungrouplist(request):
+    '''
+    node list
+    '''
+    print("ungrouplist")
+    if request.method == 'GET':
+        ungroups = UnGroup.objects.all()
+        serializer = UnGroupSerializer(ungroups, many=True)
+        return Response(serializer.data)
+    if request.method == 'DELETE':
+        ungroup_id = UnGroup.objects.get(id=1)
+        ungroup_id.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    if request.method == 'POST':
+        print('ungroup post')
+        host_ip = str(request.get_host())[:-5]
+        print(host_ip)
+
+        ungroups = UnGroup.objects.all()
+        serializer = UnGroupSerializer(ungroups, many=True)
+
+        print('UnGroupSerializer.data', serializer.data)
+        print('ungroups', ungroups)
+
+        for ungroup in ungroups:
+            nodes = Node.objects.all()
+            for node in nodes:
+                if node.group_id == ungroup.ungroup_id:
+                    print("찾았다.", node.group_id, node.order)
+
+
+
+#         # serializer = UnGroupSerializer(data={'id': 2, 'ungroup_id': 2})
+#         # if serializer.is_valid():
+#         #     print("valid!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+#         #     serializer.save()
+#         #     return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         # else:
+#         #     print("invalid!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+#         #     serializer.save()
+#         #     return Response("invalid ungroup",
+#         #                     status=status.HTTP_400_BAD_REQUEST)
+
+    return None
+
 
 @api_view(['GET', 'POST', 'DELETE', 'UPDATE'])
 def pthlist(request):
@@ -313,6 +368,72 @@ def sort_group_list(request):
 
 
 @api_view(['GET', 'POST', 'DELETE', 'UPDATE'])
+#@csrf_exempt
+def sort_ungroup_list(request):
+    '''
+    pth list
+    '''
+    if request.method == 'GET':
+        ungroups = UnGroup.objects.all()
+        serializer = UnGroupSerializer(ungroups, many=True)
+        return Response(serializer.data)
+    if request.method == 'POST':
+        print("post")
+        # CShow2()
+        # host_ip = str(request.get_host())[:-5]
+        nodes = Node.objects.all()
+        #ungroups = UnGroup.objects.all()
+        ungroups = UnGroup.objects.get(id=1)
+
+        # To. 정원, 재은
+        # 여기에 전달받은 ungroup Id가 넘어온답니다~
+        print("ungroups", ungroups.ungroup_id)
+        #노드 디비 돌면서 group id 탐색
+        for node in nodes:
+            if node.group_id == ungroups.ungroup_id:
+                node.group_id = 0
+                node.save()
+
+        print("ungroups_after_ungroup : ", ungroups.ungroup_id)
+
+        ungroup_id = UnGroup.objects.get(id=1)
+        print("노드 디비 접근 후, ungroup_id : ", ungroup_id)
+        ungroup_id.delete()
+
+
+
+
+        #serializer = SortUnGroupSerializer(data={'ungroup_id': 1})
+        #serializer = UnGroupSerializer(ungroups, many=True)
+
+        # if serializer.is_valid():
+        #     print("valid!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        #     return Response(serializer.data, status=status.HTTP_201_CREATED)
+        # else:
+        #     return Response("invalid node or edge",
+        #                     status=status.HTTP_400_BAD_REQUEST)
+        #     print(serializer.data)
+        #
+        #     return Response(serializer.data,
+        #                     status=status.HTTP_201_CREATED)
+        #
+        #
+        # if nodes:
+        #     for node in nodes:
+        #         print(node.group_id)
+        #         # if(node.group_id == target_group_id):
+        #         #     print('찾았다')
+        #
+        #
+        # return Response(status=status.HTTP_201_CREATED)
+        # #     #return Response(file_data, status=status.HTTP_201_CREATED)
+        #
+        # return Response("invalid node or edge",
+        #                 status=status.HTTP_400_BAD_REQUEST)
+
+    return Response(status=status.HTTP_201_CREATED)
+
+@api_view(['GET', 'POST', 'DELETE', 'UPDATE'])
 def sortlist_detail(request, pk):
     '''
     pth list
@@ -329,6 +450,26 @@ def sortlist_detail(request, pk):
     if request.method == 'DELETE':
         pev_sorted_ids.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['GET', 'POST', 'DELETE', 'UPDATE'])
+def ungrouplist_detail(request, pk):
+    '''
+    pth list
+    '''
+    try:
+        ungroup_id = UnGroup.objects.get(pk=pk)
+    except UnGroup.DoesNotExist:
+        print('undgroup detail 안 됨 ~~~')
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    print("ungroup detail")
+    if request.method == 'GET':
+        serializer = UnGroupSerializer(ungroup_id)
+        return Response(serializer.data)
+    if request.method == 'DELETE':
+        ungroup_id.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 @api_view(['GET', 'POST', 'DELETE', 'UPDATE'])
 # pylint: disable = invalid-name, inconsistent-return-statements
@@ -539,6 +680,26 @@ class GroupView(viewsets.ModelViewSet):
         '''
         print("Group objects")
 
+
+class UnGroupIdView(viewsets.ModelViewSet):
+    # pylint: disable=too-many-ancestors
+    '''
+    Edge View
+    '''
+    serializer_class = UnGroupSerializer
+    queryset = UnGroup.objects.all()
+
+    def print_serializer(self):
+        '''
+        print serializer class
+        '''
+        print("UnGroupId serializer")
+
+    def print_objects(self):
+        '''
+        print objects
+        '''
+        print("UnGroupId objects")
 
 class PthView(viewsets.ModelViewSet):
     # pylint: disable=too-many-ancestors
