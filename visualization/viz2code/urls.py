@@ -23,6 +23,8 @@ router = routers.DefaultRouter()
 router.register('node', views.NodeView, 'node')
 router.register('edge', views.EdgeView, 'edge')
 router.register('group', views.GroupView, 'group')
+router.register('ungroupid', views.UnGroupIdView, 'ungroupid')
+#router.register('ungroup', views.UnGroupView, 'ungroup')
 router.register('architecture', views.ArchitectureView, 'architecture')
 router.register('running', views.RunningView, 'running')
 # router.register('pth',views.PthView,'pth')
@@ -34,6 +36,8 @@ urlpatterns = [
     path('api/sort/', views.sortlist),
     path('api/sort/<int:pk>/', views.sortlist_detail),
     path('api/sort_group/', views.sort_group_list),
+    path('api/sort_ungroup/', views.sort_ungroup_list),
+    path('api/ungroup/', views.ungrouplist),
     path('start', views.startList),
     path('stop', views.stopList),
     path('status_report', views.statusList),

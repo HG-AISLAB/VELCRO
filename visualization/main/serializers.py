@@ -13,6 +13,8 @@ from .models import Running
 from .models import Stop
 from .models import Sort
 from .models import SortGroup
+from .models import UnGroup
+from .models import UnGroupId
 
 # from .models import Stop
 
@@ -43,6 +45,14 @@ class GroupSerializer(serializers.ModelSerializer):
     class Meta:  # pylint: disable-msg=too-few-public-methods
         """A dummy docstring."""
         model = Group
+        fields = '__all__'
+class UnGroupIdSerializer(serializers.ModelSerializer):
+    # pylint: disable-msg=too-few-public-methods
+    """A dummy docstring."""
+
+    class Meta:  # pylint: disable-msg=too-few-public-methods
+        """A dummy docstring."""
+        model = UnGroup
         fields = '__all__'
 
 class PthSerializer(serializers.ModelSerializer):
@@ -82,6 +92,15 @@ class SortGroupSerializer(serializers.ModelSerializer):
     class Meta:  # pylint: disable-msg=too-few-public-methods
         """A dummy docstring."""
         model = SortGroup
+        fields = '__all__'
+
+class UnGroupSerializer(serializers.ModelSerializer):
+    # pylint: disable-msg=too-few-public-methods
+    """A dummy docstring."""
+
+    class Meta:  # pylint: disable-msg=too-few-public-methods
+        """A dummy docstring."""
+        model = UnGroup
         fields = '__all__'
 
 

@@ -8,6 +8,13 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/page/Layer.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/page/Layer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/sidebar/AbstractNetwork_1.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/sidebar/AbstractNetwork_1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/useInitialArch.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/useInitialArch.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/main/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/main/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/main/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/main/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/main/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/main/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/main/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualization/viz2code/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/viz2code/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,21 +35,21 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 3
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="2GlqvhujJrRWhiNF7qRLd0ePsV4" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "git-widget-placeholder": "soso",
-    "settings.editor.selected.configurable": "preferences.keymap"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;git-widget-placeholder&quot;: &quot;soso&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\minyoung\PycharmProjects\2023_ETRI_all\visualization\frontend\src" />
