@@ -74,6 +74,12 @@ function LayerList() {
   const [group, setGroup] = useState(false);
   const [level, setLevel] = useState(1);
   const [elements, setElements, isLoading] = useInitialArch(level, group, setGroup);
+  const [rapid, setRapid] = useState([]);
+  const [noMatch, setNoMatch] = useState([]);
+
+//  const get_inspect = (e) => {
+//    setInspect(e);
+//  }
 
   useEffect(() => {
     const get_params = async () => {
@@ -93,6 +99,57 @@ function LayerList() {
     };
     get_params();
   }, [idState]);
+
+
+
+  useEffect(()=>{
+    const get_node = async () => {
+      try {
+        return await axios.get("/api/node/");
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+
+    console.log(noMatch)
+
+    for(var i=0;i<elements.length;i++){
+
+        if (Number(elements[i].id) === rapid[0]){
+            elements[rapid[0]-1].style = {
+        ...elements[rapid[0]-1].style,
+        border: "5px solid #0067A3",
+
+      }
+      elements[rapid[1]-1].style = {
+        ...elements[rapid[1]-1].style,
+        border: "5px solid #0067A3",
+
+      }
+            setElements([...elements]);
+
+        }
+
+        if (Number(elements[i].id) === noMatch[0]){
+            elements[noMatch[0]-1].style = {
+        ...elements[noMatch[0]-1].style,
+        border: "5px solid #DD636E",
+
+      }
+      elements[noMatch[1]-1].style = {
+        ...elements[noMatch[1]-1].style,
+        border: "5px solid #DD636E",
+
+      }
+            setElements([...elements]);
+        }
+    }
+
+
+  },[rapid, noMatch])
+
+
 
   const onSortNodes = (sortList) => {
     console.log("back code");
@@ -526,6 +583,7 @@ function LayerList() {
       type: "default",
       position,
       sort: "0",
+      inspected:false,
       style: {
         background: `${color}`,
         width: 135,
