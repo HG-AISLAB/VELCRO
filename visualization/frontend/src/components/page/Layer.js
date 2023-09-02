@@ -1035,7 +1035,7 @@ function LayerList() {
                 className="reactBtn"
                 style={{ position: "absolute", zIndex: 100 }}
               >
-                <GenerateButton elements={elements} />
+                <GenerateButton elements={elements} setNoMatch={setNoMatch} noMatch={noMatch} setRapid={setRapid} rapid={rapid}/>
               </div>
             </ReactFlow>
           </div>
