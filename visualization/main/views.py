@@ -487,7 +487,7 @@ def sort_ungroup_list(request):
             print(json.dumps(file_data, ensure_ascii=False, indent="\t"))
 
             return Response(file_data, status=status.HTTP_201_CREATED)
-        return Response("invalid node or edge",status=status.HTTP_400_BAD_REQUEST)    
+        return Response("invalid node or edge",status=status.HTTP_400_BAD_REQUEST)
     return None
 
 @api_view(['GET', 'POST', 'DELETE', 'UPDATE'])

@@ -6,7 +6,7 @@ import BottleNeckimg from "./img/bottleneck.png";
 import BasicBlockimg from "./img/basicblock.png";
 import Layer from "./components/page/Layer"
 
-function useInitialArch(level, group, setGroup) {
+function useInitialArch(level, group, setGroup, ungroup, setUngroup) {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [checkFirst, setCheckFirst] = useState(0);
@@ -14,7 +14,8 @@ function useInitialArch(level, group, setGroup) {
   useEffect(() => {
     setIsLoading(true);
     console.log("useInitialArch useEffect");
-    console.log(group);
+    console.log("group", group);
+    console.log("ungroup", ungroup);
     const init = async () => {
 
         // ------Auto Group level1 ------\\
@@ -321,34 +322,7 @@ function useInitialArch(level, group, setGroup) {
         else if (level===1 && checkFirst === 1){
             console.log("// ------Custom Group ------\\");
             // ------Custom Group 변동시 ------\\
-            if(group == true){
-                //그룹 정보 삭제하기
-                for (var j=0; j<60; j++){
-                  axios.delete('/api/sort_group/'.concat(j).concat('/'))
-                   .then(function (response) {
-                     // handle success
-                   })
-                   .catch(function (error) {
-                     // handle error
-                   })
-                   .then(function () {
-                     // always executed
-                   });
-                }
-                setGroup(false);
-            }
-
-            else{
-            console.log("// ------Custom Group 변동시 group === false ------\\");
-                axios.post("/api/sort_group/")
-                .then(function(response2){
-                    console.log("response2", response2);
-
-                // res 값을 다른 함수에 전달하거나, 다른 처리를 할 수 있음
-                renderData(response2);
-                })
-                .catch(err => console.log(err));
-                function renderData(resData) {
+            function renderData(resData) {
                       // node_id 와 edge_id로 json 파일을 읽어 순서대로 새로운 id 를 부여함
                       var node_id = 1;
                       var edge_id = 1;
@@ -630,11 +604,47 @@ function useInitialArch(level, group, setGroup) {
                       setIsLoading(false);
 
               }
+            if(ungroup === true){
+                console.log("ungroup==true");
+                axios.post("/api/sort_ungroup/").then(function (response3){
+                console.log(response3);
+                renderData(response3);
+                }).catch(err => console.log(err));
+                setUngroup(false);
+            }
+           else if(group == true){
+                //그룹 정보 삭제하기
+                for (var j=0; j<60; j++){
+                  axios.delete('/api/sort_group/'.concat(j).concat('/'))
+                   .then(function (response) {
+                     // handle success
+                   })
+                   .catch(function (error) {
+                     // handle error
+                   })
+                   .then(function () {
+                     // always executed
+                   });
+                }
+                setGroup(false);
+            }
+
+           else{
+            console.log("// ------Custom Group 변동시 group === false ------\\");
+                axios.post("/api/sort_group/")
+                .then(function(response2){
+                    console.log("response2", response2);
+
+                // res 값을 다른 함수에 전달하거나, 다른 처리를 할 수 있음
+                renderData(response2);
+                })
+                .catch(err => console.log(err));
 
 
 
 
-        }
+
+            }
         }
 
         // ------ Auto group level 2 or level3 ------\\
@@ -961,7 +971,7 @@ function useInitialArch(level, group, setGroup) {
 
     };
     init();
-  }, [level, group, setGroup]);
+  }, [level, group, setGroup, ungroup, setUngroup]);
 
   return [data, setData, isLoading];
 }
