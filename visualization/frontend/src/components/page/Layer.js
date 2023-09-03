@@ -73,7 +73,8 @@ function LayerList() {
   const [paramState, setParam] = useState();
   const [group, setGroup] = useState(false);
   const [level, setLevel] = useState(1);
-  const [elements, setElements, isLoading] = useInitialArch(level, group, setGroup);
+  const [ungroup, setUngroup] = useState(false);
+  const [elements, setElements, isLoading] = useInitialArch(level, group, setGroup, ungroup, setUngroup);
   const [rapid, setRapid] = useState([]);
   const [noMatch, setNoMatch] = useState([]);
 
@@ -990,7 +991,8 @@ function LayerList() {
         {tabToggle === 2 ? (
           <NetworkInformation />
         ) : (tabToggle === 3 && level === 1) ? (
-          <AbstractNetwork_1 onClickLevel={setLevel} onClickGroup={setGroup} group = {group}  />
+          <AbstractNetwork_1 onClickLevel={setLevel} onClickGroup={setGroup} group = {group}
+           onClickUngroup = {setUngroup} ungroup = {ungroup} />
         ) : (tabToggle === 3 && level === 2) ? (
           <AbstractNetwork_2 onClickLevel={setLevel} onClickGroup={setGroup}/>
         ) : (tabToggle === 3 && level === 3) ? (

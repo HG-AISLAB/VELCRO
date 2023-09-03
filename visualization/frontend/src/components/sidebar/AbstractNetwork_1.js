@@ -155,16 +155,16 @@ let nodeList = [];
   }
 };
 
-const AbstractNetwork_1 = ({ onClickLevel, onClickGroup, group }) => {
+const AbstractNetwork_1 = ({ onClickLevel, onClickGroup, group, onClickUngroup , ungroup}) => {
 
   const [currentGroupId, setCurrentGroupId] = useState(1);
-  const [toggleList, setToggleList] = useState([]);
+//  const [toggleList, setToggleList] = useState([]);
 const get_layer_type = []
 const addToToggleList = (id, nodes) => {
-  setToggleList(accumulatedToggleList => [
-    ...accumulatedToggleList,
-    { id: id, nodes: nodes }
-  ]);
+//  setToggleList(accumulatedToggleList => [
+//    ...accumulatedToggleList,
+//    { id: id, nodes: nodes }
+//  ]);
 //  accumulatedToggleList.push(toggleList);
     accumulatedToggleList.push({ id: id, nodes: nodes });
 };
@@ -174,7 +174,7 @@ const addToToggleList = (id, nodes) => {
       // group 값이 false로 변경되었을 때 실행할 로직
       // 예시: 토글 띄워지지 않도록 하는 로직 등
         console.log("if문 실행중~");
-        console.log("ToggleList, accumulatedToggleList", toggleList, accumulatedToggleList);
+        console.log(" accumulatedToggleList", accumulatedToggleList);
 
     //    setToggleList(prevToggleList => [...prevToggleList, { id: Gid_1, nodes: clickedNodeList }]);
 //          if (clickedNodeList.length > 1) {
@@ -207,7 +207,7 @@ const addToToggleList = (id, nodes) => {
 //    console.log(onClickGroup);
         onClickGroup(false);
         cF =1;
-        console.log("ToggleList, accumulatedToggleList", toggleList, accumulatedToggleList);
+        console.log(" accumulatedToggleList", accumulatedToggleList);
      }
   }, [group]);
 
@@ -238,14 +238,12 @@ const addToToggleList = (id, nodes) => {
 ////    onClickGroup(true);
 
     console.log("Group", group);
-    console.log("ToggleList, accumulatedToggleList", toggleList, accumulatedToggleList);
+    console.log(" accumulatedToggleList", accumulatedToggleList);
   };
 
 
-  const onClickUngroup = () => {
-
-
-
+  const onClickUnAbstract = () => {
+  console.log(ungroup);
     // 배열에서 숫자만 추출하는 함수
     function extractNumbers(arr) {
       const result = [];
@@ -275,15 +273,26 @@ const addToToggleList = (id, nodes) => {
 
     );
 //        setToggleList([...toggleList, { id: currentGroupId, nodes: clickedNodeList }]);
+
+
+
     // 토글 값 변경
+  // accumulatedToggleList에서 id가 ungroup_ids와 일치하지 않는 항목만 필터링하여 새로운 배열 생성
+  const newToggleList = accumulatedToggleList.filter((item) => item.id !== ungroup_ids);
+
+  // 새로운 배열을 설정하여 해당 항목을 제거
+  accumulatedToggleList = newToggleList;
 
 
 
+      console.log("accumulatedToggleList", accumulatedToggleList);
+    onClickUngroup(true);
+    console.log("unroup 후", ungroup);
   };
 
   const getToggleContent = (groupId) => {
     console.log("getToggleContent 실행중~");
-    console.log("toggleList", toggleList);
+
     const groupInfo = accumulatedToggleList.find((item) => item.id === groupId);
     if (groupInfo) {
       const groupNodes = groupInfo.nodes;
@@ -386,7 +395,7 @@ const addToToggleList = (id, nodes) => {
           <button type="button" onClick={onClickAbstract} className="AbstractBtn">
             Group
           </button>
-          <button type="button" onClick={onClickUngroup} className="AbstractBtn">
+          <button type="button" onClick={onClickUnAbstract} className="AbstractBtn">
             Ungroup
           </button>
         </div>
