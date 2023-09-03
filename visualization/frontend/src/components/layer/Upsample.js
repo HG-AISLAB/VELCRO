@@ -8,7 +8,7 @@ import axios from 'axios';
 
 
 const Upsample = (props) => {
-  console.log('String(props.params)', String(props.params));
+  // console.log('String(props.params)', String(props.params));
 
   var text_value = ''  // 변수 선언
   var text2_value = ''
