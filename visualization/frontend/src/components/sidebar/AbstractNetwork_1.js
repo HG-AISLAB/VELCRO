@@ -261,13 +261,13 @@ const addToToggleList = (id, nodes) => {
     const ungroup_ids = extractNumbers(clickedNodeList);
     console.log(ungroup_ids); // 1 이렇게 숫자 하나 나옴
 
-    axios.delete("/api/group/1/").then(function (response) {
+    axios.delete("/api/group/"+ungroup_ids+"/").then(function (response) {
     //console.log(response);
     }).catch(err => console.log(err));
 
     axios.post("/api/ungroupid/", {id: 1, ungroup_id: ungroup_ids,}).then(function (response2){
-        console.log(response2);
-         axios.post("/api/sort_ungroup/").then(function (response3){
+        //console.log(response2);
+        axios.post("/api/sort_ungroup/").then(function (response3){
         console.log(response3);
         }).catch(err => console.log(err));}
 
