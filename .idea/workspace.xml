@@ -6,15 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c37fedf2-fb03-49ed-9cc9-f68edf231ff8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/page/Layer.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/page/Layer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/visualization/frontend/src/components/sidebar/AbstractNetwork_1.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/components/sidebar/AbstractNetwork_1.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visualization/frontend/src/useInitialArch.js" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/frontend/src/useInitialArch.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visualization/main/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/main/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visualization/main/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/main/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visualization/main/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/main/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visualization/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/main/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visualization/viz2code/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/visualization/viz2code/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
