@@ -250,7 +250,6 @@ def sort_group_list(request):
             sorted_ids_str = []
             for id in sorted_ids:
                 sorted_ids_str.append(id)
-            print(sorted_ids_str)
             ###type list
             sorted_type_str = []
             sorted_parms_str = []
@@ -269,19 +268,20 @@ def sort_group_list(request):
                         continue
 
                     for j in range(len(group.layer_type)):
-                        if sorted_type_str[i+j] == group.layer_type[j]:
+                        if (i+j >= len(sorted_type_str)):
+                            is_group = 0
+                            continue
+
+                        elif sorted_type_str[i+j] == group.layer_type[j]:
                             is_group = 1
                         else:
                             is_group = 0
                             break
-
                     if is_group == 1:
                         for k in range(len(group.layer_type)):
                             change_node = Node.objects.get(order=sorted_ids_str[i+k])
                             change_node.group_id = group.group_id
                             change_node.save()
-                print('group.group_id: ', group.group_id)
-                print('group.layer_type: ', group.layer_type)
 
             sorted_ids_grouped = sorted_ids_str.copy()
             sorted_types_grouped = sorted_type_str.copy()
@@ -328,16 +328,10 @@ def sort_group_list(request):
                     else:
                         sorted_group_id_grouped[a] = 0
 
-            # print('removed_sorted_ids_grouped: ', sorted_ids_grouped)
-            # print('removed_sorted_types_grouped: ', sorted_types_grouped)
-            # print('sorted_group_id_grouped: ', sorted_group_id_grouped)
-
             file_data = OrderedDict()
             file_data['output'] = []
 
             for c in range(len(sorted_group_id_grouped)):
-
-                #print('sorted_group_id_grouped[c]: ', type(sorted_group_id_grouped[c]))
                 if sorted_group_id_grouped[c] != 0:
                     #print('heelo')
                     file_data['output'].append({
