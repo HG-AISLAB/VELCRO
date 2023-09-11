@@ -271,9 +271,16 @@ def sort_group_list(request):
                         if (i+j >= len(sorted_type_str)):
                             is_group = 0
                             continue
-
-                        elif sorted_type_str[i+j] == group.layer_type[j]:
-                            is_group = 1
+                            
+                        elif (sorted_type_str[i+j] == group.layer_type[j]):
+                            node_next = Node.objects.get(order=sorted_ids_str[i+j])
+                            print("node_next.group_id", node_next.group_id)
+                            if(node_next.group_id!=0):
+                                print("is_group = 0")
+                                is_group = 0
+                            else:
+                                print("is_group = 1")
+                                is_group = 1
                         else:
                             is_group = 0
                             break
