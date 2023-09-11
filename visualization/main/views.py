@@ -271,7 +271,7 @@ def sort_group_list(request):
                         if (i+j >= len(sorted_type_str)):
                             is_group = 0
                             continue
-
+                            
                         elif (sorted_type_str[i+j] == group.layer_type[j]):
                             node_next = Node.objects.get(order=sorted_ids_str[i+j])
                             print("node_next.group_id", node_next.group_id)
