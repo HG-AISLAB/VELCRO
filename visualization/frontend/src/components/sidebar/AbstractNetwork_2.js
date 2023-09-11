@@ -37,16 +37,16 @@ const AbstractNetwork_2 = ({ onClickLevel, onClickGroup}) => {
                 Gid_1 = 0;
                 Gid_2 = 0;
                 Gid_3 = 0;
-                axios.post("/api/group/", {
-                    group_id: ++Gid_2,
-                    layer_type: ['Conv2d', 'BatchNorm2d', 'ReLU']
-                }).then(function (response) {
-                    console.log(response);
-                }).catch(err => console.log(err))
-
-                axios.post("/api/sort_group/").then(function(response2){
-                    console.log(response2);
-                }).catch(err => console.log(err));
+//                axios.post("/api/group/", {
+//                    group_id: ++Gid_2,
+//                    layer_type: ['Conv2d', 'BatchNorm2d', 'ReLU']
+//                }).then(function (response) {
+//                    console.log(response);
+//                }).catch(err => console.log(err))
+//
+//                axios.post("/api/sort_group/").then(function(response2){
+//                    console.log(response2);
+//                }).catch(err => console.log(err));
 
                 onClickLevel(2);
                 onClickGroup(false);}}
@@ -60,26 +60,26 @@ const AbstractNetwork_2 = ({ onClickLevel, onClickGroup}) => {
                 Gid_1 = 0;
                 Gid_2 = 0;
                 Gid_3 = 0;
-                axios.post("/api/group/", {
-                    group_id: ++Gid_3,
-                    layer_type: ['Conv2d', 'BatchNorm2d', 'ReLU', 'Conv2d', 'BatchNorm2d', 'ReLU', 'MaxPool2d']
-                }).then(function (response) {
-                    console.log(response);
-                }).catch(err => console.log(err))
-
-                axios.post("/api/sort_group/").then(function(response2){
-                    console.log(response2);
-                }).catch(err => console.log(err))
-                axios.post("/api/group/", {
-                    group_id: ++Gid_3,
-                    layer_type: ['Conv2d', 'BatchNorm2d', 'ReLU', 'Conv2d', 'BatchNorm2d', 'ReLU', 'Conv2d', 'BatchNorm2d', 'ReLU', 'MaxPool2d']
-                }).then(function (response) {
-                    console.log(response);
-                }).catch(err => console.log(err))
-
-                axios.post("/api/sort_group/").then(function(response2){
-                    console.log(response2);
-                }).catch(err => console.log(err))
+//                axios.post("/api/group/", {
+//                    group_id: ++Gid_3,
+//                    layer_type: ['Conv2d', 'BatchNorm2d', 'ReLU', 'Conv2d', 'BatchNorm2d', 'ReLU', 'MaxPool2d']
+//                }).then(function (response) {
+//                    console.log(response);
+//                }).catch(err => console.log(err))
+//
+//                axios.post("/api/sort_group/").then(function(response2){
+//                    console.log(response2);
+//                }).catch(err => console.log(err))
+//                axios.post("/api/group/", {
+//                    group_id: ++Gid_3,
+//                    layer_type: ['Conv2d', 'BatchNorm2d', 'ReLU', 'Conv2d', 'BatchNorm2d', 'ReLU', 'Conv2d', 'BatchNorm2d', 'ReLU', 'MaxPool2d']
+//                }).then(function (response) {
+//                    console.log(response);
+//                }).catch(err => console.log(err))
+//
+//                axios.post("/api/sort_group/").then(function(response2){
+//                    console.log(response2);
+//                }).catch(err => console.log(err))
 
                 onClickLevel(3);
                 onClickGroup(false);}}
