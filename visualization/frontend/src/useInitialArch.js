@@ -620,7 +620,7 @@ function useInitialArch(level, group, setGroup, ungroup, setUngroup) {
                         });
                     }
             });
-
+            setCheckFirst(1);
             }
           }
 
