@@ -1,4 +1,4 @@
-import {NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import layer_icon from "../../img/layer_icon.png";
 import info_icon from "../../img/info_icon.png";
 import abstract_icon from "../../img/abstract_icon.png";
