@@ -676,88 +676,12 @@ function useInitialArch(level, group, setGroup, ungroup, setUngroup) {
 
         setCheckFirst(2);
       } else if (level === 3) {
-        let Gid = 0;
-        console.log("// ------ Auto group level3 ------\\");
-        // 이 부분에서 /api/group이 비어있는지 확인 -> 비어있는 경우 수동적으로 group 만들어서 group DB 넣은 후에 보내기
-        //axios.post("/api/group/").then
-        axios.get("/api/group/").then(function (response2) {
-          console.log("get 여기!!!!", response2.data);
-
-          console.log("get", response2.data[0].group_id);
-          var group_ids = 0;
-          for (var a = 0; a < response2.data.length; a++) {
-            group_ids = response2.data[a].group_id;
-            axios
-              .post("/api/ungroupid/", { id: 1, ungroup_id: group_ids })
-              .then(function (response2) {
-                axios.post("/api/sort_ungroup/").then(function (response3) {
-                  axios
-                    .delete("/api/group/".concat(group_ids).concat("/"))
-                    .then(function (response) {})
-                    .catch(function (error) {});
-
-                  console.log("이 json을 화면에 띄워주세요!", response3);
-
-                  //
-
-                  // AutoGroup Level3 백엔드 코드
-                  axios
-                    .post("/api/group/", {
-                      group_id: ++Gid,
-                      layer_type: [
-                        "Conv2d",
-                        "BatchNorm2d",
-                        "ReLU",
-                        "Conv2d",
-                        "BatchNorm2d",
-                        "ReLU",
-                        "MaxPool2d",
-                      ],
-                    })
-                    .then(function (response) {
-                      console.log(response);
-                    })
-                    .catch((err) => console.log(err));
-
-                  axios
-                    .post("/api/sort_group/")
-                    .then(function (response2) {
-                      //console.log("level2 json", response2);
-                    })
-                    .catch((err) => console.log(err));
-
-                  axios
-                    .post("/api/group/", {
-                      group_id: ++Gid,
-                      layer_type: [
-                        "Conv2d",
-                        "BatchNorm2d",
-                        "ReLU",
-                        "Conv2d",
-                        "BatchNorm2d",
-                        "ReLU",
-                        "Conv2d",
-                        "BatchNorm2d",
-                        "ReLU",
-                        "MaxPool2d",
-                      ],
-                    })
-                    .then(function (response) {
-                      console.log(response);
-                    })
-                    .catch((err) => console.log(err));
-
-                  axios
-                    .post("/api/sort_group/")
-                    .then(function (response2) {
-                      console.log("level3 json", response2);
-                      renderData(response2);
-                    })
-                    .catch((err) => console.log(err));
-                });
-              });
-          }
-        });
+        const existGroup = await axios.get("/api/group/");
+        if (existGroup.data.length === 0) {
+          return;
+        }
+        const sortGroupResponse = await axios.post("/api/sort_group/");
+        renderData(sortGroupResponse);
 
         setCheckFirst(2);
       }

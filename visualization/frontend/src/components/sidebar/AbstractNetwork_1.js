@@ -220,6 +220,7 @@ const AbstractNetwork_1 = ({
             className="AbstractBtn"
             onClick={async () => {
               try {
+                //@TODO : 현재 있는 모든 그룹 언그룹하는 로직
                 const res = await axios.post("/api/group/", {
                   group_id: 1,
                   layer_type: ["Conv2d", "BatchNorm2d", "ReLU"],
@@ -238,32 +239,43 @@ const AbstractNetwork_1 = ({
           <button
             type="button"
             className="AbstractBtn"
-            onClick={() => {
-              Gid_1 = 0;
-              Gid_2 = 0;
-              Gid_3 = 0;
-              accumulatedToggleList = [];
-              //                axios.post("/api/group/", {
-              //                    group_id: ++Gid_3,
-              //                    layer_type: ['Conv2d', 'BatchNorm2d', 'ReLU', 'Conv2d', 'BatchNorm2d', 'ReLU', 'MaxPool2d']
-              //                }).then(function (response) {
-              //                    console.log(response);
-              //                }).catch(err => console.log(err))
-              //
-              //                axios.post("/api/sort_group/").then(function(response2){
-              //                    console.log(response2);
-              //                }).catch(err => console.log(err))
-              //                axios.post("/api/group/", {
-              //                    group_id: ++Gid_3,
-              //                    layer_type: ['Conv2d', 'BatchNorm2d', 'ReLU', 'Conv2d', 'BatchNorm2d', 'ReLU', 'Conv2d', 'BatchNorm2d', 'ReLU', 'MaxPool2d']
-              //                }).then(function (response) {
-              //                    console.log(response);
-              //                }).catch(err => console.log(err))
-              //
-              //                axios.post("/api/sort_group/").then(function(response2){
-              //                    console.log(response2);
-              //                }).catch(err => console.log(err))
-
+            onClick={async () => {
+              const group1 = [
+                "Conv2d",
+                "BatchNorm2d",
+                "ReLU",
+                "Conv2d",
+                "BatchNorm2d",
+                "ReLU",
+                "MaxPool2d",
+              ];
+              const group2 = [
+                "Conv2d",
+                "BatchNorm2d",
+                "ReLU",
+                "Conv2d",
+                "BatchNorm2d",
+                "ReLU",
+                "Conv2d",
+                "BatchNorm2d",
+                "ReLU",
+                "MaxPool2d",
+              ];
+              try {
+                //@TODO : 현재 있는 모든 그룹 언그룹하는 로직
+                await axios.post("/api/group/", {
+                  group_id: 1,
+                  layer_type: group1,
+                });
+                addToToggleList(1, group1);
+                await axios.post("/api/group/", {
+                  group_id: 2,
+                  layer_type: group2,
+                });
+                addToToggleList(2, group2);
+              } catch {
+                console.error("/api/group post 요청 에러");
+              }
               onClickLevel(3);
               onClickGroup(false);
             }}
