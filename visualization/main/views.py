@@ -328,15 +328,19 @@ def sort_group_list(request):
 
             for a in range (len(sorted_types_grouped)):
                 for group in groups:
+                    print("group.layer_type = ", group.layer_type)
+                    print("sorted_types_grouped[a]", sorted_types_grouped[a])
                     if(sorted_types_grouped[a]==group.layer_type):
+                        print("group.group_id", group.group_id)
                         sorted_group_id_grouped[a] = group.group_id
                     elif sorted_types_grouped[a]!=group.layer_type and sorted_types_grouped[a]!=0:
                         continue
                     else:
-                        sorted_group_id_grouped[a] = 0
+                       sorted_group_id_grouped[a] = 0
 
             file_data = OrderedDict()
             file_data['output'] = []
+
 
             for c in range(len(sorted_group_id_grouped)):
                 if sorted_group_id_grouped[c] != 0:
