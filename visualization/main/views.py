@@ -382,19 +382,21 @@ def sort_ungroup_list(request):
         print("post")
         nodes = Node.objects.all()
         ungroups = UnGroup.objects.get(id=1)
-
-        print("ungroups", ungroups.ungroup_id)
+        #ungroups = UnGroup.objects.all()
+        #for ungroup in ungroups:
+        #    print("ungroup_id", ungroup.ungroup_id)
 
         for node in nodes:
             if node.group_id == ungroups.ungroup_id:
                 node.group_id = 0
                 node.save()
 
-        print("ungroups_after_ungroup : ", ungroups.ungroup_id)
+        #print("ungroups_after_ungroup : ", ungroups.ungroup_id)
 
         ungroup_id = UnGroup.objects.get(id=1)
         print("노드 디비 접근 후, ungroup_id : ", ungroup_id)
-        ungroup_id.delete()
+        # ungroup_id.delete()
+        # ungroup_id.save()
 
         file_data = OrderedDict()
         file_data['output'] = []
