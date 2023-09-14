@@ -596,33 +596,54 @@ function useInitialArch(level, group, setGroup, ungroup, setUngroup) {
           setIsLoading(false);
           setCheckFirst(1);
         }
-          else{
-           console.log("level1 두번째부터 실행하는 코드");
+            else{
+            console.log("level1 두번째부터 실행하는 코드");
             axios.get("/api/group/").then(function(response2){
+            var group_ids = 0
+            if (response2.data.length>0){
+                async function ungroup_posting(group_ids) {
+                                try{
+                                     for (var a=0; a<response2.data.length; a++){
 
-                    console.log("get 여기!!!!", response2.data);
+                                    group_ids = response2.data[a].group_id
+                                    console.log("group_ids", group_ids)
 
-                    console.log("get", response2.data[0].group_id);
-                    var group_ids = 0
-                    for (var a=0; a<response2.data.length; a++){
+                                    const response9 = await axios.post("/api/ungroupid/", {id: 1, ungroup_id: group_ids,});
+                                    console.log("group_ids", group_ids)
+                                    console.log('post response9', response9)
 
-                        group_ids = response2.data[a].group_id
-                        axios.post("/api/ungroupid/", {id: 1, ungroup_id: group_ids,}).then(function (response2){
+                                    const response3 = await axios.post("/api/sort_ungroup/");
+                                    console.log("group_ids", group_ids)
+                                    console.log('post response3', response3)
 
-                            axios.post("/api/sort_ungroup/").then(function (response3){
-                                axios.delete('/api/group/'.concat(group_ids).concat('/'))
-                                 .then(function (response) {})
-                                 .catch(function (error) {})
 
-                                console.log("이 json을 화면에 띄워주세요!", response3);
-                                renderData(response3);
-                            });
-                        });
-                    }
+                                    const response8 = await axios.delete("/api/ungroupid/1/");
+                                    console.log("group_ids", group_ids)
+                                    console.log('await delete', response8)
+
+                                    const response7 = await axios.delete('/api/group/'.concat(group_ids).concat('/'));
+                                    console.log("group_ids", group_ids)
+                                    console.log('await dedelete', response7)
+                                    }
+
+                                    axios.post("/api/sort_group/").then(function(response2){
+                                        console.log("level111 json", response2);
+                                        renderData(response2);
+                                    }).catch(err => console.log(err));
+                                    } catch (error) {
+
+                                        console.log('post await error', error)
+                                    }
+
+
+                            }
+                ungroup_posting(group_ids);
+            }
             });
             setCheckFirst(1);
-            }
-          }
+
+         }
+        }
 
         // ------ Custom Group ------\\
         else if (level===1 && checkFirst === 1){
@@ -666,104 +687,191 @@ function useInitialArch(level, group, setGroup, ungroup, setUngroup) {
 
         // ------ Auto group level 2 or level3 ------\\
         else if (level === 2){
-            let Gid = 0;
+            var Gid = 0;
             console.log("// ------ Auto group level2 ------\\");
 
             axios.get("/api/group/").then(function(response2){
+            var group_ids = 0
+            if (response2.data.length>0){
+                        console.log(response2);
+                        console.log("if문 들어옴")
+                        console.log("response2.data.length", response2.data.length)
 
-                    console.log("get 여기!!!!", response2.data);
+                           console.log("for문 들어옴")
 
-                    console.log("get", response2.data[0].group_id);
-                    var group_ids = 0
-                    for (var a=0; a<response2.data.length; a++){
 
-                        group_ids = response2.data[a].group_id
-                        axios.post("/api/ungroupid/", {id: 1, ungroup_id: group_ids,}).then(function (response2){
 
-                            axios.post("/api/sort_ungroup/").then(function (response3){
-                                axios.delete('/api/group/'.concat(group_ids).concat('/'))
-                                 .then(function (response) {})
-                                 .catch(function (error) {})
+                        async function ungroup_posting(group_ids) {
+                            try{
+                                 for (var a=0; a<response2.data.length; a++){
 
-                                console.log("이 json을 화면에 띄워주세요!", response3);
+                                group_ids = response2.data[a].group_id
+                                console.log("group_ids", group_ids)
 
-//                                // AutoGroup Level2 백엔드 코드
-                               var Gid = 0
+                                const response9 = await axios.post("/api/ungroupid/", {id: 1, ungroup_id: group_ids,});
+                                console.log("group_ids", group_ids)
+                                console.log('post response9', response9)
+
+                                const response3 = await axios.post("/api/sort_ungroup/");
+                                console.log("group_ids", group_ids)
+                                console.log('post response3', response3)
+
+
+                                const response8 = await axios.delete("/api/ungroupid/1/");
+                                console.log("group_ids", group_ids)
+                                console.log('await delete', response8)
+
+                                const response7 = await axios.delete('/api/group/'.concat(group_ids).concat('/'));
+                                console.log("group_ids", group_ids)
+                                console.log('await dedelete', response7)
+                                }
+
                                 axios.post("/api/group/", {
+                                group_id: ++Gid,
+                                layer_type: ["Conv2d", "BatchNorm2d", "ReLU"]
+                                   }).then(function (response) {
+
+                                axios.post("/api/sort_group/").then(function(response2){
+                                    console.log("level22222222 json", response2);
+                                    renderData(response2);
+                                }).catch(err => console.log(err));
+                                console.log(response);
+                                }).catch(err => console.log(err))
+
+                                } catch (error) {
+
+                                    console.log('post await error', error)
+                                }
+
+                        }
+
+                        ungroup_posting(group_ids);
+
+                    }
+                    else{
+                        console.log("else문 들어옴")
+                        axios.post("/api/group/", {
                                         group_id: ++Gid,
-                                        layer_type: ['Conv2d', 'BatchNorm2d', 'ReLU']
+                                        layer_type: ["Conv2d", "BatchNorm2d", "ReLU"]
                                     }).then(function (response) {
+                                        axios.post("/api/sort_group/").then(function(response2){
+                                            console.log("level2222222 json", response2);
+                                            renderData(response2);
+                                        }).catch(err => console.log(err));
                                         console.log(response);
                                     }).catch(err => console.log(err))
-
-                                    axios.post("/api/sort_group/").then(function(response2){
-                                        console.log("level2 json", response2);
-                                        renderData(response2);
-                                    }).catch(err => console.log(err));
-
-
-                            });
-
-                        });
                     }
-                });
+
+               });
 
 
             setCheckFirst(2);
         }
         else if(level===3){
-        let Gid = 0;
-             console.log("// ------ Auto group level3 ------\\");
+            var Gid = 0;
+            console.log("// ------ Auto group level3 ------\\");
+
             axios.get("/api/group/").then(function(response2){
+            var group_ids = 0
+            if (response2.data.length>0){
+                        console.log(response2);
+                        console.log("if문 들어옴")
+                        console.log("response2.data.length", response2.data.length)
 
-                    console.log("get 여기!!!!", response2.data);
+                        async function ungroup_posting(group_ids) {
+                            try{
+                                 for (var a=0; a<response2.data.length; a++){
 
-                    console.log("get", response2.data[0].group_id);
-                    var group_ids = 0
-                    for (var a=0; a<response2.data.length; a++){
+                                group_ids = response2.data[a].group_id
+                                console.log("group_ids", group_ids)
 
-                        group_ids = response2.data[a].group_id
-                        axios.post("/api/ungroupid/", {id: 1, ungroup_id: group_ids,}).then(function (response2){
+                                const response9 = await axios.post("/api/ungroupid/", {id: 1, ungroup_id: group_ids,});
+                                console.log("group_ids", group_ids)
+                                console.log('post response9', response9)
 
-                            axios.post("/api/sort_ungroup/").then(function (response3){
-                                axios.delete('/api/group/'.concat(group_ids).concat('/'))
-                                 .then(function (response) {})
-                                 .catch(function (error) {})
+                                const response3 = await axios.post("/api/sort_ungroup/");
+                                console.log("group_ids", group_ids)
+                                console.log('post response3', response3)
 
-                                console.log("이 json을 화면에 띄워주세요!", response3);
 
-//
+                                const response8 = await axios.delete("/api/ungroupid/1/");
+                                console.log("group_ids", group_ids)
+                                console.log('await delete', response8)
 
-                                // AutoGroup Level3 백엔드 코드
-                                   axios.post("/api/group/", {
-                                        group_id: ++Gid,
-                                        layer_type: ["Conv2d", "BatchNorm2d", "ReLU", "Conv2d", "BatchNorm2d", "ReLU", "MaxPool2d"]
-                                    }).then(function (response) {
-                                        console.log(response);
-                                    }).catch(err => console.log(err))
+                                const response7 = await axios.delete('/api/group/'.concat(group_ids).concat('/'));
+                                console.log("group_ids", group_ids)
+                                console.log('await dedelete', response7)
+                                }
 
-                                    axios.post("/api/sort_group/").then(function(response2){
-                                        //console.log("level2 json", response2);
-                                    }).catch(err => console.log(err));
+                                axios.post("/api/group/", {
+                                group_id: ++Gid,
+                                layer_type: ["Conv2d", "BatchNorm2d", "ReLU", "Conv2d", "BatchNorm2d", "ReLU", "Conv2d", "BatchNorm2d", "ReLU", "MaxPool2d"]
+                                   }).then(function (response) {
 
-                                   axios.post("/api/group/", {
+                                axios.post("/api/sort_group/").then(function(response2){
+                                    console.log("level33333 json", response2);
+                                    renderData(response2);
+                                }).catch(err => console.log(err));
+                                console.log(response);
+                                }).catch(err => console.log(err))
+
+                                axios.post("/api/group/", {
+                                group_id: ++Gid,
+                                layer_type: ["Conv2d", "BatchNorm2d", "ReLU", "Conv2d", "BatchNorm2d", "ReLU", "MaxPool2d"]
+                                   }).then(function (response) {
+
+                                axios.post("/api/sort_group/").then(function(response2){
+                                    console.log("level33333 json", response2);
+                                    renderData(response2);
+                                }).catch(err => console.log(err));
+                                console.log(response);
+                                }).catch(err => console.log(err))
+
+
+                                } catch (error) {
+
+                                    console.log('post await error', error)
+                                }
+
+
+                        }
+
+                        ungroup_posting(group_ids);
+
+                    }
+                    else{
+
+                        async function else_grouping(group_ids) {
+                            try{
+                                  const response10 = await axios.post("/api/group/", {
                                         group_id: ++Gid,
                                         layer_type: ["Conv2d", "BatchNorm2d", "ReLU", "Conv2d", "BatchNorm2d", "ReLU", "Conv2d", "BatchNorm2d", "ReLU", "MaxPool2d"]
-                                    }).then(function (response) {
-                                        console.log(response);
-                                    }).catch(err => console.log(err))
+                                    })
 
-                                    axios.post("/api/sort_group/").then(function(response2){
-                                        console.log("level3 json", response2);
-                                        renderData(response2);
-                                    }).catch(err => console.log(err));
-                            });
+                                  const response11 = await axios.post("/api/sort_group/")
 
-                        });
+                                  const response12 = await axios.post("/api/group/", {
+                                                group_id: ++Gid,
+                                                layer_type: ["Conv2d", "BatchNorm2d", "ReLU", "Conv2d", "BatchNorm2d", "ReLU", "MaxPool2d"]
+                                            })
+
+                                  const response13 = await axios.post("/api/sort_group/")
+                                  renderData(response13);
+
+                                } catch (error) {
+                                    console.log('post await error', error)
+                                }
+                        }
+
+                        else_grouping(group_ids);
+
                     }
+
                 });
 
-            setCheckFirst(2);
+
+
+            setCheckFirst(3);
 
         }
 
