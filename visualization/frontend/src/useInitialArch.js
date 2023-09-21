@@ -6,7 +6,7 @@ import BottleNeckimg from "./img/bottleneck.png";
 import BasicBlockimg from "./img/basicblock.png";
 import Layer from "./components/page/Layer"
 
-function useInitialArch(level, group, setGroup, ungroup, setUngroup) {
+function useInitialArch(level, group, setGroup, ungroup, setUngroup, isSort, setIsSort) {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [checkFirst, setCheckFirst] = useState(0);
@@ -16,6 +16,7 @@ function useInitialArch(level, group, setGroup, ungroup, setUngroup) {
     console.log("useInitialArch useEffect");
     console.log("group", group);
     console.log("ungroup", ungroup);
+    console.log("isSort", isSort);
     const init = async () => {
         function renderData(resData) {
                       // node_id 와 edge_id로 json 파일을 읽어 순서대로 새로운 id 를 부여함
@@ -594,6 +595,7 @@ function useInitialArch(level, group, setGroup, ungroup, setUngroup) {
           console.log(initElements);
           setData([...initElements]);
           setIsLoading(false);
+          setIsSort(false);
           setCheckFirst(1);
         }
             else{
@@ -641,7 +643,7 @@ function useInitialArch(level, group, setGroup, ungroup, setUngroup) {
             }
             });
             setCheckFirst(1);
-
+            setIsSort(false);
          }
         }
 
@@ -683,6 +685,7 @@ function useInitialArch(level, group, setGroup, ungroup, setUngroup) {
                 })
                 .catch(err => console.log(err));
             }
+           setIsSort(false);
         }
 
         // ------ Auto group level 2 or level3 ------\\
@@ -763,8 +766,8 @@ function useInitialArch(level, group, setGroup, ungroup, setUngroup) {
                     }
 
                });
-
-
+            setIsSort(false);
+            console.log("setIsSort", setIsSort)
             setCheckFirst(2);
         }
         else if(level===3){
@@ -868,16 +871,13 @@ function useInitialArch(level, group, setGroup, ungroup, setUngroup) {
                     }
 
                 });
-
-
-
             setCheckFirst(3);
-
+            setIsSort(false);
+            console.log("setIsSort", setIsSort)
         }
-
     };
     init();
-  }, [level, group, setGroup, ungroup, setUngroup]);
+  }, [level, group, setGroup, ungroup, setUngroup, isSort, setIsSort]);
 
   return [data, setData, isLoading];
 }

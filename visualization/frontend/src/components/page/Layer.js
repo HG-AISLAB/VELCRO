@@ -47,6 +47,8 @@ import AbstractNetwork_1 from "../sidebar/AbstractNetwork_1";
 import AbstractNetwork_2 from "../sidebar/AbstractNetwork_2";
 import AbstractNetwork_3 from "../sidebar/AbstractNetwork_3";
 import useInitialArch from "../../useInitialArch";
+import NodeColorProp from "../../NodeColor";
+import GroupColorProp from "../../GroupColor";
 
 let id = 1;
 const getId = () => `${id}`;
@@ -74,14 +76,289 @@ function LayerList() {
   const [group, setGroup] = useState(false);
   const [level, setLevel] = useState(1);
   const [ungroup, setUngroup] = useState(false);
-  const [elements, setElements, isLoading] = useInitialArch(level, group, setGroup, ungroup, setUngroup);
+  const [isSort, setIsSort] = useState(false);
+  const [elements, setElements, isLoading] = useInitialArch(level, group, setGroup, ungroup, setUngroup, isSort, setIsSort);
   const [rapid, setRapid] = useState([]);
   const [noMatch, setNoMatch] = useState([]);
 
 //  const get_inspect = (e) => {
 //    setInspect(e);
 //  }
-
+// function renderData(resData) {
+//                       // node_id 와 edge_id로 json 파일을 읽어 순서대로 새로운 id 를 부여함
+//                       var node_id = 1;
+//                       var edge_id = 1;
+//                       var x_pos = 100;
+//                       var y_pos = 100;
+//                       var isBlock = undefined;
+//                       // isGroup 이 true 이면 배치 할 때 조금 더 멀리
+//                       var isGroup = undefined;
+//                       //파일을 읽어와 조건문을 통과한 다음 그에 맞는 노드와 엣지들이 이 배열에 들어가고
+//                       //그 배열을 화면에 보여줌
+//                       var initElements = [];
+//                       // node id 의 순서를 리스트로 담는 변수
+//                       var GNodeIdList =[];
+//                       // json 파일에서 파일 output의 길이만큼 읽어옴
+//                       for (var i = 0; i < resData.data.output.length; i++) {
+//             //            let numId = i;
+//             //            let edgeId = i;
+//             //            let edgeNext = i + 1;
+//             //            let edgePrior = i;
+//                         let groupId = resData.data.output[i].groupId;
+//                         // group node라면 group 내에 있는 layer 갯수 몇개인지 담는 변수
+//                         let numGroupLayer = resData.data.output[i].layer.length;
+//                         let nodeLabel = resData.data.output[i].layer;
+//                         let nodeId = resData.data.output[i].nodeId;
+//                         let parameters = resData.data.output[i].parameters;
+//                         let groupColor;
+//                         let nodeColor;
+//                         if (groupId === 0) {
+//                             if (nodeLabel === "Conv2d") {
+//                             nodeColor = NodeColorProp.Conv;
+//                           } else if (nodeLabel === "MaxPool2d") {
+//                             nodeColor = NodeColorProp.Pooling;
+//                           } else if (nodeLabel === "AvgPool2d") {
+//                             nodeColor = NodeColorProp.Pooling;
+//                           } else if (nodeLabel === "AdaptiveAvgPool2d") {
+//                             nodeColor = NodeColorProp.Pooling;
+//                           } else if (nodeLabel === "ZeroPad2d") {
+//                             nodeColor = NodeColorProp.Padding;
+//                           } else if (nodeLabel === "ConstantPad2d") {
+//                             nodeColor = NodeColorProp.Padding;
+//                           } else if (nodeLabel === "ReLU") {
+//                             nodeColor = NodeColorProp.Activation;
+//                           } else if (nodeLabel === "ReLU6") {
+//                             nodeColor = NodeColorProp.Activation;
+//                           } else if (nodeLabel === "Sigmoid") {
+//                             nodeColor = NodeColorProp.Activation;
+//                           } else if (nodeLabel === "LeakyReLU") {
+//                             nodeColor = NodeColorProp.Activation;
+//                           } else if (nodeLabel === "Tanh") {
+//                             nodeColor = NodeColorProp.Activation;
+//                           } else if (nodeLabel === "Softmax") {
+//                             nodeColor = NodeColorProp.Activation;
+//                           } else if (nodeLabel === "BatchNorm2d") {
+//                             nodeColor = NodeColorProp.Normalization;
+//                           } else if (nodeLabel === "Linear") {
+//                             nodeColor = NodeColorProp.Linear;
+//                           } else if (nodeLabel === "Dropout") {
+//                             nodeColor = NodeColorProp.Dropout;
+//                           } else if (nodeLabel === "BCELoss") {
+//                             nodeColor = NodeColorProp.Loss;
+//                           } else if (nodeLabel === "CrossEntropyLoss") {
+//                             nodeColor = NodeColorProp.Loss;
+//                           } else if (nodeLabel === "Flatten") {
+//                             nodeColor = NodeColorProp.Utilities;
+//                           } else if (nodeLabel === "Upsample") {
+//                             nodeColor = NodeColorProp.Vision;
+//                           } else if (nodeLabel === "MSELoss") {
+//                             nodeColor = NodeColorProp.Loss;
+//                           } else if (nodeLabel === "BasicBlock") {
+//                             nodeColor = NodeColorProp.Residual;
+//                           } else if (nodeLabel === "Bottleneck") {
+//                             nodeColor = NodeColorProp.Residual;
+//                           }
+//                         }
+//                         else if (groupId === 1) {
+//                             groupColor = GroupColorProp.Group1;}
+//                         else if (groupId === 2) {
+//                             groupColor = GroupColorProp.Group2;}
+//                         else if (groupId === 3) {
+//                           groupColor = GroupColorProp.Group3;}
+//                         else if (groupId === 4) {
+//                             groupColor = GroupColorProp.Group4;}
+//                         else if (groupId === 5) {
+//                             groupColor = GroupColorProp.Group5;}
+//                         else if (groupId === 6) {
+//                             groupColor = GroupColorProp.Group6;}
+//                         else if (groupId === 7) {
+//                             groupColor = GroupColorProp.Group7;}
+//                         else if (groupId === 8) {
+//                             groupColor = GroupColorProp.Group8;}
+//                         else if (groupId === 9) {
+//                             groupColor = GroupColorProp.Group9;}
+//                         else if (groupId === 10) {
+//                             groupColor = GroupColorProp.Group10;}
+//                         // 노드 위치 지정
+//                         if (i === 0) {
+//                           x_pos = 100;
+//                           y_pos = 100;
+//                         }
+//                         else if (isBlock) {
+//                           if (y_pos + 330 <= 639) {
+//                             y_pos += 330;
+//                           } else {
+//                             x_pos += 200;
+//                             y_pos = 100;
+//                           }
+//                         }
+//                         else if(isGroup){
+//                           if (y_pos + 330 <= 639) {
+//                             y_pos += 200;
+//                           } else {
+//                             x_pos += 200;
+//                             y_pos = 100;
+//                           }
+//
+//                         }
+//                         else if (y_pos < 589) {
+//                           y_pos += 70;
+//                         } else {
+//                           x_pos += 200;
+//                           y_pos = 100;
+//                         }
+//
+//                         if (
+//                             String(nodeLabel) === "BasicBlock" ||
+//                             String(nodeLabel) === "Bottleneck"
+//                         ) {
+//                           isBlock = true;
+//                           isGroup = false;
+//                         }
+//                         // Group인 경우는 0이 아닐 때 이다
+//                         else if(String(groupId) != 0){
+//                             isGroup = true;
+//                             isBlock = false;
+//                         }
+//                         else {
+//                           isBlock = false;
+//                           isGroup = false;
+//                         }
+//
+//                         const newNode = {
+//                           id: String(node_id),
+//                           type: "default",
+//                           position: {x: x_pos, y: y_pos},
+//                           sort: "0",
+//                           style: {
+//                             background: `${nodeColor}`,
+//                             width: 135,
+//                             color: "black",
+//                             fontSize: "20px",
+//                             fontFamily: "Helvetica",
+//                             boxShadow: "5px 5px 5px 0px rgba(0,0,0,.10)",
+//                             borderRadius: "10px",
+//                             border: "none",
+//                           },
+//                           data: {
+//                             // index: `${nodeOrder}`,
+//                             label: `${nodeLabel}`,
+//                             // subparam: `${nodeParam}`,
+//                           },
+//                         };
+//
+//                         const newResidualNode1 = {
+//                           // 노드 내부에 residual block 이미지 넣기 - bottleneck
+//                           id: String(node_id),
+//                           type: "default",
+//                           position: {x: x_pos, y: y_pos},
+//                           sort: "2",
+//                           style: {
+//                             background: `${nodeColor}`,
+//                             fontSize: "20px",
+//                             width: "135px",
+//                             height: "280px",
+//                             boxShadow: "7px 7px 7px 0px rgba(0,0,0,.20)",
+//                             border: "0px",
+//                             borderRadius: "10px",
+//                             backgroundImage: `url(${BottleNeckimg})`, //사진 나오게
+//                             backgroundPosition: "center",
+//                             backgroundSize: "135px 280px",
+//                             backgroundRepeat: "no-repeat",
+//                             color: "rgba(0, 0, 0, 0)",
+//                           },
+//                           data: {
+//                             label: `${nodeLabel}`,
+//                             // subparam: `${nodeParam}`,
+//                           },
+//                         };
+//
+//                         const newResidualNode2 = {
+//                           // 노드 내부에 residual block 이미지 넣기 - basic block
+//                           id: String(node_id),
+//                           type: "default",
+//                           position: {x: x_pos, y: y_pos},
+//                           sort: "1",
+//                           style: {
+//                             background: `${nodeColor}`,
+//                             fontSize: "20px",
+//                             width: "135px",
+//                             height: "280px",
+//                             boxShadow: "7px 7px 7px 0px rgba(0,0,0,.20)",
+//                             border: "0px",
+//                             borderRadius: "10px",
+//                             backgroundImage: `url(${BasicBlockimg})`, //사진 나오게
+//                             backgroundPosition: "center",
+//                             backgroundSize: "135px 280px",
+//                             backgroundRepeat: "no-repeat",
+//                             color: "rgba(0, 0, 0, 0)",
+//                           },
+//                           data: {
+//                             label: `${nodeLabel}`,
+//                             // subparam: `${nodeParam}`,
+//                           },
+//                         };
+//
+//                         const newGroupNode = {
+//                           id: String(node_id),
+//                           type: "default",
+//                           position: {x: x_pos, y: y_pos},
+//                           sort: "3",
+//                           style: {
+//                             background: `${groupColor}`,
+//                             height: "110px",
+//                             width: 135,
+//                             color: "black",
+//                             fontSize: "20px",
+//                             fontFamily: "Helvetica",
+//                             boxShadow: "5px 5px 5px 0px rgba(0,0,0,.10)",
+//                             borderRadius: "10px",
+//                             border: "1px dashed #4E5058",
+//                             textAlign: "center",  // 가로 가운데 정렬
+//                             // 세로 가운데 정렬 (4개 다 써야됨)
+//                             display: "flex",
+//                             justifyContent: "center",
+//                             alignItems: "center",
+//                             flexDirection: "column",
+//                           },
+//                           data: {
+//                             label: `Group${groupId}`,
+//                           },
+//                         };
+//
+//                         GNodeIdList.push(node_id);
+//                         if (String(nodeLabel) === "Bottleneck") {
+//                            initElements.push(newResidualNode1);
+//                            node_id++;
+//                          } else if (String(nodeLabel) === "BasicBlock") {
+//                            initElements.push(newResidualNode2);
+//                            node_id++;
+//                          } else if (groupId != 0) {
+//                            initElements.push(newGroupNode);
+//                            node_id = numGroupLayer + node_id;
+//                          } else {
+//                            initElements.push(newNode);
+//                            node_id++;
+//                          }
+//                        }
+//                       //    edge 설정
+//                       console.log(GNodeIdList);
+//                       for (var j = 0; j < resData.data.output.length; j++) {
+//                         const newEdge = {
+//                           id: String(edge_id),
+//                           // id: "reactflow__edge-"+ `${edgePrior}` + "null" + `${edgeNext}` + "null",
+//                           source: String(GNodeIdList[j]),
+//                           sourceHandle: null,
+//                           target: String(GNodeIdList[j+1]),
+//                           targetHandle: null,
+//                         };
+//                         initElements.push(newEdge);
+//                         edge_id++;
+//                       }
+//                       //
+//                       console.log("initElements", initElements);
+//                       setElements([...initElements]);
+//               }
   useEffect(() => {
     const get_params = async () => {
       try {
@@ -160,38 +437,59 @@ function LayerList() {
         console.log(sortList);
     }
 
-    const sortedElements = elements.slice(); // elements 배열을 복사하여 새로운 배열을 생성합니다.
+    var sortedElements = elements.slice(); // elements 배열을 복사하여 새로운 배열을 생성합니다.
     console.log(sortedElements);
     console.log(" my code ");
     let sort_x_pos = 100 + sortCount;
     let sort_y_pos = 100 + sortCount;
 
-    let isBlock = undefined;
-    let isGroup = undefined;
-
-    if(sortedElements[sortList[0]].sort === "0"){
-    // 일반 노드인경우
-      isBlock = false;
-      isGroup = false;
-    }
-    else if (sortedElements[sortList[0]].sort === "3"){
-    // 그룹노드인경우
-        isGroup = true;
-        isBlock = false;
-    }
-    else{
-    //  Residual 인 경우
-        isGroup = false;
-        isBlock = true;
+    var sampleElements = []
+    for (var i = 0; i < sortList.length; i++) {
+      for (var j = 0; j < sortedElements.length; j++) {
+         if (Number(sortedElements[j].id) === Number(sortList[i])) {
+            sampleElements.push(sortedElements[j]);
+         }
+      }
     }
 
     for (var i = 0; i < sortList.length; i++) {
       for (var j = 0; j < sortedElements.length; j++) {
+        if (Number(sortedElements[j].source) === Number(sortList[i])) {
+            sampleElements.push(sortedElements[j]);
+         }
+      }
+    }
+
+    console.log("sampleElement = ", sampleElements);
+
+    sortedElements = sampleElements;
+    console.log("sortedElement = ", sortedElements)
+
+    sortedElements[0].position = {
+            x: sort_x_pos,
+            y: sort_y_pos,
+    };
+
+    let isBlock = undefined;
+    let isGroup = undefined;
+
+    for (var i = 1; i < sortList.length; i++) {
+      for (var j = 1; j < sortedElements.length; j++) {
+
+        if (sortedElements[j - 1].sort === "3"){
+            // 그룹노드인경우
+                isGroup = true;
+                isBlock = false;
+        } else if (sortedElements[j - 1].sort === "1" || sortedElements[j - 1].sort === "2"){
+            //  Residual 인 경우
+                isGroup = false;
+                isBlock = true;
+        } else {
+            isBlock = false;
+            isGroup = false;
+        }
         if (Number(sortedElements[j].id) === Number(sortList[i])) {
-          if (i === 0) {
-            sort_x_pos = 100 + sortCount;
-            sort_y_pos = 100 + sortCount;
-          } else if (isBlock) {
+          if (isBlock) {
             if (sort_y_pos + 330 <= 639) {
               sort_y_pos += 330;
             } else {
@@ -205,8 +503,7 @@ function LayerList() {
                 sort_x_pos += 200;
                 sort_y_pos = 100 + sortCount;
               }
-            }
-
+          }
           else if (sort_y_pos < 589) {
             if (sortedElements[j].sort !== undefined) {
               sort_y_pos += 70;
@@ -252,50 +549,56 @@ function LayerList() {
 
   // 정렬한 노드 list 받아오기
   const sortActive = (event) => {
-    if(level === 1){
-        console.log(level)
-        console.log("생성버튼클릭");
-        axios
-          .delete("/api/sort/1/")
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch((e) => console.log(e));
-        console.log("delete done");
-        axios
-          .post("/api/sort/")
-          .then(function (response) {
-            console.log(response);
-            axios
-              .get("/api/sort/1/")
-              .then(function (response2) {
-                console.log("정렬된 list: ", response2.data.sorted_ids);
-                onSortNodes(response2.data.sorted_ids);
-              });
-          })
-          .catch((e) => console.log(e));
-        console.log("post done");
-    }
-    else{
-        // level 2, 3 인 경우
-
-        var nodeIdList =[];
-
-        //level 2인 경우 노드 갯수 25개
-        if (level ===2){
-            for (var i = 0 ; i<25; i++)
-                nodeIdList.push(i+1);
-        }
-        // level 3인 경우 노드 갯수 12개
-        else{
-            for (var i = 0 ; i<12; i++)
-                nodeIdList.push(i+1);
-        }
-
-        onSortNodes(nodeIdList);
-
-
-    }
+    setIsSort(true);
+    console.log("isSort", isSort);
+    // if(level === 1){
+    //     console.log(level)
+    //     console.log("생성버튼클릭");
+    //     axios
+    //       .delete("/api/sort/1/")
+    //       .then(function (response) {
+    //         console.log(response);
+    //       })
+    //       .catch((e) => console.log(e));
+    //     console.log("delete done");
+    //     axios
+    //       .post("/api/sort/")
+    //       .then(function (response) {
+    //         console.log(response);
+    //         axios
+    //           .get("/api/sort/1/")
+    //           .then(function (response2) {
+    //             console.log("정렬된 list: ", response2.data.sorted_ids);
+    //             onSortNodes(response2.data.sorted_ids);
+    //           });
+    //       })
+    //       .catch((e) => console.log(e));
+    //     console.log("post done");
+    // }
+    // else{
+    //     // level 2, 3 인 경우
+    //
+    //     // var nodeIdList =[];
+    //     //
+    //     // //level 2인 경우 노드 갯수 25개
+    //     // if (level ===2){
+    //     //     for (var i = 0 ; i<51; i++)
+    //     //         nodeIdList.push(i+1);
+    //     // }
+    //     // // level 3인 경우 노드 갯수 12개
+    //     // else{
+    //     //     for (var i = 0 ; i<51; i++)
+    //     //         nodeIdList.push(i+1);
+    //     // }
+    //     //
+    //     // onSortNodes(nodeIdList);
+    //     // axios.post("/api/sort_group/").then(function(response2){
+    //     //                             console.log("level22222222 json", response2);
+    //     //                             renderData(response2);
+    //     //                         }).catch(err => console.log(err));
+    //     setIsSort(true);
+    //     console.log("isSort", isSort);
+    // }
   };
 
   const onLoad = (rFInstance) => setReactFlowInstance(rFInstance);
@@ -510,7 +813,7 @@ function LayerList() {
     //
     // setColorState(node.borderColor);
 
-     const isCtrlKey = event.ctrlKey || event.metaKey;
+     const isCtrlKey = event.ctrlKey || event.metaKey || event.shiftKey;
 
       if (isCtrlKey) {
         node.selected = true;
