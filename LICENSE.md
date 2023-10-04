@@ -1,5 +1,4 @@
 # TANGO License and Service Agreement  
-* For [Korean version](./LICENSE_ko.md)
 
 ## Preamble
 
