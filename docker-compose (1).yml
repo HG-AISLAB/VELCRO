@@ -1,0 +1,65 @@
+version: "3"
+
+services:
+
+#---------------------------------
+  # Project Manager
+  #---------------------------------
+  project_manager:
+    build:
+      context: ./project_manager
+    command: >
+      sh -c "chmod 777 ./wait_for_postgres.sh &&
+             ./wait_for_postgres.sh"
+    volumes:
+      - ./project_manager:/code
+      - shared:/shared
+      - /var/run/docker.sock:/var/run/docker.sock
+    hostname: projectmanager
+    ports:
+      - "8085:8085"
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    depends_on:
+      - postgresql
+
+  #---------------------------------
+  # DB for Visualizer
+  #---------------------------------
+  postgresql:
+    image: postgres:latest
+    restart: always
+    volumes:
+      - postgreSQL:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  #---------------------------------
+  # Visualizer 
+  #---------------------------------
+  viz2code:
+    build:
+      context: ./visualization
+    command: >
+      sh -c "cd ./visualization/frontend &&
+             npm run build &&
+             cd ..
+             python manage.py makemigrations &&
+             python manage.py migrate &&
+             python manage.py runserver react 0.0.0.0:8091"
+    volumes:
+      - ./viz2code:/viz_source
+    ports:
+      - "8091:8091"
+
+
+#---------------------------------
+# Volumes 
+#---------------------------------
+volumes:
+  postgreSQL: 
+  shared: 
