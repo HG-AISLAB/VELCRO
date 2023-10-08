@@ -101,3 +101,6 @@ The **Workspace** is a space for configuring architecture using the layers from 
     - Select nodes in the workspace and click the ‘Group’ button, the visualized architecture in the workspace automatically groups the chosen nodes and edges into the corresponding grouping level.
 - **How to ungroup?**
     - Click the ‘Ungroup’ button in the Abstract Architecture Tab, and then the group will be ungrouped.
+
+## Software Version
+### v1.0.0
