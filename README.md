@@ -1,6 +1,6 @@
 # VELCRO
 
-[![Video Label](http://img.youtube.com/vi/56pu6XN66_M/0.jpg)(https://youtu.be/56pu6XN66_M)]
+[![Video Label](http://img.youtube.com/vi/56pu6XN66_M/0.jpg)](https://youtu.be/56pu6XN66_M)
 
 ## TOOL COMPONENTS
 
