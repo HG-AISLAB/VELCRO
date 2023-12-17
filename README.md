@@ -1,7 +1,8 @@
 # VELCRO
 
 
-https://github.com/HG-AISLAB/VELCRO/assets/50777504/187f1d27-02b5-4de8-a5d5-3d2e454bc4d1
+https://github.com/HG-AISLAB/VELCRO/assets/50777504/c0746e5f-1ea0-4452-ba38-a5d3130b96c8
+
 
 
 ## TOOL COMPONENTS
