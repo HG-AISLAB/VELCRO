@@ -1,6 +1,8 @@
 # VELCRO
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/56pu6XN66_M?si=r5KVZWZYo1L5gzRg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+https://github.com/HG-AISLAB/VELCRO/assets/50777504/187f1d27-02b5-4de8-a5d5-3d2e454bc4d1
+
 
 ## TOOL COMPONENTS
 
