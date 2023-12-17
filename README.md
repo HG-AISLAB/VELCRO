@@ -1,5 +1,7 @@
 # VELCRO
 
+![Video Label](http://img.youtube.com/vi/56pu6XN66_M/0.jpg)
+
 ## TOOL COMPONENTS
 
 ![Tool_Component](https://github.com/HG-AISLAB/VELCRO/assets/50777504/17783954-615b-455e-bc8a-96d409d9625f)
