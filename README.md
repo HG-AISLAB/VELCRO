@@ -1,6 +1,7 @@
 # VELCRO
 
-[![Video Label](http://img.youtube.com/vi/56pu6XN66_M/0.jpg)](https://youtu.be/56pu6XN66_M)
+<iframe width="956" height="538" src="https://www.youtube.com/embed/56pu6XN66_M" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 
 ## TOOL COMPONENTS
 
